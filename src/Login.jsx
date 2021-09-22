@@ -1,7 +1,10 @@
 import { useState } from 'react'
+import {useHistory} from 'react-router-dom'
 
 function Login({ onLogin }) {
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("")
+    const history = useHistory()
   
     function handleSubmit(e) {
       e.preventDefault();
@@ -10,19 +13,28 @@ function Login({ onLogin }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username }),
+        body: JSON.stringify({ email, password }),
       })
         .then((r) => r.json())
         .then((user) => onLogin(user));
+        
+        history.push("/")
+
     }
   
     return (
       <form onSubmit={handleSubmit}>
         <input
+        placeholder="email"
           type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        /> <input
+        placeholder="password"
+        type="text"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
         <button type="submit">Login</button>
       </form>
     );

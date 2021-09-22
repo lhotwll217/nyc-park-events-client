@@ -1,20 +1,21 @@
 import { useState } from "react";
+import {useHistory} from 'react-router-dom'
 
 function Signup({ onLogin }) {
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [email, setEmail] = useState("");
+  const history = useHistory()
 
   function handleSubmit(e) {
     e.preventDefault();
-    fetch("/signup", {
+    fetch("http://localhost:3000/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username,
+        
         password,
         password_confirmation: passwordConfirmation,
         email,
@@ -22,18 +23,13 @@ function Signup({ onLogin }) {
     })
       .then((r) => r.json())
       .then(onLogin);
+      
+      history.push("/")
   }
 
   return (
     <div style={{width:"30%"}}>
     <form onSubmit={handleSubmit}>
-      <label htmlFor="username">Username:</label>
-      <input
-        type="text"
-        id="username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
       <label htmlFor="email">Email:</label>
       <input
         type="text"
