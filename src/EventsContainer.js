@@ -5,14 +5,17 @@ function EventsContainer() {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
+    let date = new Date();
+    let isoDate = date.toISOString();
+
     async function eventFetch() {
       let res = await fetch(
-        "https://data.cityofnewyork.us/resource/fudw-fgrp.json"
+        `https://data.cityofnewyork.us/resource/fudw-fgrp.json?$limit=75000`
       );
       let data = await res.json();
       console.log(data);
       let sortedData = await data.sort(function (a, b) {
-        return Date.parse(a.date) - Date.parse(b.date);
+        return Date.parse(b.date) - Date.parse(a.date);
       });
 
       setEvents(sortedData);
@@ -20,6 +23,23 @@ function EventsContainer() {
 
     eventFetch();
   }, []);
+
+  // useEffect(() => {
+  //   async function eventFetch() {
+  //     let res = await fetch(
+  //       `https://data.cityofnewyork.us/resource/fudw-fgrp.json`
+  //     );
+  //     let data = await res.json();
+  //     console.log(data);
+  //     // let sortedData = await data.sort(function (a, b) {
+  //     //   return Date.parse(a.date) - Date.parse(b.date);
+  //     // });
+
+  //     setEvents(data);
+  //   }
+
+  //   eventFetch();
+  // }, []);
 
   return (
     <div>
