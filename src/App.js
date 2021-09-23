@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 import "./App.css";
 import Home from "./Home";
 import AuthPage from "./AuthPage";
@@ -8,6 +9,28 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 function App() {
   const [user, setUser] = useState([]);
   const [loggedIn, setLoggedIn] = useState("");
+
+  // useEffect(() => {
+  //   fetch("http://localhost:3000/me").then((r) => {
+  //     if (r.ok) {
+  //       r.json().then((user) => setUser(user));
+  //       setLoggedIn(true);
+  //     }
+  //   });
+  // }, []);
+
+  // useEffect(() => {
+  //   async function getMe() {
+  //     let res = await fetch("http://localhost:3000/me");
+  //     if (res.ok) {
+  //       console.log(res);
+  //       let data = await res.json();
+  //       setUser(data);
+  //       setLoggedIn(true);
+  //     }
+  //     getMe();
+  //   }
+  // });
 
   function onLogin(user) {
     setUser(user);
@@ -19,6 +42,7 @@ function App() {
     setLoggedIn(false);
   }
 
+  console.log(user);
   return (
     <div className="App-header">
       <Router>

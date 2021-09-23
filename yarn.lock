@@ -4850,6 +4850,11 @@
   "resolved" "https://registry.npmjs.org/eventemitter3/-/eventemitter3-4.0.7.tgz"
   "version" "4.0.7"
 
+"events@^1.1.1":
+  "integrity" "sha1-nr23Y1rQmccNzEwqH1AEKI6L2SQ="
+  "resolved" "https://registry.npmjs.org/events/-/events-1.1.1.tgz"
+  "version" "1.1.1"
+
 "events@^3.0.0":
   "integrity" "sha512-/46HWwbfCX2xTawVfkKLGxMifJYQBWMwY1mjywRtb4c9x8l5NP3KoJtnIOiL1hfdRkIuYhETxQlo62IF8tcnlg=="
   "resolved" "https://registry.npmjs.org/events/-/events-3.2.0.tgz"
@@ -6646,6 +6651,7 @@
     "jest-snapshot" "^26.6.2"
 
 "jest-resolve@*":
+  "integrity" "sha512-tRAz2bwraHufNp+CCmAD8ciyCpXCs1NQxB5EJAmtCFy6BN81loFEGWKzYu26Y62lAJJe4X4jg36Kf+NsQyiStQ=="
   "version" "26.6.0"
   dependencies:
     "@jest/types" "^26.6.0"
@@ -7730,6 +7736,13 @@
   "integrity" "sha512-Slf2s69+2/uAD79pVVQo8uSiC34+g8GWY8UH2Qtqv34ZfhYrxpYpfzs9Js9d6O0mbDmALuxaTlplnBTnSELcrw=="
   "resolved" "https://registry.npmjs.org/node-releases/-/node-releases-1.1.70.tgz"
   "version" "1.1.70"
+
+"nodewindow@^1.0.11":
+  "integrity" "sha512-qFRYfuGqeqIVw8J3iLDKZE3sTcAKAqg0b/J7m1MxjcLyZoNfFEXrAm3ZScV7AmYPxXZme6ZZxOYYfS5UNciMzQ=="
+  "resolved" "https://registry.npmjs.org/nodewindow/-/nodewindow-1.0.11.tgz"
+  "version" "1.0.11"
+  dependencies:
+    "events" "^1.1.1"
 
 "normalize-package-data@^2.3.2", "normalize-package-data@^2.5.0":
   "integrity" "sha512-/5CMN3T0R4XTj4DcGaexo+roZSdSFW/0AOOTROrjxzCG1wrWXEsGbRKevjlIL+ZDE4sZlJr5ED4YW0yqmkK+eA=="
@@ -10323,6 +10336,13 @@
     "faye-websocket" "^0.11.3"
     "uuid" "^3.4.0"
     "websocket-driver" "^0.7.4"
+
+"sodajs@^0.4.10":
+  "integrity" "sha512-z+Kok9P7/D7skVaOtZkzXJYAK5I26ZK4pNVzpIy1/C7kRN+VWz3VWlz3ZUAY74JTElSfWnXDlEfLQnlWPSKVJQ=="
+  "resolved" "https://registry.npmjs.org/sodajs/-/sodajs-0.4.10.tgz"
+  "version" "0.4.10"
+  dependencies:
+    "nodewindow" "^1.0.11"
 
 "sort-keys@^1.0.0":
   "integrity" "sha1-RBttTTRnmPG05J6JIK37oOVD+a0="

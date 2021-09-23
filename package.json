@@ -30,6 +30,9 @@
   "react-scripts": "4.0.3",
   
     
+  "sodajs": "^0.4.10",
+  
+    
   "web-vitals": "^1.0.1"
   
   },

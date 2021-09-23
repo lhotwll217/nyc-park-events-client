@@ -9,7 +9,7 @@ function NavBar({user, onLogout, loggedIn}) {
 
   
 
-    console.log(user);
+  ;
     return (
     <div style={{ marginBottom:"55px"}}>
       <header className="Navbar">

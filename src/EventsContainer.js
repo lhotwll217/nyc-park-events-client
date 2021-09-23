@@ -10,8 +10,12 @@ function EventsContainer() {
         "https://data.cityofnewyork.us/resource/fudw-fgrp.json"
       );
       let data = await res.json();
+      console.log(data);
+      let sortedData = await data.sort(function (a, b) {
+        return Date.parse(a.date) - Date.parse(b.date);
+      });
 
-      setEvents(data.slice(0, 5));
+      setEvents(sortedData);
     }
 
     eventFetch();
