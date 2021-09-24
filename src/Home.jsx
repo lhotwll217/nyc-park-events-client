@@ -3,6 +3,8 @@ import EventsContainer from "./EventsContainer"
 
 function Home({user}) {
 
+    console.log(user)
+
     return (
 
         <div>

@@ -7,7 +7,7 @@ import NavBar from "./NavBar";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function App() {
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState(null);
   const [loggedIn, setLoggedIn] = useState("");
 
   useEffect(() => {
@@ -15,6 +15,8 @@ function App() {
       if (r.ok) {
         r.json().then((user) => setUser(user));
         setLoggedIn(true);
+      } else {
+        setUser([]);
       }
     });
   }, []);
@@ -42,23 +44,26 @@ function App() {
     setLoggedIn(false);
   }
 
-  console.log(user);
-  return (
-    <div className="App-header">
-      <Router>
-        <NavBar loggedIn={loggedIn} onLogout={onLogout} user={user} />
+  if (user) {
+    return (
+      <div className="App-header">
+        <Router>
+          <NavBar loggedIn={loggedIn} onLogout={onLogout} user={user} />
 
-        <Switch>
-          <Route exact path="/auth">
-            <AuthPage onLogin={onLogin} />
-          </Route>
-          <Route exact path="/">
-            <Home user={user} />
-          </Route>
-        </Switch>
-      </Router>
-    </div>
-  );
+          <Switch>
+            <Route exact path="/auth">
+              <AuthPage onLogin={onLogin} />
+            </Route>
+            <Route exact path="/">
+              <Home user={user} />
+            </Route>
+          </Switch>
+        </Router>
+      </div>
+    );
+  } else {
+    return <h1>Render</h1>;
+  }
 }
 
 export default App;

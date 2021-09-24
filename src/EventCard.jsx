@@ -4,8 +4,37 @@
 function EventCard({event, user}) {
 
     function saveEventButton() {
-        if (user.length > 0) {
-            console.log(user)
+        console.log(Object.keys(user).length)
+        if (Object.keys(user).length > 0) {
+            console.log(user);
+            async function createUser(){
+                let res = await fetch("/server/save_event", {
+                    method: "POST",
+                    headers: {"Content-Type" : "application/json",},
+                    body: JSON.stringify({
+                        categories: event.categories,
+                        contact_phone: event.contact_phone,
+                        coordinates: event.coordinates,
+                        description: event.description,
+                        end_date: event.enddate,
+                        end_time: event.endtime,
+                        guide: event.guid,
+                        image: event.image,
+                        link: event.link,
+                        location: event.location,
+                        park_ids: event.parkids,
+                        park_names: event.parknames,
+                        start_date: event.startdate,
+                        start_time: event.starttime,
+                        title: event.title,
+                        user_id: user.id
+                    })
+                });
+                let data = await res.json();
+                console.log(data)
+            };
+            createUser()
+
         } else {
             console.log("No User!")
         }
@@ -19,6 +48,7 @@ function EventCard({event, user}) {
         return {__html: event.description};
       }
 
+      if (user) {
     return (
 
     <div style= {{backgroundColor: "black", width: "50%", marginLeft: "200px"}}>
@@ -37,7 +67,7 @@ function EventCard({event, user}) {
         <h5>{event.starttime} - {event.endtime}</h5>
         <button onClick={saveEventButton}>Save Event</button>
     </div>
-    )
+    )} else { return <h1>Rendering</h1>}
 }
 
 export default EventCard
