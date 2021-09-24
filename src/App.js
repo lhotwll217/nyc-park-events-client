@@ -10,14 +10,14 @@ function App() {
   const [user, setUser] = useState([]);
   const [loggedIn, setLoggedIn] = useState("");
 
-  // useEffect(() => {
-  //   fetch("http://localhost:3000/me").then((r) => {
-  //     if (r.ok) {
-  //       r.json().then((user) => setUser(user));
-  //       setLoggedIn(true);
-  //     }
-  //   });
-  // }, []);
+  useEffect(() => {
+    fetch("/server/me").then((r) => {
+      if (r.ok) {
+        r.json().then((user) => setUser(user));
+        setLoggedIn(true);
+      }
+    });
+  }, []);
 
   // useEffect(() => {
   //   async function getMe() {
