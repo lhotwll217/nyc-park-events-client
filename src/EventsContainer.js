@@ -4,22 +4,20 @@ import EventCard from "./EventCard";
 function EventsContainer() {
   const [events, setEvents] = useState([]);
 
-  useEffect(() => {
-    async function eventFetch() {
-      let res = await fetch(
-        "https://data.cityofnewyork.us/resource/fudw-fgrp.json"
-      );
-      let data = await res.json();
-      console.log(data);
-      let sortedData = await data.sort(function (a, b) {
-        return Date.parse(a.date) - Date.parse(b.date);
-      });
+  // useEffect(() => {
+  //   async function eventFetch() {
+  //     let res = await fetch("/api");
+  //     let data = await res.json();
+  //     console.log(data);
+  //     let sortedData = await data.sort(function (a, b) {
+  //       return a.startdate - b.startdate;
+  //     });
 
-      setEvents(sortedData);
-    }
+  //     setEvents(sortedData);
+  //   }
 
-    eventFetch();
-  }, []);
+  //   eventFetch();
+  // }, []);
 
   return (
     <div>

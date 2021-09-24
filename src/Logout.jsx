@@ -2,7 +2,7 @@
 function Logout({onLogout}) {
 
     async function logOutClick() {
-        let res = await fetch('http://localhost:3000/logout', {
+        let res = await fetch('/logout', {
            method: 'DELETE' 
         })
         if (res.ok) {onLogout()}
