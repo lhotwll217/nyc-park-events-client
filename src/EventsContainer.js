@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import EventCard from "./EventCard";
 
-function EventsContainer() {
+function EventsContainer({ user }) {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ function EventsContainer() {
   return (
     <div>
       {events.map((event) => {
-        return <EventCard event={event} />;
+        return <EventCard user={user} event={event} />;
       })}
     </div>
   );

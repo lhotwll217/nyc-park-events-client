@@ -1,12 +1,12 @@
 import EventsContainer from "./EventsContainer"
 
 
-function Home() {
+function Home({user}) {
 
     return (
 
         <div>
-            <EventsContainer/>
+            <EventsContainer user={user}/>
 
 
         </div>

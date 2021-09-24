@@ -53,7 +53,7 @@ function App() {
             <AuthPage onLogin={onLogin} />
           </Route>
           <Route exact path="/">
-            <Home />
+            <Home user={user} />
           </Route>
         </Switch>
       </Router>
