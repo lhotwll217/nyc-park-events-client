@@ -1,16 +1,14 @@
-import EventsContainer from "./EventsContainer"
+import Events from "./Events"
 
 
 function Home({user}) {
 
-    console.log(user)
+    
 
     return (
 
         <div>
-            <EventsContainer user={user}/>
-
-
+            <Events user={user}/>
         </div>
     )
 }
