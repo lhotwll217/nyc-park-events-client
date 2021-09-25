@@ -5,6 +5,7 @@ import Home from "./Home";
 import AuthPage from "./AuthPage";
 import NavBar from "./NavBar";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import SavedEvents from "./SavedEvents";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -56,6 +57,9 @@ function App() {
             </Route>
             <Route exact path="/">
               <Home user={user} />
+            </Route>
+            <Route exact path="/saved_events">
+              <SavedEvents user={user} />
             </Route>
           </Switch>
         </Router>
