@@ -1,5 +1,6 @@
 import EventsContainer from "./EventsContainer";
 import { useEffect, useState } from "react";
+import moment from "moment";
 
 function Events({ user }) {
   const [events, setEvents] = useState(null);
@@ -9,19 +10,19 @@ function Events({ user }) {
       let res = await fetch("/api");
       let data = await res.json();
       console.log(data);
-      let events = data.filter((a) => new Date(a.startdate) - new Date() > 0);
-      // let sortedData = await data.sort(function (a, b) {
-      //   return a.startdate - b.startdate;
-      // });
-      //   let times = events.map((event) => {
-      //       if (event.endtime.split(" ").includes("pm")) {
-      //           console.log
-      //       }
-      //   })
-
-      setEvents(events);
+      let events = data.filter(
+        (a) => a.startdate >= moment(new Date()).format("YYYY-MM-DD")
+      );
+      console.log(events);
+      let filteredEvents = events.filter(
+        (event) =>
+          event.startdate != moment(new Date()).format("YYYY-MM-DD") ||
+          new Date(moment(event.endtime, "hh:mm a").format()) - new Date() > 0
+      );
+      console.log(filteredEvents);
+      setEvents(filteredEvents);
+      console.log(new Date(events[0].startdate));
     }
-
     eventFetch();
   }, []);
 
