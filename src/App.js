@@ -47,7 +47,7 @@ function App() {
 
   if (user) {
     return (
-      <div className="App-header">
+      <div>
         <Router>
           <NavBar loggedIn={loggedIn} onLogout={onLogout} user={user} />
 
