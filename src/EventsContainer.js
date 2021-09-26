@@ -13,7 +13,9 @@ function EventsContainer({ user, events }) {
         spacing="6"
       >
         {events.map((event) => {
-          return <EventCard user={user} event={event} />;
+          return (
+            <EventCard user={user} event={event} startdate={event.start_date} />
+          );
         })}
       </Grid>
     );

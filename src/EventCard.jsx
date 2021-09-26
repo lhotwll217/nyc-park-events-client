@@ -32,7 +32,7 @@ const useStyles = makeStyles({
   },
 });
 
-function EventCard({ event, user }) {
+function EventCard({ event, user, startdate }) {
   const classes = useStyles();
   function saveEventButton() {
     console.log(Object.keys(user).length);
@@ -79,22 +79,23 @@ function EventCard({ event, user }) {
       <Grid item>
         <Card variant="outlined" className={classes.root} elevation={2}>
           <h3>{event.title}</h3>
-          <h4>{event.startdate}</h4>
+          {event.image && <img src={event.image} alt={event.title} />}
+          {event.startdate ? <h4>{event.startdate}</h4> : <h4>{startdate}</h4>}
           <h5>
             {event.starttime} - {event.endtime}
           </h5>
+          <h5>{event.location}</h5>
           <h6>{event.categories}</h6>
 
           <a href={event.link}>Event Link </a>
           {/* <h6>{event.coordinates}</h6> */}
 
           {/* <div dangerouslySetInnerHTML={createMarkup(event.description)} /> */}
-          {event.guid && <h6> Guide : {event.guid}</h6>}
-          {event.image && <img src={event.image} />}
-          <h6>Park ID: {event.parkids}</h6>
+          {/* {event.guid && <h6> Guide : {event.guid}</h6>} */}
+
+          {/* <h6>Park ID: {event.parkids}</h6> */}
 
           {event.contact_phone && <h6>Contact Phone: {event.contact_phone}</h6>}
-          <h5>{event.location}</h5>
 
           <button onClick={saveEventButton}>Save Event</button>
         </Card>
