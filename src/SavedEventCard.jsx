@@ -32,43 +32,21 @@ const useStyles = makeStyles({
   },
 });
 
-function EventCard({ event, user, startdate }) {
+function SavedEventCard({ event, user, setSavedEvents, savedEvents }) {
   const classes = useStyles();
-  function saveEventButton() {
-    console.log(Object.keys(user).length);
-    if (Object.keys(user).length > 0) {
-      console.log(user);
-      async function createUser() {
-        let res = await fetch("/server/save_event", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            categories: event.categories,
-            contact_phone: event.contact_phone,
-            coordinates: event.coordinates,
-            description: event.description,
-            end_date: event.enddate,
-            end_time: event.endtime,
-            guide: event.guid,
-            image: event.image,
-            link: event.link,
-            location: event.location,
-            park_ids: event.parkids,
-            park_names: event.parknames,
-            start_date: event.startdate,
-            start_time: event.starttime,
-            title: event.title,
-            user_id: user.id,
-          }),
-        });
-        let data = await res.json();
-        console.log(data);
-      }
-      createUser();
-    } else {
-      console.log("No User!");
-    }
+  //   const [deleteErrors, setDeleteErrors] = useState(null);
+
+  function deleteEventClick() {
+    fetch(`/server/saved_events/${event.id}`, {
+      method: "DELETE",
+    });
+    const updatedEvents = savedEvents.filter(
+      (savedEvent) => savedEvent.id !== event.id
+    );
+    setSavedEvents(updatedEvents);
   }
+
+  console.log(event.id);
 
   function createMarkup() {
     return { __html: event.description };
@@ -80,9 +58,9 @@ function EventCard({ event, user, startdate }) {
         <Card variant="outlined" className={classes.root} elevation={2}>
           <h3>{event.title}</h3>
           {event.image && <img src={event.image} alt={event.title} />}
-          {event.startdate ? <h4>{event.startdate}</h4> : <h4>{startdate}</h4>}
+          <h4>{event.start_date}</h4>
           <h5>
-            {event.starttime} - {event.endtime}
+            {event.start_time} - {event.end_time}
           </h5>
           <h5>{event.location}</h5>
           <h6>{event.categories}</h6>
@@ -97,7 +75,7 @@ function EventCard({ event, user, startdate }) {
 
           {event.contact_phone && <h6>Contact Phone: {event.contact_phone}</h6>}
           <div>
-            <button onClick={saveEventButton}>Save Event</button>
+            <button onClick={deleteEventClick}>delete Event</button>
           </div>
         </Card>
       </Grid>
@@ -107,4 +85,4 @@ function EventCard({ event, user, startdate }) {
   }
 }
 
-export default EventCard;
+export default SavedEventCard;

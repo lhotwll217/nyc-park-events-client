@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import EventCard from "./EventCard";
 import Grid from "@material-ui/core/Grid";
+import SavedEventCard from "./SavedEventCard";
 
-function EventsContainer({ user, events }) {
+function EventsContainer({ user, events, setSavedEvents, savedEvents }) {
   if (user) {
     return (
       <Grid
@@ -12,11 +13,20 @@ function EventsContainer({ user, events }) {
         alignItems="center"
         spacing="6"
       >
-        {events.map((event) => {
-          return (
-            <EventCard user={user} event={event} startdate={event.start_date} />
-          );
-        })}
+        {events
+          ? events.map((event) => {
+              return <EventCard user={user} event={event} />;
+            })
+          : savedEvents.map((event) => {
+              return (
+                <SavedEventCard
+                  savedEvents={savedEvents}
+                  setSavedEvents={setSavedEvents}
+                  user={user}
+                  event={event}
+                />
+              );
+            })}
       </Grid>
     );
   } else {

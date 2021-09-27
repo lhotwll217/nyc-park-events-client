@@ -18,7 +18,13 @@ function SavedEvents({ user }) {
   }, []);
 
   if (savedEvents) {
-    return <EventsContainer user={user} events={savedEvents} />;
+    return (
+      <EventsContainer
+        setSavedEvents={setSavedEvents}
+        user={user}
+        savedEvents={savedEvents}
+      />
+    );
   } else {
     return <h1>Rendering</h1>;
   }
