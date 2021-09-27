@@ -6,10 +6,19 @@ import AuthPage from "./AuthPage";
 import NavBar from "./NavBar";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import SavedEvents from "./SavedEvents";
+import LoggedInDrawer from "./Drawer";
+import { makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles({
+  root: {
+    display: "flex",
+  },
+});
 
 function App() {
   const [user, setUser] = useState(null);
   const [loggedIn, setLoggedIn] = useState("");
+  const classes = useStyles();
 
   useEffect(() => {
     fetch("/server/me").then((r) => {
@@ -47,10 +56,10 @@ function App() {
 
   if (user) {
     return (
-      <div>
+      <div className={classes.root}>
         <Router>
           <NavBar loggedIn={loggedIn} onLogout={onLogout} user={user} />
-
+          <LoggedInDrawer />
           <Switch>
             <Route exact path="/auth">
               <AuthPage onLogin={onLogin} />
