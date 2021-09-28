@@ -1,9 +1,9 @@
 import Logout from "./Logout";
 import { NavLink } from "react-router-dom";
 
-function NavBar({ user, onLogout, loggedIn }) {
+function NavBar({ user, onLogout, loggedIn, handleSearchBarValue }) {
   return (
-    <div style={{ marginBottom: "55px" }}>
+    <div style={{ display: "block", marginBottom: "55px" }}>
       <header className="Navbar">
         <div className="Toolbar">
           <div className="Logo">
@@ -13,6 +13,11 @@ function NavBar({ user, onLogout, loggedIn }) {
             </span>{" "}
           </div>
           <div className="Title"> My Sweet App </div>
+          <input
+            onChange={(e) => handleSearchBarValue(e.target.value)}
+            type="text"
+            placeholder="Search By Event Title"
+          />
           <div>
             {" "}
             {loggedIn ? (

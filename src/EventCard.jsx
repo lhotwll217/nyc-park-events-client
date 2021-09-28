@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
+import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -13,12 +13,16 @@ const useStyles = makeStyles({
     minWidth: 275,
     maxWidth: 275,
     display: "inline-block",
-    padding: "12px",
+    // padding: "12px",
     boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
     "&:hover": {
       boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)",
     },
   },
+  media: {
+    objectFit: "cover",
+  },
+
   bullet: {
     display: "inline-block",
     margin: "0 2px",
@@ -79,7 +83,17 @@ function EventCard({ event, user, startdate }) {
       <Grid item>
         <Card variant="outlined" className={classes.root} elevation={2}>
           <h3>{event.title}</h3>
-          {event.image && <img src={event.image} alt={event.title} />}
+
+          {event.image && (
+            <CardMedia
+              component="img"
+              className={classes.media}
+              height="200"
+              image={event.image}
+              title="event.title"
+            />
+          )}
+          {/* {event.image && <img src={event.image} alt={event.title} />} */}
           {event.startdate ? <h4>{event.startdate}</h4> : <h4>{startdate}</h4>}
           <h5>
             {event.starttime} - {event.endtime}
