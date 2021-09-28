@@ -8,6 +8,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Logout from "./Logout";
 import { NavLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
+import { Popover } from "@material-ui/core";
+import { useState } from "react";
 
 const useStyles = makeStyles({
   topbar: {
@@ -19,6 +21,11 @@ const useStyles = makeStyles({
 });
 
 function TopBar({ user, onLogout, loggedIn, handleSearchBarValue }) {
+  const [anchor, setAnchor] = useState(null);
+
+  const openPopover = (e) => {
+    setAnchor(e.currentTarget);
+  };
   const classes = useStyles();
   return (
     <Box className={classes.topbar}>
@@ -27,6 +34,31 @@ function TopBar({ user, onLogout, loggedIn, handleSearchBarValue }) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             NYC Park Events
           </Typography>
+          <Button
+            // aria-describedby={id}
+            variant="contained"
+            onClick={openPopover}
+          >
+            Open Popover
+          </Button>
+          <Popover
+            // id={id}
+            open={Boolean(anchor)}
+            onClose={() => setAnchor(null)}
+            anchorEl={anchor}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "center",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "center",
+            }}
+            style={{ zIndex: "1500" }}
+          >
+            The content of the Popover.
+          </Popover>
+
           <input
             onChange={(e) => handleSearchBarValue(e.target.value)}
             type="text"
