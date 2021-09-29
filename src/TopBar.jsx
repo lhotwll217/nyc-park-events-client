@@ -13,6 +13,7 @@ import { Popover } from "@material-ui/core";
 import { useState } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
 import { IconButton } from "@material-ui/core";
+import moment from "moment";
 
 const useStyles = makeStyles({
   topbar: {
@@ -35,6 +36,7 @@ function TopBar({
 
   const openPopover = (e) => {
     setAnchor(e.currentTarget);
+    console.log(e.currentTarget);
   };
   const classes = useStyles();
 
@@ -59,7 +61,7 @@ function TopBar({
           <Popover
             // id={id}
             open={Boolean(anchor)}
-            onClose={nullDate}
+            // onClose={nullDate}
             anchorEl={anchor}
             anchorOrigin={{
               vertical: "bottom",
@@ -74,7 +76,7 @@ function TopBar({
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <CalendarPicker
                 onChange={(newDate) => setDate(newDate)}
-                format="yyyy-mm-dd"
+                date={date}
               />
             </LocalizationProvider>
           </Popover>
@@ -84,6 +86,7 @@ function TopBar({
             type="text"
             placeholder="Search By Event Title"
           />
+
           <div>
             {" "}
             {loggedIn ? (

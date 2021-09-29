@@ -34,7 +34,7 @@ function App() {
   const [events, setEvents] = useState([]);
   const [searchBarValue, setSearchBarValue] = useState("");
   const [categorySearch, setCategorySearch] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(null);
 
   console.log(date);
 
@@ -88,11 +88,15 @@ function App() {
     setLoggedIn(false);
   }
 
-  let searchedEvents = events.filter(
-    (event) =>
-      event.title.toLowerCase().includes(searchBarValue) &&
-      event.categories.toLowerCase().includes(categorySearch)
-  );
+  function searchedEvents() {
+    if (events) {
+      return events.filter(
+        (event) =>
+          event.title.toLowerCase().includes(searchBarValue) &&
+          event.categories.toLowerCase().includes(categorySearch)
+      );
+    }
+  }
 
   // let categorySearchEvents = searchedEvents.filter((event) =>
   //   event.title.toLowerCase().includes(categorySearch)
@@ -111,45 +115,46 @@ function App() {
             setDate={setDate}
           />
           <LoggedInDrawer handleCategorySearch={handleCategorySearch} />
+
           <Switch>
             <Route exact path="/auth">
               <AuthPage onLogin={onLogin} />
             </Route>
             <Route exact path="/">
-              <Home user={user} events={searchedEvents} />
+              <Home user={user} events={searchedEvents()} />
             </Route>
             <Route exact path="/sports">
-              <Sports user={user} events={searchedEvents} />
+              <Sports user={user} events={searchedEvents()} />
             </Route>
             <Route exact path="/seniors">
-              <Seniors user={user} events={searchedEvents} />
+              <Seniors user={user} events={searchedEvents()} />
             </Route>
             <Route exact path="/education">
-              <Education user={user} events={searchedEvents} />
+              <Education user={user} events={searchedEvents()} />
             </Route>
             <Route exact path="/kids_youth">
-              <KidsYouth user={user} events={searchedEvents} />
+              <KidsYouth user={user} events={searchedEvents()} />
             </Route>
             <Route exact path="/fitness">
-              <Fitness user={user} events={searchedEvents} />
+              <Fitness user={user} events={searchedEvents()} />
             </Route>
             <Route exact path="/film">
-              <Film user={user} events={searchedEvents} />
+              <Film user={user} events={searchedEvents()} />
             </Route>
             <Route exact path="/art">
-              <Art user={user} events={searchedEvents} />
+              <Art user={user} events={searchedEvents()} />
             </Route>
             <Route exact path="/music">
-              <Music user={user} events={searchedEvents} />
+              <Music user={user} events={searchedEvents()} />
             </Route>
             <Route exact path="/dance">
-              <Dance user={user} events={searchedEvents} />
+              <Dance user={user} events={searchedEvents()} />
             </Route>
             <Route exact path="/nature">
-              <Nature user={user} events={searchedEvents} />
+              <Nature user={user} events={searchedEvents()} />
             </Route>
             <Route exact path="/history">
-              <History user={user} events={searchedEvents} />
+              <History user={user} events={searchedEvents()} />
             </Route>
             <Route exact path="/saved_events">
               <SavedEvents user={user} />
