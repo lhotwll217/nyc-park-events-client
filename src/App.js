@@ -34,6 +34,9 @@ function App() {
   const [events, setEvents] = useState([]);
   const [searchBarValue, setSearchBarValue] = useState("");
   const [categorySearch, setCategorySearch] = useState("");
+  const [date, setDate] = useState("");
+
+  console.log(date);
 
   function handleSearchBarValue(e) {
     setSearchBarValue(e.toLowerCase());
@@ -104,6 +107,8 @@ function App() {
             onLogout={onLogout}
             user={user}
             handleSearchBarValue={handleSearchBarValue}
+            date={date}
+            setDate={setDate}
           />
           <LoggedInDrawer handleCategorySearch={handleCategorySearch} />
           <Switch>

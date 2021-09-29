@@ -3,13 +3,16 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import Logout from "./Logout";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import CalendarPicker from "@mui/lab/CalendarPicker";
 import { NavLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 import { Popover } from "@material-ui/core";
 import { useState } from "react";
+import ClearIcon from "@mui/icons-material/Clear";
+import { IconButton } from "@material-ui/core";
 
 const useStyles = makeStyles({
   topbar: {
@@ -20,13 +23,25 @@ const useStyles = makeStyles({
   },
 });
 
-function TopBar({ user, onLogout, loggedIn, handleSearchBarValue }) {
+function TopBar({
+  user,
+  onLogout,
+  loggedIn,
+  handleSearchBarValue,
+  date,
+  setDate,
+}) {
   const [anchor, setAnchor] = useState(null);
 
   const openPopover = (e) => {
     setAnchor(e.currentTarget);
   };
   const classes = useStyles();
+
+  function nullDate() {
+    setAnchor(null);
+    setDate(null);
+  }
   return (
     <Box className={classes.topbar}>
       <AppBar>
@@ -44,7 +59,7 @@ function TopBar({ user, onLogout, loggedIn, handleSearchBarValue }) {
           <Popover
             // id={id}
             open={Boolean(anchor)}
-            onClose={() => setAnchor(null)}
+            onClose={nullDate}
             anchorEl={anchor}
             anchorOrigin={{
               vertical: "bottom",
@@ -56,7 +71,12 @@ function TopBar({ user, onLogout, loggedIn, handleSearchBarValue }) {
             }}
             style={{ zIndex: "1500" }}
           >
-            The content of the Popover.
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <CalendarPicker
+                onChange={(newDate) => setDate(newDate)}
+                format="yyyy-mm-dd"
+              />
+            </LocalizationProvider>
           </Popover>
 
           <input
