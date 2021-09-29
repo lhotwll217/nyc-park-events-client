@@ -40,9 +40,8 @@ function TopBar({
   };
   const classes = useStyles();
 
-  function nullDate() {
+  function closePopOver() {
     setAnchor(null);
-    setDate(null);
   }
   return (
     <Box className={classes.topbar}>
@@ -61,7 +60,7 @@ function TopBar({
           <Popover
             // id={id}
             open={Boolean(anchor)}
-            // onClose={nullDate}
+            onClose={closePopOver}
             anchorEl={anchor}
             anchorOrigin={{
               vertical: "bottom",
@@ -86,7 +85,7 @@ function TopBar({
             type="text"
             placeholder="Search By Event Title"
           />
-
+          {date && <div>Date</div>}
           <div>
             {" "}
             {loggedIn ? (

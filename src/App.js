@@ -98,6 +98,16 @@ function App() {
     }
   }
 
+  function dateFilter() {
+    if (date === null && events) {
+      return searchedEvents();
+    } else {
+      return searchedEvents().filter(
+        (event) => event.statdate === moment(date).format("YYYY-MM-DD")
+      );
+    }
+  }
+
   // let categorySearchEvents = searchedEvents.filter((event) =>
   //   event.title.toLowerCase().includes(categorySearch)
   // );
@@ -121,7 +131,7 @@ function App() {
               <AuthPage onLogin={onLogin} />
             </Route>
             <Route exact path="/">
-              <Home user={user} events={searchedEvents()} />
+              <Home user={user} events={dateFilter()} />
             </Route>
             <Route exact path="/sports">
               <Sports user={user} events={searchedEvents()} />
