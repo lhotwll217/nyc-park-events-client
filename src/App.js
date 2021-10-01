@@ -8,6 +8,7 @@ import History from "./History";
 import Dance from "./Dance";
 import Fitness from "./Fitness";
 import Music from "./Music";
+import Profile from "./Profile";
 import Nature from "./Nature";
 import Film from "./Film";
 import Art from "./Art";
@@ -46,13 +47,15 @@ function App() {
   useEffect(() => {
     fetch("/server/me").then((r) => {
       if (r.ok) {
-        r.json().then((user) => setUser(user));
+        r.json().then((user) => onLogin(user));
         setLoggedIn(true);
       } else {
         setUser([]);
       }
     });
   }, []);
+
+  console.log(user);
 
   useEffect(() => {
     async function eventFetch() {
@@ -145,6 +148,9 @@ function App() {
             </Route>
             <Route exact path="/history">
               <History user={user} events={searchedEvents} />
+            </Route>
+            <Route exact path="/profile">
+              <Profile user={user} setUser={setUser} />
             </Route>
             <Route exact path="/saved_events">
               <SavedEvents user={user} />
