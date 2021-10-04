@@ -6,7 +6,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 
-const drawerWidth = 180;
+const drawerWidth = 150;
 
 const useStyles = makeStyles({
   drawer: {
@@ -67,14 +67,13 @@ function LoggedInDrawer({ handleCategorySearch }) {
         <ListItem button component={NavLink} to="/history">
           <ListItemText> History </ListItemText>
         </ListItem>
-        <ListItem>
-          <input
-            onChange={(e) => handleCategorySearch(e.target.value)}
-            type="text"
-            placeholder="Search By Category"
-          />
-        </ListItem>
       </List>
+      <input
+        onChange={(e) => handleCategorySearch(e.target.value)}
+        type="text"
+        placeholder="Search By Category"
+        style={{ width: "120px", marginLeft: "auto", marginRight: "auto" }}
+      />
     </Drawer>
   );
 }

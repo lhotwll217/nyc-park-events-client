@@ -1,6 +1,7 @@
 import Login from "./Login";
 import Signup from "./Signup";
 import Grid from "@material-ui/core/Grid";
+import MaterialLogin from "./MaterialLogin";
 
 function AuthPage({ onLogin }) {
   return (
@@ -13,8 +14,8 @@ function AuthPage({ onLogin }) {
         spacing={6}
         mt="20"
       >
-        <Login onLogin={onLogin} />
-        <Signup onLogin={onLogin} />
+        <MaterialLogin onLogin={onLogin} />
+        {/* <Signup onLogin={onLogin} /> */}
       </Grid>
     </div>
   );
