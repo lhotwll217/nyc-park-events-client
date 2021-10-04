@@ -1,6 +1,4 @@
 import EventsContainer from "./EventsContainer";
-import { useEffect, useState } from "react";
-import moment from "moment";
 
 function AllEvents({ user, events }) {
   if (events.length > 0) {

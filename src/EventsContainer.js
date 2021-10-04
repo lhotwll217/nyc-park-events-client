@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import EventCard from "./EventCard";
 import Grid from "@material-ui/core/Grid";
 import SavedEventCard from "./SavedEventCard";
@@ -21,6 +20,7 @@ function EventsContainer({ user, events, setSavedEvents, savedEvents }) {
             : savedEvents.map((event) => {
                 return (
                   <SavedEventCard
+                    key={event.link}
                     savedEvents={savedEvents}
                     setSavedEvents={setSavedEvents}
                     user={user}

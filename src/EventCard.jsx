@@ -1,12 +1,7 @@
-import { useState } from "react";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import Icon from "@material-ui/core/Icon";
-import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
@@ -42,7 +37,7 @@ function EventCard({ event, user, startdate }) {
     console.log(Object.keys(user).length);
     if (Object.keys(user).length > 0) {
       console.log(user);
-      async function createUser() {
+      async function saveEvent() {
         let res = await fetch("/server/save_event", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -68,14 +63,10 @@ function EventCard({ event, user, startdate }) {
         let data = await res.json();
         console.log(data);
       }
-      createUser();
+      saveEvent();
     } else {
       console.log("No User!");
     }
-  }
-
-  function createMarkup() {
-    return { __html: event.description };
   }
 
   if (user) {

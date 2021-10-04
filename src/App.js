@@ -16,22 +16,14 @@ import KidsYouth from "./KidsYouth";
 import AuthPage from "./AuthPage";
 import Education from "./Education";
 import TopBar from "./TopBar";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SavedEvents from "./SavedEvents";
 import LoggedInDrawer from "./LoggedInDrawer";
-import { makeStyles } from "@material-ui/core";
 import moment from "moment";
-
-const useStyles = makeStyles({
-  root: {
-    display: "flex",
-  },
-});
 
 function App() {
   const [user, setUser] = useState(null);
   const [loggedIn, setLoggedIn] = useState("");
-  const classes = useStyles();
   const [events, setEvents] = useState([]);
   const [searchBarValue, setSearchBarValue] = useState("");
   const [categorySearch, setCategorySearch] = useState("");
@@ -47,7 +39,7 @@ function App() {
   useEffect(() => {
     fetch("/server/me").then((r) => {
       if (r.ok) {
-        r.json().then((user) => onLogin(user));
+        r.json().then((user) => setUser(user));
         setLoggedIn(true);
       } else {
         setUser([]);
@@ -55,27 +47,23 @@ function App() {
     });
   }, []);
 
-  console.log(user);
-
   useEffect(() => {
     async function eventFetch() {
       let res = await fetch("/api");
       let data = await res.json();
-      console.log(data);
+
       let events = data.filter(
         (a) => a.startdate >= moment(new Date()).format("YYYY-MM-DD")
       );
-      console.log(events);
       let filteredEvents = events.filter(
         (event) =>
           event.startdate !== moment(new Date()).format("YYYY-MM-DD") ||
           new Date(moment(event.endtime, "hh:mm a").format()) - new Date() > 0
       );
-      console.log(filteredEvents);
       setEvents(filteredEvents);
-      console.log(new Date(events[0].startdate));
     }
     eventFetch();
+    console.log("Fetched");
   }, []);
 
   function onLogin(user) {
@@ -93,10 +81,6 @@ function App() {
       event.title.toLowerCase().includes(searchBarValue) &&
       event.categories.toLowerCase().includes(categorySearch)
   );
-
-  // let categorySearchEvents = searchedEvents.filter((event) =>
-  //   event.title.toLowerCase().includes(categorySearch)
-  // );
 
   if (user && events.length > 0) {
     return (
