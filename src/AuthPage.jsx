@@ -1,5 +1,4 @@
-import Login from "./Login";
-import Signup from "./Signup";
+import MaterialSignup from "./MaterialSignup";
 import Grid from "@material-ui/core/Grid";
 import MaterialLogin from "./MaterialLogin";
 
@@ -8,14 +7,19 @@ function AuthPage({ onLogin }) {
     <div style={{ marginTop: "100px", marginLeft: "200px" }}>
       <Grid
         container
-        direction="row"
-        justifyContent="center"
+        xs={12}
+        sm={6}
+        style={{ padding: 10, maxWidth: "100%" }}
         alignItems="center"
-        spacing={6}
-        mt="20"
+        direction="column"
+        justify="space-between"
       >
         <MaterialLogin onLogin={onLogin} />
-        {/* <Signup onLogin={onLogin} /> */}
+        <Grid item>
+          <h1> or</h1>
+        </Grid>
+
+        <MaterialSignup onLogin={onLogin} />
       </Grid>
     </div>
   );
