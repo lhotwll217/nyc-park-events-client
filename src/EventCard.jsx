@@ -1,12 +1,35 @@
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import { makeStyles } from "@material-ui/core/styles";
+import { styled } from "@mui/material/styles";
 import Grid from "@material-ui/core/Grid";
+import { useState } from "react";
+import CardActions from "@mui/material/CardActions";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import Collapse from "@mui/material/Collapse";
+import IconButton from "@mui/material/IconButton";
+import CardContent from "@material-ui/core/CardContent";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { Button } from "@mui/material";
+import moment from "moment";
+
+const ExpandMore = styled((props) => {
+  const { expand, ...other } = props;
+  return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
+  marginLeft: "auto",
+  transition: theme.transitions.create("transform", {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
 
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
     maxWidth: 275,
+
     display: "inline-block",
     // padding: "12px",
     boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
@@ -33,6 +56,12 @@ const useStyles = makeStyles({
 
 function EventCard({ event, user, startdate }) {
   const classes = useStyles();
+  const [expanded, setExpanded] = useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
   function saveEventButton() {
     console.log(Object.keys(user).length);
     if (Object.keys(user).length > 0) {
@@ -85,25 +114,53 @@ function EventCard({ event, user, startdate }) {
             />
           )}
           {/* {event.image && <img src={event.image} alt={event.title} />} */}
-          {event.startdate ? <h4>{event.startdate}</h4> : <h4>{startdate}</h4>}
-          <h5>
-            {event.starttime} - {event.endtime}
-          </h5>
+          {event.startdate ? (
+            <h4>
+              {moment(event.startdate).format("MMMM Do")} , {event.starttime} -{" "}
+              {event.endtime}{" "}
+            </h4>
+          ) : (
+            <h4>
+              {startdate}, {event.starttime} - {event.endtime}
+            </h4>
+          )}
+          <h5></h5>
           <h5>{event.location}</h5>
-          <h6>{event.categories}</h6>
 
-          <a href={event.link}>Event Link </a>
-          {/* <h6>{event.coordinates}</h6> */}
+          <CardActions disableSpacing>
+            <Button
+              onClick={saveEventButton}
+              variant="outlined"
+              startIcon={<AddCircleIcon />}
+            >
+              Save Event
+            </Button>
+            <ExpandMore
+              expand={expanded}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label="show more"
+            >
+              <ExpandMoreIcon />
+            </ExpandMore>
+          </CardActions>
+          <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <CardContent>
+              <h6>{event.categories}</h6>
 
-          {/* <div dangerouslySetInnerHTML={createMarkup(event.description)} /> */}
-          {/* {event.guid && <h6> Guide : {event.guid}</h6>} */}
+              <a href={event.link}>Event Link </a>
+              {/* <h6>{event.coordinates}</h6> */}
 
-          {/* <h6>Park ID: {event.parkids}</h6> */}
+              {/* <div dangerouslySetInnerHTML={createMarkup(event.description)} /> */}
+              {/* {event.guid && <h6> Guide : {event.guid}</h6>} */}
 
-          {event.contact_phone && <h6>Contact Phone: {event.contact_phone}</h6>}
-          <div>
-            <button onClick={saveEventButton}>Save Event</button>
-          </div>
+              {/* <h6>Park ID: {event.parkids}</h6> */}
+
+              {event.contact_phone && (
+                <h6>Contact Phone: {event.contact_phone}</h6>
+              )}
+            </CardContent>
+          </Collapse>
         </Card>
       </Grid>
     );
