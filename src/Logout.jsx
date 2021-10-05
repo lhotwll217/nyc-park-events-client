@@ -1,4 +1,5 @@
 import { useHistory } from "react-router-dom";
+import Button from "@mui/material/Button";
 
 function Logout({ onLogout }) {
   const history = useHistory();
@@ -12,7 +13,11 @@ function Logout({ onLogout }) {
     }
   }
 
-  return <button onClick={logOutClick}>Logout</button>;
+  return (
+    <Button color="secondary" onClick={logOutClick} variant="contained">
+      Logout
+    </Button>
+  );
 }
 
 export default Logout;
