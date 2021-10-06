@@ -6,13 +6,14 @@ function AuthPage({ onLogin }) {
   return (
     <div style={{ marginTop: "100px", marginLeft: "200px" }}>
       <Grid
+        item
         container
         xs={12}
         sm={6}
         style={{ padding: 10, maxWidth: "100%" }}
         alignItems="center"
         direction="column"
-        justify="space-between"
+        justifyContent="space-between"
       >
         <MaterialLogin onLogin={onLogin} />
         <Grid item>

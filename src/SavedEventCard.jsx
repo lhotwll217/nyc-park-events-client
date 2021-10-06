@@ -6,8 +6,6 @@ import Grid from "@material-ui/core/Grid";
 import moment from "moment";
 import { styled } from "@mui/material/styles";
 import CardActions from "@mui/material/CardActions";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
@@ -15,7 +13,6 @@ import CardContent from "@material-ui/core/CardContent";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Button } from "@mui/material";
 import AddAlertIcon from "@mui/icons-material/AddAlert";
-import { green, red } from "@mui/material/colors";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const ExpandMore = styled((props) => {
@@ -28,9 +25,6 @@ const ExpandMore = styled((props) => {
     duration: theme.transitions.duration.shortest,
   }),
 }));
-
-const redColor = red[700];
-const greenColor = green[700];
 
 const useStyles = makeStyles({
   root: {
@@ -72,6 +66,30 @@ function SavedEventCard({
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  function deleteNotificationClick(id) {
+    fetch(`/server/notifications/${id}`, {
+      method: "DELETE",
+    }).then((res) => {
+      if (res.ok) {
+        const updatedNotifications = event.notifications.filter(
+          (n) => n.id !== id
+        );
+        event.notifications = updatedNotifications;
+        console.log(event);
+        let updatedEvent = event;
+        let updatedEvents = savedEvents.map((e) => {
+          if (e.id === updatedEvent.id) {
+            return updatedEvent;
+          } else {
+            return e;
+          }
+        });
+        setSavedEvents(updatedEvents);
+        // setSavedEvents(updatedEvent);
+      }
+    });
+  }
 
   function deleteEventClick() {
     fetch(`/server/saved_events/${event.id}`, {
@@ -118,7 +136,7 @@ function SavedEventCard({
 
   if (user) {
     return (
-      <Grid item key={event.link}>
+      <Grid item>
         <Card
           variant="outlined"
           className={classes.root}
@@ -189,7 +207,7 @@ function SavedEventCard({
                       >
                         {n.hours_before} hours before.{" "}
                         <IconButton
-                          onClick={() => console.log("Delete")}
+                          onClick={() => deleteNotificationClick(n.id)}
                           color="error"
                         >
                           <DeleteIcon />

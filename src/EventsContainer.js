@@ -16,12 +16,11 @@ function EventsContainer({ user, events, setSavedEvents, savedEvents }) {
         >
           {events
             ? events.map((event) => {
-                return <EventCard key={event.link} user={user} event={event} />;
+                return <EventCard user={user} event={event} />;
               })
             : savedEvents.map((event) => {
                 return (
                   <SavedEventCard
-                    key={event.link}
                     savedEvents={savedEvents}
                     setSavedEvents={setSavedEvents}
                     user={user}
