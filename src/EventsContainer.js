@@ -5,7 +5,8 @@ import SavedEventCard from "./SavedEventCard";
 function EventsContainer({ user, events, setSavedEvents, savedEvents }) {
   if (user) {
     return (
-      <div style={{ marginTop: "100px", marginLeft: "200px" }}>
+      //marginLeft was 200
+      <div style={{ marginTop: "100px", marginLeft: "150px" }}>
         <Grid
           container
           direction="row"

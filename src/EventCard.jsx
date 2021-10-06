@@ -13,6 +13,7 @@ import CardContent from "@material-ui/core/CardContent";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Button } from "@mui/material";
 import moment from "moment";
+import Typography from "@mui/material/Typography";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -27,8 +28,8 @@ const ExpandMore = styled((props) => {
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 275,
-    maxWidth: 275,
+    minWidth: 325,
+    maxWidth: 325,
 
     display: "inline-block",
     // padding: "12px",
@@ -57,6 +58,7 @@ const useStyles = makeStyles({
 function EventCard({ event, user, startdate }) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
+  const [categoriesWrap, setCategoriesWrap] = useState(true);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -102,7 +104,9 @@ function EventCard({ event, user, startdate }) {
     return (
       <Grid item>
         <Card variant="outlined" className={classes.root} elevation={2}>
-          <h3>{event.title}</h3>
+          <Typography variant="h5" m={2}>
+            <strong>{event.title}</strong>
+          </Typography>
 
           {event.image && (
             <CardMedia
@@ -115,17 +119,31 @@ function EventCard({ event, user, startdate }) {
           )}
           {/* {event.image && <img src={event.image} alt={event.title} />} */}
           {event.startdate ? (
-            <h4>
+            <Typography m={2} fontSize="1.2rem" fontWeight="600">
               {moment(event.startdate).format("MMMM Do")} , {event.starttime} -{" "}
               {event.endtime}{" "}
-            </h4>
+            </Typography>
           ) : (
-            <h4>
+            <Typography m={2} fontSize="1.2rem" fontWeight="600">
               {startdate}, {event.starttime} - {event.endtime}
-            </h4>
+            </Typography>
           )}
-          <h5></h5>
-          <h5>{event.location}</h5>
+
+          <Typography fontSize="1rem" fontWeight="300" ml={2} mb={1}>
+            {event.location}
+          </Typography>
+          <div style={{ display: "inline" }}>
+            <Typography fontSize=".9rem" textAlign="center" fontWeight="600">
+              Categories
+              <IconButton onClick={() => setCategoriesWrap(!categoriesWrap)}>
+                <AddCircleIcon />
+              </IconButton>
+            </Typography>
+          </div>
+
+          <Typography mx={1} fontSize=".9rem" noWrap={categoriesWrap}>
+            {event.categories}
+          </Typography>
 
           <CardActions disableSpacing>
             <Button
