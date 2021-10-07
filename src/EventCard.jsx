@@ -107,7 +107,7 @@ function EventCard({ event, user, startdate }) {
       }
       saveEvent();
     } else {
-      console.log("No User!");
+      window.alert("Sign Up or Login to Save Events");
     }
   }
 
