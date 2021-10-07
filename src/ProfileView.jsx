@@ -1,4 +1,22 @@
 import { useState } from "react";
+import { Button, TextField, Grid, Card, Typography } from "@mui/material";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  root: {
+    minWidth: 325,
+    maxWidth: 325,
+    padding: "35px",
+
+    display: "inline-block",
+
+    boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
+    "&:hover": {
+      boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)",
+    },
+  },
+});
+
 function ProfileView({ user, setUser }) {
   const [openNameInput, setOpenNameInput] = useState(false);
   const [openAddressInput, setOpenAddressInput] = useState(false);
@@ -6,6 +24,7 @@ function ProfileView({ user, setUser }) {
   const [address, setAddress] = useState("");
   const [userName, setUserName] = useState(user.profile.first_name);
   const [userAddress, setUserAddress] = useState(user.profile.address);
+  const classes = useStyles();
 
   console.log(user);
 
@@ -53,37 +72,47 @@ function ProfileView({ user, setUser }) {
   if (user.profile) {
     return (
       <div style={{ marginTop: "100px", marginLeft: "200px" }}>
-        <h1>Profile</h1>
-        <h2>{userName}</h2>
-        <button onClick={() => setOpenNameInput(!openNameInput)}>
-          Edit First Name
-        </button>
-        {openNameInput && (
-          <form onSubmit={updateFirstName}>
-            <input
-              type="text"
-              id="editFirstName"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-            <button type="submit">Submit</button>
-          </form>
-        )}
-        <h3>{userAddress}</h3>
-        <button onClick={() => setOpenAddressInput(!openAddressInput)}>
-          Edit Address
-        </button>
-        {openAddressInput && (
-          <form onSubmit={updateAddress}>
-            <input
-              type="text"
-              id="editAddress"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-            />
-            <button type="submit">Submit</button>
-          </form>
-        )}
+        <Grid item>
+          <Card variant="outlined" className={classes.root}>
+            <Typography textAlign="center" fontSize="1.6rem" fontWeight="600">
+              Profile
+            </Typography>
+            <Typography ml={1} mb={1} fontSize="1.6rem">
+              {userName}
+            </Typography>
+            <Button onClick={() => setOpenNameInput(!openNameInput)}>
+              Edit First Name
+            </Button>
+            {openNameInput && (
+              <form onSubmit={updateFirstName}>
+                <input
+                  type="text"
+                  id="editFirstName"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+                <Button type="submit">Submit</Button>
+              </form>
+            )}
+            <Typography ml={1} mb={1} fontSize="1.4rem">
+              {userAddress}
+            </Typography>
+            <Button onClick={() => setOpenAddressInput(!openAddressInput)}>
+              Edit Address
+            </Button>
+            {openAddressInput && (
+              <form onSubmit={updateAddress}>
+                <input
+                  type="text"
+                  id="editAddress"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                />
+                <Button type="submit">Submit</Button>
+              </form>
+            )}
+          </Card>
+        </Grid>
       </div>
     );
   }
