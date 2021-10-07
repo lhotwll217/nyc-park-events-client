@@ -68,6 +68,27 @@ function TopBar({ user, onLogout, loggedIn, handleSearchBarValue }) {
                   }}
                   variant="text"
                   component={NavLink}
+                  to="/profile"
+                  exact
+                >
+                  Profile
+                </Button>
+              ) : null}{" "}
+            </div>
+            <div>
+              {" "}
+              {loggedIn ? (
+                <Button
+                  style={{
+                    borderRadius: 35,
+                    backgroundColor: "white",
+                    padding: "5px 12px",
+                    fontSize: "1rem",
+                    fontWeight: "700",
+                    marginRight: "10px",
+                  }}
+                  variant="text"
+                  component={NavLink}
                   to="/saved_events"
                   exact
                 >

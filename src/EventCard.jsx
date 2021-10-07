@@ -14,12 +14,18 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Button } from "@mui/material";
 import moment from "moment";
 import Typography from "@mui/material/Typography";
+import InfoIcon from "@mui/icons-material/Info";
+import ExploreIcon from "@mui/icons-material/Explore";
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import { Phone } from "@mui/icons-material";
+import Popover from "@mui/material/Popover";
+import Box from "@mui/material/Box";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
 })(({ theme, expand }) => ({
-  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
+  transform: !expand ? "rotate(0deg)" : "rotate(270deg)",
   marginLeft: "auto",
   transition: theme.transitions.create("transform", {
     duration: theme.transitions.duration.shortest,
@@ -59,6 +65,11 @@ function EventCard({ event, user, startdate }) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const [categoriesWrap, setCategoriesWrap] = useState(true);
+  const [anchor, setAnchor] = useState(null);
+
+  const openPopover = (e) => {
+    setAnchor(e.currentTarget);
+  };
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -114,14 +125,16 @@ function EventCard({ event, user, startdate }) {
               className={classes.media}
               height="200"
               image={event.image}
-              title="event.title"
+              title={event.title}
             />
           )}
           {/* {event.image && <img src={event.image} alt={event.title} />} */}
           {event.startdate ? (
             <Typography m={2} fontSize="1.2rem" fontWeight="600">
-              {moment(event.startdate).format("MMMM Do")} , {event.starttime} -{" "}
-              {event.endtime}{" "}
+              {moment(event.startdate).format("MMMM Do")}
+              <Typography fontSize="1rem" fontWeight="400">
+                {event.starttime} - {event.endtime}{" "}
+              </Typography>
             </Typography>
           ) : (
             <Typography m={2} fontSize="1.2rem" fontWeight="600">
@@ -151,32 +164,65 @@ function EventCard({ event, user, startdate }) {
               variant="outlined"
               startIcon={<AddCircleIcon />}
             >
-              Save Event
+              Save
             </Button>
+            <IconButton
+              href={event.link}
+              styles={{ marginLeft: "5px" }}
+              color="success"
+            >
+              <InfoIcon ml={2} />
+            </IconButton>
+            {event.contact_phone && (
+              <IconButton onClick={openPopover}>
+                <Phone />
+              </IconButton>
+            )}
+            <Popover
+              // id={id}
+              open={Boolean(anchor)}
+              onClose={() => setAnchor(null)}
+              anchorEl={anchor}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "center",
+              }}
+              style={{ zIndex: "1500" }}
+            >
+              <div
+                style={{
+                  padding: "5px",
+                  border: "3px",
+                  borderColor: "blueviolet",
+                }}
+              >
+                <Typography fontsize="1.4rem" fontWeight="700">
+                  {" "}
+                  {event.contact_phone}
+                </Typography>
+              </div>
+            </Popover>
             <ExpandMore
               expand={expanded}
               onClick={handleExpandClick}
               aria-expanded={expanded}
               aria-label="show more"
             >
-              <ExpandMoreIcon />
+              <ExploreIcon />
             </ExpandMore>
           </CardActions>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
             <CardContent>
-              <h6>{event.categories}</h6>
-
-              <a href={event.link}>Event Link </a>
-              {/* <h6>{event.coordinates}</h6> */}
-
-              {/* <div dangerouslySetInnerHTML={createMarkup(event.description)} /> */}
-              {/* {event.guid && <h6> Guide : {event.guid}</h6>} */}
-
-              {/* <h6>Park ID: {event.parkids}</h6> */}
-
-              {event.contact_phone && (
-                <h6>Contact Phone: {event.contact_phone}</h6>
-              )}
+              <CardMedia
+                component="img"
+                height="200"
+                image="https://i.insider.com/5c61cecf2628981bd4585b4a?width=1000&format=jpeg&auto=webp"
+                title={event.title}
+              />
             </CardContent>
           </Collapse>
         </Card>

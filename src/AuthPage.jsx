@@ -4,7 +4,7 @@ import MaterialLogin from "./MaterialLogin";
 
 function AuthPage({ onLogin }) {
   return (
-    <div style={{ marginTop: "100px", marginLeft: "200px" }}>
+    <div style={{ marginLeft: "200px" }}>
       <Grid
         item
         container
