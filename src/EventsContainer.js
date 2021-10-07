@@ -1,6 +1,7 @@
 import EventCard from "./EventCard";
 import Grid from "@material-ui/core/Grid";
 import SavedEventCard from "./SavedEventCard";
+import { v4 as uuidv4 } from "uuid";
 
 function EventsContainer({ user, events, setSavedEvents, savedEvents }) {
   if (user) {
@@ -16,11 +17,12 @@ function EventsContainer({ user, events, setSavedEvents, savedEvents }) {
         >
           {events
             ? events.map((event) => {
-                return <EventCard user={user} event={event} />;
+                return <EventCard key={uuidv4()} user={user} event={event} />;
               })
             : savedEvents.map((event) => {
                 return (
                   <SavedEventCard
+                    key={event.id}
                     savedEvents={savedEvents}
                     setSavedEvents={setSavedEvents}
                     user={user}

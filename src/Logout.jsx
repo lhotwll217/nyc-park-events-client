@@ -14,7 +14,17 @@ function Logout({ onLogout }) {
   }
 
   return (
-    <Button color="secondary" onClick={logOutClick} variant="contained">
+    <Button
+      style={{
+        borderRadius: 35,
+        backgroundColor: "white",
+        padding: "5px 12px",
+        fontSize: "1rem",
+        fontWeight: "700",
+      }}
+      onClick={logOutClick}
+      variant="text"
+    >
       Logout
     </Button>
   );

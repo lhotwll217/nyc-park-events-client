@@ -58,7 +58,14 @@ function TopBar({ user, onLogout, loggedIn, handleSearchBarValue }) {
               {" "}
               {loggedIn ? (
                 <Button
-                  color="secondary"
+                  style={{
+                    borderRadius: 35,
+                    backgroundColor: "white",
+                    padding: "5px 12px",
+                    fontSize: "1rem",
+                    fontWeight: "700",
+                    marginRight: "10px",
+                  }}
                   variant="text"
                   component={NavLink}
                   to="/saved_events"
@@ -74,8 +81,13 @@ function TopBar({ user, onLogout, loggedIn, handleSearchBarValue }) {
                 <Logout onLogout={onLogout} />
               ) : (
                 <Button
-                  color="secondary"
-                  variant="text"
+                  style={{
+                    borderRadius: 35,
+                    backgroundColor: "white",
+                    padding: "5px 12px",
+                    fontSize: "1rem",
+                    fontWeight: "700",
+                  }}
                   component={NavLink}
                   to="/auth"
                   exact

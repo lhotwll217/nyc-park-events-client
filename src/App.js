@@ -21,7 +21,6 @@ import SavedEvents from "./SavedEvents";
 import LoggedInDrawer from "./LoggedInDrawer";
 import moment from "moment";
 
-
 function App() {
   const [user, setUser] = useState(null);
   const [loggedIn, setLoggedIn] = useState("");
@@ -61,7 +60,8 @@ function App() {
           event.startdate !== moment(new Date()).format("YYYY-MM-DD") ||
           new Date(moment(event.endtime, "hh:mm a").format()) - new Date() > 0
       );
-      setEvents(filteredEvents);
+      console.log(filteredEvents);
+      setEvents(filteredEvents.slice(0, 200));
     }
     eventFetch();
     console.log("Fetched");
