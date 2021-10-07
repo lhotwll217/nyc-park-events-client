@@ -16,11 +16,11 @@ function Logout({ onLogout }) {
   return (
     <Button
       style={{
-        borderRadius: 35,
+        borderRadius: 5,
         backgroundColor: "white",
-        padding: "5px 12px",
-        fontSize: "1rem",
-        fontWeight: "700",
+        padding: "5px 7px",
+        fontSize: ".9rem",
+        fontWeight: "300",
       }}
       onClick={logOutClick}
       variant="text"

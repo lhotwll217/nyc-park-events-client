@@ -59,11 +59,11 @@ function TopBar({ user, onLogout, loggedIn, handleSearchBarValue }) {
               {loggedIn ? (
                 <Button
                   style={{
-                    borderRadius: 35,
+                    borderRadius: 5,
                     backgroundColor: "white",
-                    padding: "5px 12px",
-                    fontSize: "1rem",
-                    fontWeight: "700",
+                    padding: "5px 7px",
+                    fontSize: ".9rem",
+                    fontWeight: "300",
                     marginRight: "10px",
                   }}
                   variant="text"
@@ -80,11 +80,11 @@ function TopBar({ user, onLogout, loggedIn, handleSearchBarValue }) {
               {loggedIn ? (
                 <Button
                   style={{
-                    borderRadius: 35,
+                    borderRadius: 5,
                     backgroundColor: "white",
-                    padding: "5px 12px",
-                    fontSize: "1rem",
-                    fontWeight: "700",
+                    padding: "5px 7px",
+                    fontSize: ".9rem",
+                    fontWeight: "300",
                     marginRight: "10px",
                   }}
                   variant="text"
@@ -103,11 +103,11 @@ function TopBar({ user, onLogout, loggedIn, handleSearchBarValue }) {
               ) : (
                 <Button
                   style={{
-                    borderRadius: 35,
+                    borderRadius: 5,
                     backgroundColor: "white",
-                    padding: "5px 12px",
-                    fontSize: "1rem",
-                    fontWeight: "700",
+                    padding: "5px 7px",
+                    fontSize: ".9rem",
+                    fontWeight: "300",
                   }}
                   component={NavLink}
                   to="/auth"
