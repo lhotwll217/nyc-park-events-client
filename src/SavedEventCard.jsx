@@ -14,6 +14,9 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Button } from "@mui/material";
 import AddAlertIcon from "@mui/icons-material/AddAlert";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Popover from "@mui/material/Popover";
+import { Phone } from "@mui/icons-material";
+import InfoIcon from "@mui/icons-material/Info";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -62,6 +65,11 @@ function SavedEventCard({
   const [categoriesWrap, setCategoriesWrap] = useState(true);
   const [notificationHours, setNotificationHours] = useState(24);
   const [expanded, setExpanded] = useState(false);
+  const [anchor, setAnchor] = useState(null);
+
+  const openPopover = (e) => {
+    setAnchor(e.currentTarget);
+  };
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -184,6 +192,46 @@ function SavedEventCard({
                 Delete
               </Button>
             </div>
+            <IconButton
+              href={event.link}
+              styles={{ marginLeft: "5px" }}
+              color="success"
+            >
+              <InfoIcon ml={2} />
+            </IconButton>
+            {event.contact_phone && (
+              <IconButton onClick={openPopover}>
+                <Phone />
+              </IconButton>
+            )}
+            <Popover
+              // id={id}
+              open={Boolean(anchor)}
+              onClose={() => setAnchor(null)}
+              anchorEl={anchor}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "center",
+              }}
+              style={{ zIndex: "1500" }}
+            >
+              <div
+                style={{
+                  padding: "5px",
+                  border: "3px",
+                  borderColor: "blueviolet",
+                }}
+              >
+                <Typography fontsize="1.4rem" fontWeight="700">
+                  {" "}
+                  {event.contact_phone}
+                </Typography>
+              </div>
+            </Popover>
 
             <ExpandMore
               expand={expanded}
@@ -230,15 +278,6 @@ function SavedEventCard({
                   <AddAlertIcon />
                 </IconButton>
               </form>
-
-              <a href={event.link}>Event Link </a>
-              {/* <h6>{event.coordinates}</h6> */}
-
-              {/* <div dangerouslySetInnerHTML={createMarkup(event.description)} /> */}
-              {/* {event.guid && <h6> Guide : {event.guid}</h6>} */}
-
-              {/* <h6>Park ID: {event.parkids}</h6> */}
-
               {event.contact_phone && (
                 <h6>Contact Phone: {event.contact_phone}</h6>
               )}
