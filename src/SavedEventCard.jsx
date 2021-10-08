@@ -278,9 +278,6 @@ function SavedEventCard({
                   <AddAlertIcon />
                 </IconButton>
               </form>
-              {event.contact_phone && (
-                <h6>Contact Phone: {event.contact_phone}</h6>
-              )}
             </CardContent>
           </Collapse>
         </Card>

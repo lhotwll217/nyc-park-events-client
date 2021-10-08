@@ -34,18 +34,6 @@ function MaterialLogin({ onLogin }) {
         //   minWidth: 300,
         // }}
         >
-          <Grid container justify="center">
-            <img
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                margin: "auto",
-              }}
-              src="https://upload.wikimedia.org/wikipedia/en/thumb/e/ed/Logo_of_the_New_York_City_Department_of_Parks_%26_Recreation.svg/800px-Logo_of_the_New_York_City_Department_of_Parks_%26_Recreation.svg.png"
-              width={200}
-              alt="NYC Parks and Rec"
-            />
-          </Grid>
           <form
             onSubmit={handleSubmit}
             style={{
