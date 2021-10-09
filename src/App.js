@@ -49,16 +49,16 @@ function App() {
 
   useEffect(() => {
     async function eventFetch() {
-      let res = await fetch("/api");
+      let res = await fetch("/server/events");
       let data = await res.json();
 
       let events = data.filter(
-        (a) => a.startdate >= moment(new Date()).format("YYYY-MM-DD")
+        (a) => a.start_date >= moment(new Date()).format("YYYY-MM-DD")
       );
       let filteredEvents = events.filter(
         (event) =>
-          event.startdate !== moment(new Date()).format("YYYY-MM-DD") ||
-          new Date(moment(event.endtime, "hh:mm a").format()) - new Date() > 0
+          event.start_date !== moment(new Date()).format("YYYY-MM-DD") ||
+          new Date(moment(event.end_time, "hh:mm a").format()) - new Date() > 0
       );
       console.log(filteredEvents);
       setEvents(filteredEvents.slice(0, 200));

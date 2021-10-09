@@ -129,16 +129,16 @@ function EventCard({ event, user, startdate }) {
             />
           )}
           {/* {event.image && <img src={event.image} alt={event.title} />} */}
-          {event.startdate ? (
+          {event.start_date ? (
             <Typography m={2} fontSize="1.2rem" fontWeight="600">
-              {moment(event.startdate).format("MMMM Do")}
+              {moment(event.start_date).format("MMMM Do")}
               <Typography fontSize="1rem" fontWeight="400">
-                {event.starttime} - {event.endtime}{" "}
+                {event.start_time} - {event.end_time}{" "}
               </Typography>
             </Typography>
           ) : (
             <Typography m={2} fontSize="1.2rem" fontWeight="600">
-              {startdate}, {event.starttime} - {event.endtime}
+              {startdate}, {event.start_time} - {event.end_time}
             </Typography>
           )}
 
