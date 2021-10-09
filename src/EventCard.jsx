@@ -13,6 +13,7 @@ import CardContent from "@material-ui/core/CardContent";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Button } from "@mui/material";
 import moment from "moment";
+
 import Typography from "@mui/material/Typography";
 import InfoIcon from "@mui/icons-material/Info";
 import ExploreIcon from "@mui/icons-material/Explore";
@@ -20,6 +21,7 @@ import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import { Phone } from "@mui/icons-material";
 import Popover from "@mui/material/Popover";
 import Box from "@mui/material/Box";
+require("moment-timezone");
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -128,12 +130,12 @@ function EventCard({ event, user, startdate }) {
               title={event.title}
             />
           )}
-          {/* {event.image && <img src={event.image} alt={event.title} />} */}
-          {event.start_date ? (
+          {event.start_date_time ? (
             <Typography m={2} fontSize="1.2rem" fontWeight="600">
-              {moment(event.start_date).format("MMMM Do")}
+              {moment(event.start_date_time).format("MMMM Do")}
               <Typography fontSize="1rem" fontWeight="400">
-                {event.start_time} - {event.end_time}{" "}
+                {moment(event.start_date_time).utcOffset(-4).format("h:mm a")} -{" "}
+                {moment(event.end_date_time).utcOffset(-4).format("h:mm a")}{" "}
               </Typography>
             </Typography>
           ) : (

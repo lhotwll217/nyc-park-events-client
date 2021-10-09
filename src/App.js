@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-
 import "./App.css";
 import Home from "./Home";
 import Sports from "./Sports";
@@ -19,7 +18,6 @@ import TopBar from "./TopBar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SavedEvents from "./SavedEvents";
 import LoggedInDrawer from "./LoggedInDrawer";
-import moment from "moment";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -52,16 +50,7 @@ function App() {
       let res = await fetch("/server/events");
       let data = await res.json();
 
-      let events = data.filter(
-        (a) => a.start_date >= moment(new Date()).format("YYYY-MM-DD")
-      );
-      let filteredEvents = events.filter(
-        (event) =>
-          event.start_date !== moment(new Date()).format("YYYY-MM-DD") ||
-          new Date(moment(event.end_time, "hh:mm a").format()) - new Date() > 0
-      );
-      console.log(filteredEvents);
-      setEvents(filteredEvents.slice(0, 200));
+      setEvents(data.slice(0, 200));
     }
     eventFetch();
     console.log("Fetched");
