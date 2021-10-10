@@ -54,14 +54,14 @@ const useStyles = makeStyles({
 });
 
 function SavedEventCard({
-  event,
+  savedEvent,
   user,
   setSavedEvents,
   savedEvents,
   updateNotifications,
 }) {
   const classes = useStyles();
-  console.log(event);
+  console.log(savedEvent);
   const [categoriesWrap, setCategoriesWrap] = useState(true);
   const [notificationHours, setNotificationHours] = useState(24);
   const [expanded, setExpanded] = useState(false);
@@ -80,12 +80,12 @@ function SavedEventCard({
       method: "DELETE",
     }).then((res) => {
       if (res.ok) {
-        const updatedNotifications = event.notifications.filter(
+        const updatedNotifications = savedEvent.notifications.filter(
           (n) => n.id !== id
         );
-        event.notifications = updatedNotifications;
-        console.log(event);
-        let updatedEvent = event;
+        savedEvent.notifications = updatedNotifications;
+        console.log(savedEvent);
+        let updatedEvent = savedEvent;
         let updatedEvents = savedEvents.map((e) => {
           if (e.id === updatedEvent.id) {
             return updatedEvent;
@@ -100,11 +100,11 @@ function SavedEventCard({
   }
 
   function deleteEventClick() {
-    fetch(`/server/saved_events/${event.id}`, {
+    fetch(`/server/saved_events/${savedEvent.id}`, {
       method: "DELETE",
     });
     const updatedEvents = savedEvents.filter(
-      (savedEvent) => savedEvent.id !== event.id
+      (event) => event.id !== savedEvent.id
     );
     setSavedEvents(updatedEvents);
   }
@@ -118,20 +118,20 @@ function SavedEventCard({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           hours_before: notificationHours,
-          saved_event_id: event.id,
+          saved_event_id: savedEvent.id,
         }),
       });
       let data = await res.json();
       console.log(data);
-      let updatedEvents = savedEvents.map((savedEvent) => {
-        if (savedEvent.id === event.id && event.notifications) {
+      let updatedEvents = savedEvents.map((event) => {
+        if (event.id === savedEvent.id && savedEvent.notifications) {
           event.notifications.push(data);
           return event;
-        } else if (savedEvent.id === event.id) {
+        } else if (event.id === savedEvent.id) {
           event.notifications = [data];
           return event;
         } else {
-          return savedEvent;
+          return event;
         }
       });
       console.log(updatedEvents);
@@ -140,8 +140,6 @@ function SavedEventCard({
     createNotification();
   }
 
-  console.log(event.id);
-
   if (user) {
     return (
       <Grid item>
@@ -149,26 +147,26 @@ function SavedEventCard({
           variant="outlined"
           className={classes.root}
           elevation={2}
-          key={event.link}
+          key={savedEvent.event.link}
         >
           <Typography variant="h5" m={2}>
-            <strong>{event.title}</strong>
+            <strong>{savedEvent.event.title}</strong>
           </Typography>
-          {event.image && (
+          {savedEvent.event.image && (
             <CardMedia
               component="img"
               className={classes.media}
               height="200"
-              image={event.image}
-              title="event.title"
+              image={savedEvent.event.image}
+              title="savedEvent.event.title"
             />
           )}
           <Typography m={2} fontSize="1.2rem" fontWeight="600">
-            {moment(event.startdate).format("MMMM Do")} , {event.start_time} -{" "}
-            {event.end_time}
+            {moment(savedEvent.event.startdate).format("MMMM Do")} ,{" "}
+            {savedEvent.event.start_time} - {savedEvent.event.end_time}
           </Typography>
           <Typography fontSize="1rem" fontWeight="300" ml={2} mb={1}>
-            {event.location}
+            {savedEvent.event.location}
           </Typography>
           <div style={{ display: "inline" }}>
             <Typography fontSize=".9rem" textAlign="center" fontWeight="600">
@@ -179,7 +177,7 @@ function SavedEventCard({
             </Typography>
           </div>
           <Typography mx={1} fontSize=".9rem" noWrap={categoriesWrap}>
-            {event.categories}
+            {savedEvent.event.categories}
           </Typography>
 
           <CardActions disableSpacing>
@@ -193,13 +191,13 @@ function SavedEventCard({
               </Button>
             </div>
             <IconButton
-              href={event.link}
+              href={savedEvent.event.link}
               styles={{ marginLeft: "5px" }}
               color="success"
             >
               <InfoIcon ml={2} />
             </IconButton>
-            {event.contact_phone && (
+            {savedEvent.event.contact_phone && (
               <IconButton onClick={openPopover}>
                 <Phone />
               </IconButton>
@@ -228,7 +226,7 @@ function SavedEventCard({
               >
                 <Typography fontsize="1.4rem" fontWeight="700">
                   {" "}
-                  {event.contact_phone}
+                  {savedEvent.event.contact_phone}
                 </Typography>
               </div>
             </Popover>
@@ -244,9 +242,9 @@ function SavedEventCard({
             </ExpandMore>
           </CardActions>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
-            <CardContent>
-              {event.notifications.length > 0
-                ? event.notifications.map((n) => {
+            {/* <CardContent>
+              {savedEvent.notifications.length > 0
+                ? savedEvent.notifications.map((n) => {
                     return (
                       <Typography
                         fontSize=".9rem"
@@ -278,7 +276,7 @@ function SavedEventCard({
                   <AddAlertIcon />
                 </IconButton>
               </form>
-            </CardContent>
+            </CardContent> */}
           </Collapse>
         </Card>
       </Grid>
