@@ -34,11 +34,13 @@ const useStyles = makeStyles({
     minWidth: 325,
     maxWidth: 325,
     display: "inline-block",
-    padding: "12px",
     boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
     "&:hover": {
       boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)",
     },
+  },
+  media: {
+    objectFit: "cover",
   },
   bullet: {
     display: "inline-block",
