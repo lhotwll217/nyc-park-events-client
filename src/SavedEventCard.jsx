@@ -53,13 +53,7 @@ const useStyles = makeStyles({
   },
 });
 
-function SavedEventCard({
-  savedEvent,
-  user,
-  setSavedEvents,
-  savedEvents,
-  updateNotifications,
-}) {
+function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
   const classes = useStyles();
   console.log(savedEvent);
   const [categoriesWrap, setCategoriesWrap] = useState(true);
@@ -94,7 +88,6 @@ function SavedEventCard({
           }
         });
         setSavedEvents(updatedEvents);
-        // setSavedEvents(updatedEvent);
       }
     });
   }
@@ -162,8 +155,14 @@ function SavedEventCard({
             />
           )}
           <Typography m={2} fontSize="1.2rem" fontWeight="600">
-            {moment(savedEvent.event.startdate).format("MMMM Do")} ,{" "}
-            {savedEvent.event.start_time} - {savedEvent.event.end_time}
+            {moment(savedEvent.start_date_time).format("MMMM Do")}
+            <Typography fontSize="1rem" fontWeight="400">
+              {moment(savedEvent.start_date_time)
+                .utcOffset(-4)
+                .format("h:mm a")}{" "}
+              -{" "}
+              {moment(savedEvent.end_date_time).utcOffset(-4).format("h:mm a")}
+            </Typography>
           </Typography>
           <Typography fontSize="1rem" fontWeight="300" ml={2} mb={1}>
             {savedEvent.event.location}
