@@ -17,16 +17,16 @@ function EventsContainer({ user, events, setSavedEvents, savedEvents }) {
         >
           {events
             ? events.map((event) => {
-                return <EventCard key={uuidv4()} user={user} event={event} />;
+                return <EventCard key={event.id} user={user} event={event} />;
               })
-            : savedEvents.map((event) => {
+            : savedEvents.map((savedEvent) => {
                 return (
                   <SavedEventCard
-                    key={event.id}
+                    key={savedEvent.id}
                     savedEvents={savedEvents}
                     setSavedEvents={setSavedEvents}
                     user={user}
-                    event={event}
+                    savedEvent={savedEvent}
                   />
                 );
               })}
