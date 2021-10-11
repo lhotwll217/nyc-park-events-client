@@ -1,5 +1,5 @@
 import MaterialSignup from "./MaterialSignup";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import MaterialLogin from "./MaterialLogin";
 
 function AuthPage({ onLogin }) {

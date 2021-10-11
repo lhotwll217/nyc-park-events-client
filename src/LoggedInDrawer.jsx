@@ -1,10 +1,10 @@
-import Drawer from "@material-ui/core/Drawer";
+import Drawer from "@mui/material/Drawer";
 import Typography from "@mui/material/Typography";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles } from "@mui/styles";
 import { NavLink } from "react-router-dom";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
 
 const drawerWidth = 150;
 
@@ -12,11 +12,13 @@ const useStyles = makeStyles({
   drawer: {
     width: drawerWidth,
     zIndex: "1300",
+    marginTop: "60px",
   },
   drawerPaper: {
     width: drawerWidth,
     zIndex: "1300",
     top: "unset",
+    marginTop: "80px",
   },
 });
 

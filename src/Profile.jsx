@@ -1,6 +1,6 @@
 import ProfileView from "./ProfileView";
 import ProfileForm from "./ProfileForm";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 
 function Profile({ user, setUser }) {
   return (
