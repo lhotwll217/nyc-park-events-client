@@ -50,7 +50,7 @@ function App() {
       let res = await fetch("/server/events");
       let data = await res.json();
 
-      setEvents(data.slice(0, 1000));
+      setEvents(data.slice(0, 100));
     }
     eventFetch();
     console.log("Fetched");

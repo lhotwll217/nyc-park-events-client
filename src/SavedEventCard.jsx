@@ -34,11 +34,13 @@ const useStyles = makeStyles({
     minWidth: 325,
     maxWidth: 325,
     display: "inline-block",
-    padding: "12px",
     boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
     "&:hover": {
       boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)",
     },
+  },
+  media: {
+    objectFit: "cover",
   },
   bullet: {
     display: "inline-block",
@@ -53,17 +55,11 @@ const useStyles = makeStyles({
   },
 });
 
-function SavedEventCard({
-  savedEvent,
-  user,
-  setSavedEvents,
-  savedEvents,
-  updateNotifications,
-}) {
+function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
   const classes = useStyles();
   console.log(savedEvent);
   const [categoriesWrap, setCategoriesWrap] = useState(true);
-  const [notificationHours, setNotificationHours] = useState(24);
+  const [notificationHours, setNotificationHours] = useState(1);
   const [expanded, setExpanded] = useState(false);
   const [anchor, setAnchor] = useState(null);
 
@@ -94,7 +90,6 @@ function SavedEventCard({
           }
         });
         setSavedEvents(updatedEvents);
-        // setSavedEvents(updatedEvent);
       }
     });
   }
@@ -117,8 +112,9 @@ function SavedEventCard({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          hours_before: notificationHours,
+          days_before: notificationHours,
           saved_event_id: savedEvent.id,
+          user_id: user.id,
         }),
       });
       let data = await res.json();
@@ -162,8 +158,16 @@ function SavedEventCard({
             />
           )}
           <Typography m={2} fontSize="1.2rem" fontWeight="600">
-            {moment(savedEvent.event.startdate).format("MMMM Do")} ,{" "}
-            {savedEvent.event.start_time} - {savedEvent.event.end_time}
+            {moment(savedEvent.event.start_date_time).format("MMMM Do")}
+            <Typography fontSize="1rem" fontWeight="400">
+              {moment(savedEvent.event.start_date_time)
+                .utcOffset(-4)
+                .format("h:mm a")}{" "}
+              -{" "}
+              {moment(savedEvent.event.end_date_time)
+                .utcOffset(-4)
+                .format("h:mm a")}
+            </Typography>
           </Typography>
           <Typography fontSize="1rem" fontWeight="300" ml={2} mb={1}>
             {savedEvent.event.location}
@@ -242,8 +246,8 @@ function SavedEventCard({
             </ExpandMore>
           </CardActions>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
-            {/* <CardContent>
-              {savedEvent.notifications.length > 0
+            <CardContent>
+              {savedEvent.notifications
                 ? savedEvent.notifications.map((n) => {
                     return (
                       <Typography
@@ -251,7 +255,7 @@ function SavedEventCard({
                         fontWeight="600"
                         textAlign="center"
                       >
-                        {n.hours_before} hours before.{" "}
+                        {n.days_before} days before.{" "}
                         <IconButton
                           onClick={() => deleteNotificationClick(n.id)}
                           color="error"
@@ -268,15 +272,15 @@ function SavedEventCard({
                   id="notification"
                   onChange={(e) => setNotificationHours(e.target.value)}
                 >
-                  <option value={24}>1 day before</option>
-                  <option value={48}>2 days before</option>
-                  <option value={72}>3 days before</option>
+                  <option value={1}>1 day before</option>
+                  <option value={2}>2 days before</option>
+                  <option value={3}>3 days before</option>
                 </select>
                 <IconButton color="success" type="submit">
                   <AddAlertIcon />
                 </IconButton>
               </form>
-            </CardContent> */}
+            </CardContent>
           </Collapse>
         </Card>
       </Grid>
