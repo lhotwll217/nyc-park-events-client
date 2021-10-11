@@ -1,13 +1,12 @@
 import EventCard from "./EventCard";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import SavedEventCard from "./SavedEventCard";
-import { v4 as uuidv4 } from "uuid";
 
 function EventsContainer({ user, events, setSavedEvents, savedEvents }) {
   if (user) {
     return (
       //marginLeft was 200
-      <div style={{ marginTop: "100px", marginLeft: "150px" }}>
+      <div style={{ marginTop: "35px", marginLeft: "150px" }}>
         <Grid
           container
           direction="row"

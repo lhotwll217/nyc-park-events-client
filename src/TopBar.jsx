@@ -1,15 +1,8 @@
 import Logout from "./Logout";
 import { NavLink } from "react-router-dom";
-import { makeStyles } from "@material-ui/core";
-import { useState } from "react";
-import {
-  Button,
-  TextField,
-  Box,
-  Toolbar,
-  AppBar,
-  Typography,
-} from "@mui/material";
+import { makeStyles } from "@mui/styles";
+
+import { Button, Box, Toolbar, AppBar, Typography } from "@mui/material";
 
 const useStyles = makeStyles({
   topbar: {
@@ -17,7 +10,6 @@ const useStyles = makeStyles({
     position: "absolute",
     right: "0",
     marginLeft: "150px",
-    // heighth:
   },
 
   rightButtons: {

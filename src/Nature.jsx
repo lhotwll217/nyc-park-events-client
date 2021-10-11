@@ -1,5 +1,5 @@
 import EventCard from "./EventCard";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 
 function Nature({ user, events }) {
   let natureEvents = events.filter(
