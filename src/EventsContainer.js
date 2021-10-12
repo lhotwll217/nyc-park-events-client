@@ -1,40 +1,20 @@
-import EventCard from "./EventCard";
 import Grid from "@mui/material/Grid";
-import SavedEventCard from "./SavedEventCard";
 
-function EventsContainer({ user, events, setSavedEvents, savedEvents }) {
-  if (user) {
-    return (
-      //marginLeft was 200
-      <div style={{ marginTop: "35px", marginLeft: "150px" }}>
-        <Grid
-          container
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          spacing={6}
-        >
-          {events
-            ? events.map((event) => {
-                return <EventCard key={event.id} user={user} event={event} />;
-              })
-            : savedEvents.map((savedEvent) => {
-                return (
-                  <SavedEventCard
-                    key={savedEvent.id}
-                    savedEvents={savedEvents}
-                    setSavedEvents={setSavedEvents}
-                    user={user}
-                    savedEvent={savedEvent}
-                  />
-                );
-              })}
-        </Grid>
-      </div>
-    );
-  } else {
-    return <h1 style={{ marginTop: "50px" }}>Page Rendering</h1>;
-  }
+function EventsContainer({ renderFunction }) {
+  return (
+    //marginLeft was 200
+    <div style={{ marginTop: "35px", marginLeft: "125px" }}>
+      <Grid
+        container
+        direction="row"
+        justifyContent="center"
+        alignItems="space-around"
+        spacing={6}
+      >
+        {renderFunction()}
+      </Grid>
+    </div>
+  );
 }
 
 export default EventsContainer;

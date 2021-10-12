@@ -7,7 +7,7 @@ function Home(props) {
   if (props.user) {
     return (
       <div>
-        <div style={{ marginLeft: "50px" }}>
+        <div style={{ marginLeft: "75px" }}>
           <Grid container justify="center">
             <img
               style={{

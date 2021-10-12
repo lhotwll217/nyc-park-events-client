@@ -11,12 +11,12 @@ const drawerWidth = 150;
 const useStyles = makeStyles({
   drawer: {
     width: drawerWidth,
-    zIndex: "1300",
+    zIndex: "1400",
     marginTop: "60px",
   },
   drawerPaper: {
     width: drawerWidth,
-    zIndex: "1300",
+    zIndex: "1400",
     top: "unset",
     marginTop: "80px",
   },
@@ -32,11 +32,21 @@ function LoggedInDrawer({ handleCategorySearch }) {
       classes={{ paper: classes.drawerPaper }}
     >
       {" "}
-      <div styles={{ paddingLeft: "10px" }}>
-        <Typography align="center" variant="h5">
-          <strong>Categories</strong>
-        </Typography>
-      </div>
+      <img
+        style={{
+          marginLeft: "28px",
+          marginBottom: "10px",
+        }}
+        src="https://upload.wikimedia.org/wikipedia/en/thumb/e/ed/Logo_of_the_New_York_City_Department_of_Parks_%26_Recreation.svg/800px-Logo_of_the_New_York_City_Department_of_Parks_%26_Recreation.svg.png"
+        width={90}
+        alt="NYC Parks and Rec"
+      />
+      <input
+        onChange={(e) => handleCategorySearch(e.target.value)}
+        type="text"
+        placeholder="Search By Category"
+        style={{ width: "120px", marginLeft: "auto", marginRight: "auto" }}
+      />
       <List>
         <div style={{ fontWeight: "400" }}>
           <ListItem button component={NavLink} to="/">
@@ -110,12 +120,6 @@ function LoggedInDrawer({ handleCategorySearch }) {
           </ListItem>
         </div>
       </List>
-      <input
-        onChange={(e) => handleCategorySearch(e.target.value)}
-        type="text"
-        placeholder="Search By Category"
-        style={{ width: "120px", marginLeft: "auto", marginRight: "auto" }}
-      />
     </Drawer>
   );
 }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import EventsContainer from "./EventsContainer";
+import SavedEventCard from "./SavedEventCard";
+import Grid from "@mui/material/Grid";
 
 function SavedEvents({ user }) {
   const [savedEvents, setSavedEvents] = useState(null);
@@ -19,11 +20,27 @@ function SavedEvents({ user }) {
 
   if (savedEvents) {
     return (
-      <EventsContainer
-        setSavedEvents={setSavedEvents}
-        user={user}
-        savedEvents={savedEvents}
-      />
+      <div style={{ marginTop: "100px", marginLeft: "150px" }}>
+        <Grid
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          spacing={6}
+        >
+          {savedEvents.map((savedEvent) => {
+            return (
+              <SavedEventCard
+                key={savedEvent.id}
+                savedEvents={savedEvents}
+                setSavedEvents={setSavedEvents}
+                user={user}
+                savedEvent={savedEvent}
+              />
+            );
+          })}
+        </Grid>
+      </div>
     );
   } else {
     return <h1>Rendering</h1>;

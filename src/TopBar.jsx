@@ -22,7 +22,7 @@ function TopBar({ user, onLogout, loggedIn, handleSearchBarValue }) {
   const classes = useStyles();
   return (
     <Box className={classes.topbar}>
-      <AppBar>
+      <AppBar className={classes.topbar}>
         <Toolbar>
           <Typography
             variant="h6"

@@ -1,10 +1,23 @@
-import EventsContainer from "./EventsContainer";
+import EventCard from "./EventCard";
+import Grid from "@mui/material/Grid";
 
 function AllEvents({ user, events }) {
-  if (events.length > 0) {
-    return <EventsContainer user={user} events={events} />;
-  } else {
-    return <h1 style={{ marginTop: "50px" }}>No Matching Events</h1>;
-  }
+  console.log(events);
+  console.log(user);
+  return (
+    <div style={{ marginTop: "100px", marginLeft: "130px" }}>
+      <Grid
+        container
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        spacing={6}
+      >
+        {events.map((e) => {
+          return <EventCard key={e.id} event={e} user={user} />;
+        })}
+      </Grid>
+    </div>
+  );
 }
 export default AllEvents;
