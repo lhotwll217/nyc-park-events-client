@@ -108,37 +108,37 @@ function App() {
               <Home user={user} events={dateFilteredSearchedEvents()} />
             </Route>
             <Route exact path="/sports">
-              <Sports user={user} events={searchedEvents} />
+              <Sports user={user} events={dateFilteredSearchedEvents()} />
             </Route>
             <Route exact path="/seniors">
-              <Seniors user={user} events={searchedEvents} />
+              <Seniors user={user} events={dateFilteredSearchedEvents()} />
             </Route>
             <Route exact path="/education">
-              <Education user={user} events={searchedEvents} />
+              <Education user={user} events={dateFilteredSearchedEvents()} />
             </Route>
             <Route exact path="/kids_youth">
-              <KidsYouth user={user} events={searchedEvents} />
+              <KidsYouth user={user} events={dateFilteredSearchedEvents()} />
             </Route>
             <Route exact path="/fitness">
-              <Fitness user={user} events={searchedEvents} />
+              <Fitness user={user} events={dateFilteredSearchedEvents()} />
             </Route>
             <Route exact path="/film">
-              <Film user={user} events={searchedEvents} />
+              <Film user={user} events={dateFilteredSearchedEvents()} />
             </Route>
             <Route exact path="/art">
-              <Art user={user} events={searchedEvents} />
+              <Art user={user} events={dateFilteredSearchedEvents()} />
             </Route>
             <Route exact path="/music">
-              <Music user={user} events={searchedEvents} />
+              <Music user={user} events={dateFilteredSearchedEvents()} />
             </Route>
             <Route exact path="/dance">
-              <Dance user={user} events={searchedEvents} />
+              <Dance user={user} events={dateFilteredSearchedEvents()} />
             </Route>
             <Route exact path="/nature">
-              <Nature user={user} events={searchedEvents} />
+              <Nature user={user} events={dateFilteredSearchedEvents()} />
             </Route>
             <Route exact path="/history">
-              <History user={user} events={searchedEvents} />
+              <History user={user} events={dateFilteredSearchedEvents()} />
             </Route>
             <Route exact path="/profile">
               <Profile user={user} setUser={setUser} />

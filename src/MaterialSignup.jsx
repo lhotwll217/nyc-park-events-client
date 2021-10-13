@@ -37,9 +37,13 @@ function MaterialSignup({ onLogin }) {
         <div />
         <div>
           {errors && (
-            <div style={{ color: "red" }}>
+            <div style={{ color: "red", maxWidth: "300px" }}>
               {errors.map((error) => (
-                <Typography key={error} style={{ margin: "5px" }}>
+                <Typography
+                  fontSize=".875rem"
+                  style={{ maxWidth: "300px", margin: "2px" }}
+                  key={error}
+                >
                   {error}
                 </Typography>
               ))}
