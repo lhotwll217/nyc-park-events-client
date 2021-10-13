@@ -1,6 +1,7 @@
 import { Grid, Button, TextField } from "@mui/material";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
+import Typography from "@mui/material/Typography";
 
 function MaterialLogin({ onLogin }) {
   const [email, setEmail] = useState("");
@@ -38,6 +39,15 @@ function MaterialLogin({ onLogin }) {
         //   minWidth: 300,
         // }}
         >
+          {errors && (
+            <div style={{ color: "red" }}>
+              {errors.map((error) => (
+                <Typography key={error} style={{ margin: "5px" }}>
+                  {error}
+                </Typography>
+              ))}
+            </div>
+          )}
           <form
             onSubmit={handleSubmit}
             style={{
@@ -65,15 +75,6 @@ function MaterialLogin({ onLogin }) {
           </form>
         </div>
         <div />
-        {errors.length > 0 && (
-          <div style={{ color: "red" }}>
-            {errors.map((error) => (
-              <p key={error} style={{ margin: "5px" }}>
-                {error}
-              </p>
-            ))}
-          </div>
-        )}
       </Grid>
     </div>
   );
