@@ -1,8 +1,8 @@
 import AllEvents from "./AllEvents";
 import Grid from "@mui/material/Grid";
 
-function Home(props) {
-  if (props.user) {
+function Home({ user, events }) {
+  if (events) {
     return (
       <div>
         <div style={{ marginLeft: "75px" }}>
@@ -21,7 +21,7 @@ function Home(props) {
           </Grid>
         </div>
 
-        <AllEvents events={props.events} user={props.user} />
+        <AllEvents events={events} user={user} />
       </div>
     );
   } else {
