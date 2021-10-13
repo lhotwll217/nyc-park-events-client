@@ -37,6 +37,7 @@ function ProfileForm({ user, setUser }) {
   const [firstName, setFirstName] = useState("");
   const [address, setAddress] = useState("");
   const history = useHistory();
+  const [errors, setErrors] = useState(null);
   function handleSubmit(e) {
     e.preventDefault();
     console.log("submit");
@@ -50,14 +51,18 @@ function ProfileForm({ user, setUser }) {
         address,
         user_id: user.id,
       }),
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        let updatedUser = user;
-        updatedUser.profile = data;
-        setUser(updatedUser);
-      });
-    history.push("/");
+    }).then((r) => {
+      if (r.ok) {
+        r.json().then((data) => {
+          let updatedUser = user;
+          updatedUser.profile = data;
+          setUser(updatedUser);
+        });
+        history.push("/");
+      } else {
+        r.json().then((data) => setErrors(data.errors));
+      }
+    });
   }
 
   return (
@@ -67,6 +72,19 @@ function ProfileForm({ user, setUser }) {
           <Typography textAlign="center" fontSize="1.6rem" fontWeight="600">
             User Info
           </Typography>
+          {errors && (
+            <div style={{ color: "red" }}>
+              {errors.map((error) => (
+                <Typography
+                  key={error}
+                  fontSize=".875rem"
+                  style={{ maxWidth: "300px", margin: "2px" }}
+                >
+                  {error}
+                </Typography>
+              ))}
+            </div>
+          )}
           <form
             style={{
               display: "flex",

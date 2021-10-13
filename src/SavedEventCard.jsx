@@ -64,7 +64,7 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
   const [notificationHours, setNotificationHours] = useState(1);
   const [expanded, setExpanded] = useState(false);
   const [anchor, setAnchor] = useState(null);
-  const [errors, setErrors] = useState(null);
+  const [notificationErrors, setNotificationErrors] = useState(null);
   const [deleteError, setDeleteError] = useState(null);
 
   const openPopover = (e) => {
@@ -144,9 +144,10 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
         });
         console.log(updatedEvents);
         setSavedEvents(updatedEvents);
+        setNotificationErrors(null);
       } else {
         let data = await res.json();
-        setErrors(data.errors);
+        setNotificationErrors(data.errors);
       }
     }
     createNotification();
@@ -156,13 +157,12 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
     return (
       <Grid item>
         <Card
-          variant="outlined"
           className={classes.root}
           elevation={2}
           key={savedEvent.event.link}
         >
           <Typography variant="h5" m={2}>
-            <strong>{savedEvent.event.title}</strong>
+            {savedEvent.event.title}
           </Typography>
           {savedEvent.event.image && (
             <CardMedia
@@ -173,17 +173,12 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
               title="savedEvent.event.title"
             />
           )}
-          <Typography m={2} fontSize="1.2rem" fontWeight="600">
+          <Typography ml={2} fontSize="1.2rem" fontWeight="600">
             {moment(savedEvent.event.start_date_time).format("MMMM Do")}
-            <Typography fontSize="1rem" fontWeight="400">
-              {moment(savedEvent.event.start_date_time)
-                .utcOffset(-4)
-                .format("h:mm a")}{" "}
-              -{" "}
-              {moment(savedEvent.event.end_date_time)
-                .utcOffset(-4)
-                .format("h:mm a")}
-            </Typography>
+          </Typography>
+          <Typography ml={2} mb={1} fontSize="1rem" fontWeight="400">
+            {moment(savedEvent.event.start_date_time).format("h:mm a")} -{" "}
+            {moment(savedEvent.event.end_date_time).format("h:mm a")}
           </Typography>
           <Typography fontSize="1rem" fontWeight="300" ml={2} mb={1}>
             {savedEvent.event.location}
@@ -272,9 +267,9 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
           </CardActions>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
             <CardContent>
-              {errors && (
+              {notificationErrors && (
                 <div style={{ color: "red" }}>
-                  {errors.map((error) => (
+                  {notificationErrors.map((error) => (
                     <Typography
                       key={error}
                       fontSize=".875rem"
@@ -293,6 +288,7 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
                         fontSize=".9rem"
                         fontWeight="600"
                         textAlign="center"
+                        key={n.id}
                       >
                         {n.days_before} days before.{" "}
                         <IconButton

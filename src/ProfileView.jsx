@@ -24,9 +24,9 @@ function ProfileView({ user, setUser }) {
   const [address, setAddress] = useState("");
   const [userName, setUserName] = useState(user.profile.first_name);
   const [userAddress, setUserAddress] = useState(user.profile.address);
+  const [nameErrors, setNameErrors] = useState(null);
+  const [addressErrors, setAddressErrors] = useState(null);
   const classes = useStyles();
-
-  console.log(user);
 
   function updateFirstName(e) {
     e.preventDefault();
@@ -38,15 +38,22 @@ function ProfileView({ user, setUser }) {
         Accept: "application/json",
       },
       body: JSON.stringify({ first_name: firstName, user_id: user.id }),
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        let updatedUser = user;
-        updatedUser.profile.first_name = data.first_name;
-        setUser(updatedUser);
-        setUserName(data.first_name);
-      })
-      .then(setOpenNameInput(!openNameInput));
+    }).then((r) => {
+      if (r.ok) {
+        r.json()
+          .then((data) => {
+            let updatedUser = user;
+            updatedUser.profile.first_name = data.first_name;
+            setUser(updatedUser);
+            setUserName(data.first_name);
+            setNameErrors(null);
+          })
+          .then(setFirstName(""))
+          .then(setOpenNameInput(!openNameInput));
+      } else {
+        r.json().then((data) => setNameErrors(data.errors));
+      }
+    });
   }
 
   function updateAddress(e) {
@@ -58,18 +65,25 @@ function ProfileView({ user, setUser }) {
         Accept: "application/json",
       },
       body: JSON.stringify({ address, user_id: user.id }),
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        let updatedUser = user;
-        updatedUser.profile.address = data.address;
-        setUser(updatedUser);
-        setUserAddress(data.address);
-      })
-      .then(setOpenAddressInput(!openAddressInput));
+    }).then((r) => {
+      if (r.ok) {
+        r.json()
+          .then((data) => {
+            let updatedUser = user;
+            updatedUser.profile.address = data.address;
+            setUser(updatedUser);
+            setUserAddress(data.address);
+            setAddressErrors(null);
+          })
+          .then(setAddress(""))
+          .then(setOpenAddressInput(!openAddressInput));
+      } else {
+        r.json().then((data) => setAddressErrors(data.errors));
+      }
+    });
   }
 
-  if (user.profile) {
+  if (user?.profile) {
     return (
       <div style={{ marginTop: "100px", marginLeft: "200px" }}>
         <Grid item>
@@ -77,6 +91,19 @@ function ProfileView({ user, setUser }) {
             <Typography textAlign="center" fontSize="1.6rem" fontWeight="600">
               Profile
             </Typography>
+            {nameErrors && (
+              <div style={{ color: "red" }}>
+                {nameErrors.map((error) => (
+                  <Typography
+                    key={error}
+                    fontSize=".875rem"
+                    style={{ maxWidth: "300px", margin: "2px" }}
+                  >
+                    {error}
+                  </Typography>
+                ))}
+              </div>
+            )}
             <Typography ml={1} mb={1} fontSize="1.6rem">
               {userName}
             </Typography>
@@ -93,6 +120,19 @@ function ProfileView({ user, setUser }) {
                 />
                 <Button type="submit">Submit</Button>
               </form>
+            )}
+            {addressErrors && (
+              <div style={{ color: "red" }}>
+                {addressErrors.map((error) => (
+                  <Typography
+                    key={error}
+                    fontSize=".875rem"
+                    style={{ maxWidth: "300px", margin: "2px" }}
+                  >
+                    {error}
+                  </Typography>
+                ))}
+              </div>
             )}
             <Typography ml={1} mb={1} fontSize="1.4rem">
               {userAddress}
