@@ -18,6 +18,7 @@ import TopBar from "./TopBar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SavedEvents from "./SavedEvents";
 import LoggedInDrawer from "./LoggedInDrawer";
+import moment from "moment";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -25,6 +26,7 @@ function App() {
   const [events, setEvents] = useState([]);
   const [searchBarValue, setSearchBarValue] = useState("");
   const [categorySearch, setCategorySearch] = useState("");
+  const [date, setDate] = useState(null);
 
   function handleSearchBarValue(e) {
     setSearchBarValue(e.toLowerCase());
@@ -72,11 +74,26 @@ function App() {
       event.categories.toLowerCase().includes(categorySearch)
   );
 
+  function dateFilteredSearchedEvents() {
+    if (date) {
+      let eventsOnDate = searchedEvents.filter(
+        (e) =>
+          moment(e.start_date_time).format("YYYY-MM-DD") ==
+          moment(date._d).format("YYYY-MM-DD")
+      );
+      return eventsOnDate;
+    } else {
+      return searchedEvents;
+    }
+  }
+  console.log(dateFilteredSearchedEvents());
   if (user && events.length > 0) {
     return (
       <div>
         <Router>
           <TopBar
+            date={date}
+            setDate={setDate}
             loggedIn={loggedIn}
             onLogout={onLogout}
             user={user}
@@ -88,7 +105,7 @@ function App() {
               <AuthPage onLogin={onLogin} />
             </Route>
             <Route exact path="/">
-              <Home user={user} events={searchedEvents} />
+              <Home user={user} events={dateFilteredSearchedEvents()} />
             </Route>
             <Route exact path="/sports">
               <Sports user={user} events={searchedEvents} />

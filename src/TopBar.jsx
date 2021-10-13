@@ -22,9 +22,16 @@ const useStyles = makeStyles({
   },
 });
 
-function TopBar({ user, onLogout, loggedIn, handleSearchBarValue }) {
+function TopBar({
+  user,
+  onLogout,
+  loggedIn,
+  handleSearchBarValue,
+  date,
+  setDate,
+}) {
   const classes = useStyles();
-  const [date, setDate] = useState(null);
+
   return (
     <Box className={classes.topbar}>
       <AppBar className={classes.topbar}>

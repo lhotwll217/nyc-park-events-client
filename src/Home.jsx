@@ -2,8 +2,6 @@ import AllEvents from "./AllEvents";
 import Grid from "@mui/material/Grid";
 
 function Home(props) {
-  console.log(props.user.profile);
-
   if (props.user) {
     return (
       <div>
