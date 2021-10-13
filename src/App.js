@@ -78,7 +78,7 @@ function App() {
     if (date) {
       let eventsOnDate = searchedEvents.filter(
         (e) =>
-          moment(e.start_date_time).format("YYYY-MM-DD") ==
+          moment(e.start_date_time).format("YYYY-MM-DD") ===
           moment(date._d).format("YYYY-MM-DD")
       );
       return eventsOnDate;

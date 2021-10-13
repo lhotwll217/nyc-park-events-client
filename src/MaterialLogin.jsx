@@ -1,7 +1,6 @@
-import { Grid, Button, TextField } from "@mui/material";
+import { Grid, Button, TextField, Typography } from "@mui/material";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
-import Typography from "@mui/material/Typography";
 
 function MaterialLogin({ onLogin }) {
   const [email, setEmail] = useState("");
@@ -31,14 +30,7 @@ function MaterialLogin({ onLogin }) {
     <div>
       <Grid container item>
         <div />
-        <div
-        // style={{
-        //   display: "flex",
-        //   flexDirection: "column",
-        //   maxWidth: 350,
-        //   minWidth: 300,
-        // }}
-        >
+        <div>
           {errors && (
             <div style={{ color: "red" }}>
               {errors.map((error) => (
