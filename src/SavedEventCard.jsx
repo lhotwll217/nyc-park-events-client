@@ -62,6 +62,7 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
   const [notificationHours, setNotificationHours] = useState(1);
   const [expanded, setExpanded] = useState(false);
   const [anchor, setAnchor] = useState(null);
+  const [errors, setErrors] = useState(null);
 
   const openPopover = (e) => {
     setAnchor(e.currentTarget);
@@ -117,21 +118,27 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
           user_id: user.id,
         }),
       });
-      let data = await res.json();
-      console.log(data);
-      let updatedEvents = savedEvents.map((event) => {
-        if (event.id === savedEvent.id && savedEvent.notifications) {
-          event.notifications.push(data);
-          return event;
-        } else if (event.id === savedEvent.id) {
-          event.notifications = [data];
-          return event;
-        } else {
-          return event;
-        }
-      });
-      console.log(updatedEvents);
-      setSavedEvents(updatedEvents);
+
+      if (res.ok) {
+        let data = await res.json();
+        console.log(data);
+        let updatedEvents = savedEvents.map((event) => {
+          if (event.id === savedEvent.id && savedEvent.notifications) {
+            event.notifications.push(data);
+            return event;
+          } else if (event.id === savedEvent.id) {
+            event.notifications = [data];
+            return event;
+          } else {
+            return event;
+          }
+        });
+        console.log(updatedEvents);
+        setSavedEvents(updatedEvents);
+      } else {
+        let data = await res.json();
+        setErrors(data.errors);
+      }
     }
     createNotification();
   }
@@ -247,6 +254,20 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
           </CardActions>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
             <CardContent>
+              {errors && (
+                <div style={{ color: "red" }}>
+                  {errors.map((error) => (
+                    <Typography
+                      key={error}
+                      fontSize=".875rem"
+                      style={{ maxWidth: "300px", margin: "2px" }}
+                    >
+                      {error}
+                    </Typography>
+                  ))}
+                </div>
+              )}
+
               {savedEvent.notifications
                 ? savedEvent.notifications.map((n) => {
                     return (
