@@ -5,6 +5,8 @@ import DateAdapter from "@mui/lab/AdapterMoment";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DatePicker from "@mui/lab/DatePicker";
 import { useState } from "react";
+import ClearIcon from "@mui/icons-material/Clear";
+import IconButton from "@mui/material/IconButton";
 
 import { Button, Box, Toolbar, AppBar, Typography } from "@mui/material";
 
@@ -31,6 +33,11 @@ function TopBar({
   setDate,
 }) {
   const classes = useStyles();
+
+  function handleClr(e) {
+    e.stopPropagation();
+    setDate(null);
+  }
 
   return (
     <Box className={classes.topbar}>
@@ -79,7 +86,13 @@ function TopBar({
                     {...inputProps}
                     placeholder="Search By Date"
                   />
-                  {InputProps?.endAdornment}
+                  {date ? (
+                    <IconButton onClick={(e) => handleClr(e)}>
+                      <ClearIcon />
+                    </IconButton>
+                  ) : (
+                    InputProps?.endAdornment
+                  )}
                 </Box>
               )}
             />
