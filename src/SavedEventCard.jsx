@@ -1,20 +1,22 @@
 import { useState } from "react";
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
 import { makeStyles } from "@mui/styles";
-import Grid from "@mui/material/Grid";
 import moment from "moment";
 import { styled } from "@mui/material/styles";
-import CardActions from "@mui/material/CardActions";
-import Collapse from "@mui/material/Collapse";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import CardContent from "@mui/material/CardContent";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { Button } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardMedia,
+  CardActions,
+  Collapse,
+  CardContent,
+  Grid,
+  Popover,
+  Typography,
+  IconButton,
+} from "@mui/material";
 import AddAlertIcon from "@mui/icons-material/AddAlert";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Popover from "@mui/material/Popover";
 import { Phone } from "@mui/icons-material";
 import InfoIcon from "@mui/icons-material/Info";
 
@@ -63,6 +65,7 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
   const [expanded, setExpanded] = useState(false);
   const [anchor, setAnchor] = useState(null);
   const [errors, setErrors] = useState(null);
+  const [deleteError, setDeleteError] = useState(null);
 
   const openPopover = (e) => {
     setAnchor(e.currentTarget);
@@ -98,6 +101,12 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
   function deleteEventClick() {
     fetch(`/server/saved_events/${savedEvent.id}`, {
       method: "DELETE",
+    }).then((r) => {
+      if (r.ok) {
+        r.json().then((data) => console.log(data));
+      } else {
+        r.json().then((data) => setDeleteError(data.errors));
+      }
     });
     const updatedEvents = savedEvents.filter(
       (event) => event.id !== savedEvent.id
@@ -190,6 +199,15 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
           <Typography mx={1} fontSize=".9rem" noWrap={categoriesWrap}>
             {savedEvent.event.categories}
           </Typography>
+          {deleteError && (
+            <Typography
+              key={deleteError}
+              fontSize=".875rem"
+              style={{ maxWidth: "300px", margin: "2px" }}
+            >
+              {deleteError}
+            </Typography>
+          )}
 
           <CardActions disableSpacing>
             <div>
