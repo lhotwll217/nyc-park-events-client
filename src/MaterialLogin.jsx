@@ -6,6 +6,7 @@ function MaterialLogin({ onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
+  const [errors, setErrors] = useState(null);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -15,11 +16,14 @@ function MaterialLogin({ onLogin }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ email, password }),
-    })
-      .then((r) => r.json())
-      .then((user) => onLogin(user));
-
-    history.push("/");
+    }).then((r) => {
+      if (r.ok) {
+        r.json().then((user) => onLogin(user));
+        history.push("/");
+      } else {
+        r.json().then((data) => setErrors(data.errors));
+      }
+    });
   }
 
   return (
@@ -61,6 +65,15 @@ function MaterialLogin({ onLogin }) {
           </form>
         </div>
         <div />
+        {errors.length > 0 && (
+          <div style={{ color: "red" }}>
+            {errors.map((error) => (
+              <p key={error} style={{ margin: "5px" }}>
+                {error}
+              </p>
+            ))}
+          </div>
+        )}
       </Grid>
     </div>
   );

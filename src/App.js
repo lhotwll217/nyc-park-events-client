@@ -87,7 +87,7 @@ function App() {
     }
   }
   console.log(dateFilteredSearchedEvents());
-  if (user && events.length > 0) {
+  if (events.length > 0) {
     return (
       <div>
         <Router>

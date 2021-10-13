@@ -4,7 +4,6 @@ import { makeStyles } from "@mui/styles";
 import DateAdapter from "@mui/lab/AdapterMoment";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DatePicker from "@mui/lab/DatePicker";
-import { useState } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
 import IconButton from "@mui/material/IconButton";
 
@@ -24,14 +23,7 @@ const useStyles = makeStyles({
   },
 });
 
-function TopBar({
-  user,
-  onLogout,
-  loggedIn,
-  handleSearchBarValue,
-  date,
-  setDate,
-}) {
+function TopBar({ onLogout, loggedIn, handleSearchBarValue, date, setDate }) {
   const classes = useStyles();
 
   function handleClr(e) {
@@ -71,7 +63,6 @@ function TopBar({
               onChange={(newDate) => {
                 setDate(newDate);
               }}
-              // renderInput={(params) => <TextField {...params} />}
               renderInput={({ inputRef, inputProps, InputProps }) => (
                 <Box sx={{ display: "flex", alignItems: "center" }}>
                   <input
