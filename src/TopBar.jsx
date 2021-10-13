@@ -1,6 +1,10 @@
 import Logout from "./Logout";
 import { NavLink } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
+import DateAdapter from "@mui/lab/AdapterMoment";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import DatePicker from "@mui/lab/DatePicker";
+import { useState } from "react";
 
 import { Button, Box, Toolbar, AppBar, Typography } from "@mui/material";
 
@@ -20,6 +24,7 @@ const useStyles = makeStyles({
 
 function TopBar({ user, onLogout, loggedIn, handleSearchBarValue }) {
   const classes = useStyles();
+  const [date, setDate] = useState(null);
   return (
     <Box className={classes.topbar}>
       <AppBar className={classes.topbar}>
@@ -44,6 +49,35 @@ function TopBar({ user, onLogout, loggedIn, handleSearchBarValue }) {
             placeholder="Search By Event Title"
             type="search"
           />
+          <LocalizationProvider dateAdapter={DateAdapter}>
+            <DatePicker
+              clearable={true}
+              label="Search Date"
+              value={date}
+              onChange={(newDate) => {
+                setDate(newDate);
+              }}
+              // renderInput={(params) => <TextField {...params} />}
+              renderInput={({ inputRef, inputProps, InputProps }) => (
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <input
+                    style={{
+                      padding: "7px",
+                      marginLeft: "25px",
+
+                      flexBasis: "25%",
+                      marginRight: "1px",
+                    }}
+                    ref={inputRef}
+                    {...inputProps}
+                    placeholder="Search By Date"
+                  />
+                  {InputProps?.endAdornment}
+                </Box>
+              )}
+            />
+          </LocalizationProvider>
+
           <div style={{ width: "20px", flexGrow: "1" }} />
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
             <div>
