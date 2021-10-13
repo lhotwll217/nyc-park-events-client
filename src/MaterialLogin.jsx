@@ -1,4 +1,4 @@
-import { Grid, Button, TextField } from "@mui/material";
+import { Grid, Button, TextField, Typography } from "@mui/material";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 
@@ -6,6 +6,7 @@ function MaterialLogin({ onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
+  const [errors, setErrors] = useState(null);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -15,25 +16,34 @@ function MaterialLogin({ onLogin }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ email, password }),
-    })
-      .then((r) => r.json())
-      .then((user) => onLogin(user));
-
-    history.push("/");
+    }).then((r) => {
+      if (r.ok) {
+        r.json().then((user) => onLogin(user));
+        history.push("/");
+      } else {
+        r.json().then((data) => setErrors(data.errors));
+      }
+    });
   }
 
   return (
     <div>
       <Grid container item>
         <div />
-        <div
-        // style={{
-        //   display: "flex",
-        //   flexDirection: "column",
-        //   maxWidth: 350,
-        //   minWidth: 300,
-        // }}
-        >
+        <div>
+          {errors && (
+            <div style={{ color: "red" }}>
+              {errors.map((error) => (
+                <Typography
+                  key={error}
+                  fontSize=".875rem"
+                  style={{ maxWidth: "300px", margin: "2px" }}
+                >
+                  {error}
+                </Typography>
+              ))}
+            </div>
+          )}
           <form
             onSubmit={handleSubmit}
             style={{

@@ -1,20 +1,22 @@
 import { useState } from "react";
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
 import { makeStyles } from "@mui/styles";
-import Grid from "@mui/material/Grid";
 import moment from "moment";
 import { styled } from "@mui/material/styles";
-import CardActions from "@mui/material/CardActions";
-import Collapse from "@mui/material/Collapse";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import CardContent from "@mui/material/CardContent";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { Button } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardMedia,
+  CardActions,
+  Collapse,
+  CardContent,
+  Grid,
+  Popover,
+  Typography,
+  IconButton,
+} from "@mui/material";
 import AddAlertIcon from "@mui/icons-material/AddAlert";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Popover from "@mui/material/Popover";
 import { Phone } from "@mui/icons-material";
 import InfoIcon from "@mui/icons-material/Info";
 
@@ -62,6 +64,8 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
   const [notificationHours, setNotificationHours] = useState(1);
   const [expanded, setExpanded] = useState(false);
   const [anchor, setAnchor] = useState(null);
+  const [notificationErrors, setNotificationErrors] = useState(null);
+  const [deleteError, setDeleteError] = useState(null);
 
   const openPopover = (e) => {
     setAnchor(e.currentTarget);
@@ -97,6 +101,12 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
   function deleteEventClick() {
     fetch(`/server/saved_events/${savedEvent.id}`, {
       method: "DELETE",
+    }).then((r) => {
+      if (r.ok) {
+        r.json().then((data) => console.log(data));
+      } else {
+        r.json().then((data) => setDeleteError(data.errors));
+      }
     });
     const updatedEvents = savedEvents.filter(
       (event) => event.id !== savedEvent.id
@@ -117,21 +127,28 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
           user_id: user.id,
         }),
       });
-      let data = await res.json();
-      console.log(data);
-      let updatedEvents = savedEvents.map((event) => {
-        if (event.id === savedEvent.id && savedEvent.notifications) {
-          event.notifications.push(data);
-          return event;
-        } else if (event.id === savedEvent.id) {
-          event.notifications = [data];
-          return event;
-        } else {
-          return event;
-        }
-      });
-      console.log(updatedEvents);
-      setSavedEvents(updatedEvents);
+
+      if (res.ok) {
+        let data = await res.json();
+        console.log(data);
+        let updatedEvents = savedEvents.map((event) => {
+          if (event.id === savedEvent.id && savedEvent.notifications) {
+            event.notifications.push(data);
+            return event;
+          } else if (event.id === savedEvent.id) {
+            event.notifications = [data];
+            return event;
+          } else {
+            return event;
+          }
+        });
+        console.log(updatedEvents);
+        setSavedEvents(updatedEvents);
+        setNotificationErrors(null);
+      } else {
+        let data = await res.json();
+        setNotificationErrors(data.errors);
+      }
     }
     createNotification();
   }
@@ -140,13 +157,12 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
     return (
       <Grid item>
         <Card
-          variant="outlined"
           className={classes.root}
           elevation={2}
           key={savedEvent.event.link}
         >
           <Typography variant="h5" m={2}>
-            <strong>{savedEvent.event.title}</strong>
+            {savedEvent.event.title}
           </Typography>
           {savedEvent.event.image && (
             <CardMedia
@@ -157,17 +173,12 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
               title="savedEvent.event.title"
             />
           )}
-          <Typography m={2} fontSize="1.2rem" fontWeight="600">
+          <Typography ml={2} fontSize="1.2rem" fontWeight="600">
             {moment(savedEvent.event.start_date_time).format("MMMM Do")}
-            <Typography fontSize="1rem" fontWeight="400">
-              {moment(savedEvent.event.start_date_time)
-                .utcOffset(-4)
-                .format("h:mm a")}{" "}
-              -{" "}
-              {moment(savedEvent.event.end_date_time)
-                .utcOffset(-4)
-                .format("h:mm a")}
-            </Typography>
+          </Typography>
+          <Typography ml={2} mb={1} fontSize="1rem" fontWeight="400">
+            {moment(savedEvent.event.start_date_time).format("h:mm a")} -{" "}
+            {moment(savedEvent.event.end_date_time).format("h:mm a")}
           </Typography>
           <Typography fontSize="1rem" fontWeight="300" ml={2} mb={1}>
             {savedEvent.event.location}
@@ -183,6 +194,15 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
           <Typography mx={1} fontSize=".9rem" noWrap={categoriesWrap}>
             {savedEvent.event.categories}
           </Typography>
+          {deleteError && (
+            <Typography
+              key={deleteError}
+              fontSize=".875rem"
+              style={{ maxWidth: "300px", margin: "2px" }}
+            >
+              {deleteError}
+            </Typography>
+          )}
 
           <CardActions disableSpacing>
             <div>
@@ -247,6 +267,20 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
           </CardActions>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
             <CardContent>
+              {notificationErrors && (
+                <div style={{ color: "red" }}>
+                  {notificationErrors.map((error) => (
+                    <Typography
+                      key={error}
+                      fontSize=".875rem"
+                      style={{ maxWidth: "300px", margin: "2px" }}
+                    >
+                      {error}
+                    </Typography>
+                  ))}
+                </div>
+              )}
+
               {savedEvent.notifications
                 ? savedEvent.notifications.map((n) => {
                     return (
@@ -254,6 +288,7 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
                         fontSize=".9rem"
                         fontWeight="600"
                         textAlign="center"
+                        key={n.id}
                       >
                         {n.days_before} days before.{" "}
                         <IconButton

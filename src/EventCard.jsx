@@ -97,7 +97,7 @@ function EventCard({ event, user, startdate }) {
   if (user) {
     return (
       <Grid item>
-        <Card variant="outlined" className={classes.root} elevation={2}>
+        <Card className={classes.root} elevation={2}>
           <Typography variant="h5" m={2}>
             <strong>{event.title}</strong>
           </Typography>
@@ -111,21 +111,18 @@ function EventCard({ event, user, startdate }) {
               title={event.title}
             />
           )}
-          {event.start_date_time ? (
-            <Typography m={2} fontSize="1.2rem" fontWeight="600">
-              {moment(event.start_date_time).format("MMMM Do")}
-              <Typography fontSize="1rem" fontWeight="400">
-                {moment(event.start_date_time).utcOffset(-4).format("h:mm a")} -{" "}
-                {moment(event.end_date_time).utcOffset(-4).format("h:mm a")}{" "}
-              </Typography>
-            </Typography>
-          ) : (
-            <Typography m={2} fontSize="1.2rem" fontWeight="600">
-              {startdate}, {event.start_time} - {event.end_time}
-            </Typography>
-          )}
 
-          <Typography fontSize="1rem" fontWeight="300" ml={2} mb={1}>
+          <div>
+            <Typography ml={2} fontSize="1.2rem" fontWeight="600">
+              {moment(event.start_date_time).format("MMMM Do")}
+            </Typography>
+            <Typography ml={2} mb={1} fontSize="1rem" fontWeight="600">
+              {moment(event.start_date_time).format("h:mm a")} -{" "}
+              {moment(event.end_date_time).format("h:mm a")}{" "}
+            </Typography>
+          </div>
+
+          <Typography fontSize="1rem" fontWeight="300" ml={2} mr={1} mb={1}>
             {event.location}
           </Typography>
           <div style={{ display: "inline" }}>
