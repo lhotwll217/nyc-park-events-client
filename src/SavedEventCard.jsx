@@ -75,6 +75,10 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
     setExpanded(!expanded);
   };
 
+  const openLinkTab = () => {
+    window.open(savedEvent.link);
+  };
+
   function deleteNotificationClick(id) {
     fetch(`/server/notifications/${id}`, {
       method: "DELETE",
@@ -215,7 +219,7 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
               </Button>
             </div>
             <IconButton
-              href={savedEvent.event.link}
+              onClick={openLinkTab}
               styles={{ marginLeft: "5px" }}
               color="success"
             >

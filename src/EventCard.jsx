@@ -64,6 +64,10 @@ function EventCard({ event, user, startdate }) {
   const [categoriesWrap, setCategoriesWrap] = useState(true);
   const [anchor, setAnchor] = useState(null);
 
+  const openLinkTab = () => {
+    window.open(event.link);
+  };
+
   const openPopover = (e) => {
     setAnchor(e.currentTarget);
   };
@@ -147,7 +151,7 @@ function EventCard({ event, user, startdate }) {
               Save
             </Button>
             <IconButton
-              href={event.link}
+              onClick={openLinkTab}
               styles={{ marginLeft: "5px" }}
               color="success"
             >
