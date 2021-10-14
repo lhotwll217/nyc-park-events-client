@@ -1,5 +1,5 @@
 import AllEvents from "./AllEvents";
-import Grid from "@mui/material/Grid";
+import { Grid, CircularProgress } from "@mui/material";
 
 function Home({ user, events }) {
   if (events) {
@@ -25,7 +25,20 @@ function Home({ user, events }) {
       </div>
     );
   } else {
-    return <h1>Loading</h1>;
+    return (
+      <Grid ml={5} container justify="center">
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            margin: "auto",
+            marginTop: "80px",
+          }}
+        >
+          <CircularProgress color="primary" />
+        </div>
+      </Grid>
+    );
   }
 }
 
