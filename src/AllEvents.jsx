@@ -5,7 +5,7 @@ function AllEvents({ user, events }) {
   console.log(events);
   console.log(user);
   return (
-    <div style={{ marginTop: "100px", marginLeft: "130px" }}>
+    <div style={{ marginTop: "100px", marginLeft: "165px" }}>
       <Grid
         container
         direction="row"

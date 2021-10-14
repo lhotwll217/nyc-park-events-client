@@ -1,8 +1,8 @@
 import AllEvents from "./AllEvents";
-import { Grid, CircularProgress } from "@mui/material";
+import { Grid, CircularProgress, Typography } from "@mui/material";
 
 function Home({ user, events }) {
-  if (events) {
+  if (events?.length > 0) {
     return (
       <div>
         <div style={{ marginLeft: "75px" }}>
@@ -32,10 +32,13 @@ function Home({ user, events }) {
             display: "flex",
             flexDirection: "column",
             margin: "auto",
-            marginTop: "80px",
+            marginTop: "250px",
           }}
         >
-          <CircularProgress color="primary" />
+          <CircularProgress ml={10} size={100} color="primary" />
+          <Typography mr={2} mt={6} variant="h4" textAlign="center">
+            Loading{"  "}
+          </Typography>
         </div>
       </Grid>
     );

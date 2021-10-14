@@ -98,123 +98,119 @@ function EventCard({ event, user, startdate }) {
     }
   }
 
-  if (user) {
-    return (
-      <Grid item>
-        <Card className={classes.root} elevation={2}>
-          <Typography variant="h5" m={2}>
-            <strong>{event.title}</strong>
-          </Typography>
+  return (
+    <Grid item>
+      <Card className={classes.root} elevation={2}>
+        <Typography variant="h5" m={2}>
+          <strong>{event.title}</strong>
+        </Typography>
 
-          {event.image && (
+        {event.image && (
+          <CardMedia
+            component="img"
+            className={classes.media}
+            height="200"
+            image={event.image}
+            title={event.title}
+          />
+        )}
+
+        <div>
+          <Typography ml={2} fontSize="1.2rem" fontWeight="600">
+            {moment(event.start_date_time).format("MMMM Do")}
+          </Typography>
+          <Typography ml={2} mb={1} fontSize="1rem" fontWeight="600">
+            {moment(event.start_date_time).format("h:mm a")} -{" "}
+            {moment(event.end_date_time).format("h:mm a")}{" "}
+          </Typography>
+        </div>
+
+        <Typography fontSize="1rem" fontWeight="300" ml={2} mr={1} mb={1}>
+          {event.location}
+        </Typography>
+        <div style={{ display: "inline" }}>
+          <Typography fontSize=".9rem" textAlign="center" fontWeight="600">
+            Categories
+            <IconButton onClick={() => setCategoriesWrap(!categoriesWrap)}>
+              <AddCircleIcon />
+            </IconButton>
+          </Typography>
+        </div>
+
+        <Typography mx={1} fontSize=".9rem" noWrap={categoriesWrap}>
+          {event.categories}
+        </Typography>
+
+        <CardActions disableSpacing>
+          <Button
+            onClick={saveEventButton}
+            variant="outlined"
+            startIcon={<AddCircleIcon />}
+          >
+            Save
+          </Button>
+          <IconButton
+            onClick={openLinkTab}
+            styles={{ marginLeft: "5px" }}
+            color="success"
+          >
+            <InfoIcon ml={2} />
+          </IconButton>
+          {event.contact_phone && (
+            <IconButton onClick={openPopover}>
+              <Phone />
+            </IconButton>
+          )}
+          <Popover
+            // id={id}
+            open={Boolean(anchor)}
+            onClose={() => setAnchor(null)}
+            anchorEl={anchor}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "center",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "center",
+            }}
+            style={{ zIndex: "1500" }}
+          >
+            <div
+              style={{
+                padding: "5px",
+                border: "3px",
+                borderColor: "blueviolet",
+              }}
+            >
+              <Typography fontsize="1.4rem" fontWeight="700">
+                {" "}
+                {event.contact_phone}
+              </Typography>
+            </div>
+          </Popover>
+          <ExpandMore
+            expand={expanded}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            <ExploreIcon />
+          </ExpandMore>
+        </CardActions>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <CardContent>
             <CardMedia
               component="img"
-              className={classes.media}
               height="200"
-              image={event.image}
+              image="https://i.insider.com/5c61cecf2628981bd4585b4a?width=1000&format=jpeg&auto=webp"
               title={event.title}
             />
-          )}
-
-          <div>
-            <Typography ml={2} fontSize="1.2rem" fontWeight="600">
-              {moment(event.start_date_time).format("MMMM Do")}
-            </Typography>
-            <Typography ml={2} mb={1} fontSize="1rem" fontWeight="600">
-              {moment(event.start_date_time).format("h:mm a")} -{" "}
-              {moment(event.end_date_time).format("h:mm a")}{" "}
-            </Typography>
-          </div>
-
-          <Typography fontSize="1rem" fontWeight="300" ml={2} mr={1} mb={1}>
-            {event.location}
-          </Typography>
-          <div style={{ display: "inline" }}>
-            <Typography fontSize=".9rem" textAlign="center" fontWeight="600">
-              Categories
-              <IconButton onClick={() => setCategoriesWrap(!categoriesWrap)}>
-                <AddCircleIcon />
-              </IconButton>
-            </Typography>
-          </div>
-
-          <Typography mx={1} fontSize=".9rem" noWrap={categoriesWrap}>
-            {event.categories}
-          </Typography>
-
-          <CardActions disableSpacing>
-            <Button
-              onClick={saveEventButton}
-              variant="outlined"
-              startIcon={<AddCircleIcon />}
-            >
-              Save
-            </Button>
-            <IconButton
-              onClick={openLinkTab}
-              styles={{ marginLeft: "5px" }}
-              color="success"
-            >
-              <InfoIcon ml={2} />
-            </IconButton>
-            {event.contact_phone && (
-              <IconButton onClick={openPopover}>
-                <Phone />
-              </IconButton>
-            )}
-            <Popover
-              // id={id}
-              open={Boolean(anchor)}
-              onClose={() => setAnchor(null)}
-              anchorEl={anchor}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "center",
-              }}
-              style={{ zIndex: "1500" }}
-            >
-              <div
-                style={{
-                  padding: "5px",
-                  border: "3px",
-                  borderColor: "blueviolet",
-                }}
-              >
-                <Typography fontsize="1.4rem" fontWeight="700">
-                  {" "}
-                  {event.contact_phone}
-                </Typography>
-              </div>
-            </Popover>
-            <ExpandMore
-              expand={expanded}
-              onClick={handleExpandClick}
-              aria-expanded={expanded}
-              aria-label="show more"
-            >
-              <ExploreIcon />
-            </ExpandMore>
-          </CardActions>
-          <Collapse in={expanded} timeout="auto" unmountOnExit>
-            <CardContent>
-              <CardMedia
-                component="img"
-                height="200"
-                image="https://i.insider.com/5c61cecf2628981bd4585b4a?width=1000&format=jpeg&auto=webp"
-                title={event.title}
-              />
-            </CardContent>
-          </Collapse>
-        </Card>
-      </Grid>
-    );
-  } else {
-    return <h1>Rendering</h1>;
-  }
+          </CardContent>
+        </Collapse>
+      </Card>
+    </Grid>
+  );
 }
 
 export default EventCard;
