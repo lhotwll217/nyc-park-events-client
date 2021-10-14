@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import SavedEventCard from "./SavedEventCard";
-import Grid from "@mui/material/Grid";
+import { Grid, Typography } from "@mui/material";
 
 function SavedEvents({ user }) {
   const [savedEvents, setSavedEvents] = useState(null);
@@ -18,7 +18,7 @@ function SavedEvents({ user }) {
     savedEventsFetch();
   }, []);
 
-  if (savedEvents) {
+  if (savedEvents?.length > 0) {
     return (
       <div style={{ marginTop: "100px", marginLeft: "150px" }}>
         <Grid
@@ -43,7 +43,29 @@ function SavedEvents({ user }) {
       </div>
     );
   } else {
-    return <h1>Rendering</h1>;
+    return (
+      <div style={{ marginTop: "100px", marginLeft: "150px" }}>
+        <Grid
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          spacing={6}
+        >
+          <Grid item>
+            <Typography
+              // ml={37}
+              // width="50%"
+              mt={20}
+              textAlign="center"
+              variant="h4"
+            >
+              Save Events To View & Create/Edit Notifications Here!
+            </Typography>
+          </Grid>
+        </Grid>
+      </div>
+    );
   }
 }
 
