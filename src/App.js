@@ -19,6 +19,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SavedEvents from "./SavedEvents";
 import LoggedInDrawer from "./LoggedInDrawer";
 import moment from "moment";
+import ScrollToTop from "./ScrollToTop";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -91,62 +92,64 @@ function App() {
   return (
     <div>
       <Router>
-        <TopBar
-          date={date}
-          setDate={setDate}
-          loggedIn={loggedIn}
-          onLogout={onLogout}
-          user={user}
-          handleSearchBarValue={handleSearchBarValue}
-        />
-        <LoggedInDrawer handleCategorySearch={handleCategorySearch} />
-        <Switch>
-          <Route exact path="/auth">
-            <AuthPage onLogin={onLogin} />
-          </Route>
-          <Route exact path="/">
-            <Home user={user} events={dateFilteredSearchedEvents()} />
-          </Route>
-          <Route exact path="/sports">
-            <Sports user={user} events={dateFilteredSearchedEvents()} />
-          </Route>
-          <Route exact path="/seniors">
-            <Seniors user={user} events={dateFilteredSearchedEvents()} />
-          </Route>
-          <Route exact path="/education">
-            <Education user={user} events={dateFilteredSearchedEvents()} />
-          </Route>
-          <Route exact path="/kids_youth">
-            <KidsYouth user={user} events={dateFilteredSearchedEvents()} />
-          </Route>
-          <Route exact path="/fitness">
-            <Fitness user={user} events={dateFilteredSearchedEvents()} />
-          </Route>
-          <Route exact path="/film">
-            <Film user={user} events={dateFilteredSearchedEvents()} />
-          </Route>
-          <Route exact path="/art">
-            <Art user={user} events={dateFilteredSearchedEvents()} />
-          </Route>
-          <Route exact path="/music">
-            <Music user={user} events={dateFilteredSearchedEvents()} />
-          </Route>
-          <Route exact path="/dance">
-            <Dance user={user} events={dateFilteredSearchedEvents()} />
-          </Route>
-          <Route exact path="/nature">
-            <Nature user={user} events={dateFilteredSearchedEvents()} />
-          </Route>
-          <Route exact path="/history">
-            <History user={user} events={dateFilteredSearchedEvents()} />
-          </Route>
-          <Route exact path="/profile">
-            <Profile user={user} setUser={setUser} />
-          </Route>
-          <Route exact path="/saved_events">
-            <SavedEvents user={user} />
-          </Route>
-        </Switch>
+        <ScrollToTop>
+          <TopBar
+            date={date}
+            setDate={setDate}
+            loggedIn={loggedIn}
+            onLogout={onLogout}
+            user={user}
+            handleSearchBarValue={handleSearchBarValue}
+          />
+          <LoggedInDrawer handleCategorySearch={handleCategorySearch} />
+          <Switch>
+            <Route exact path="/auth">
+              <AuthPage onLogin={onLogin} />
+            </Route>
+            <Route exact path="/">
+              <Home user={user} events={dateFilteredSearchedEvents()} />
+            </Route>
+            <Route exact path="/sports">
+              <Sports user={user} events={dateFilteredSearchedEvents()} />
+            </Route>
+            <Route exact path="/seniors">
+              <Seniors user={user} events={dateFilteredSearchedEvents()} />
+            </Route>
+            <Route exact path="/education">
+              <Education user={user} events={dateFilteredSearchedEvents()} />
+            </Route>
+            <Route exact path="/kids_youth">
+              <KidsYouth user={user} events={dateFilteredSearchedEvents()} />
+            </Route>
+            <Route exact path="/fitness">
+              <Fitness user={user} events={dateFilteredSearchedEvents()} />
+            </Route>
+            <Route exact path="/film">
+              <Film user={user} events={dateFilteredSearchedEvents()} />
+            </Route>
+            <Route exact path="/art">
+              <Art user={user} events={dateFilteredSearchedEvents()} />
+            </Route>
+            <Route exact path="/music">
+              <Music user={user} events={dateFilteredSearchedEvents()} />
+            </Route>
+            <Route exact path="/dance">
+              <Dance user={user} events={dateFilteredSearchedEvents()} />
+            </Route>
+            <Route exact path="/nature">
+              <Nature user={user} events={dateFilteredSearchedEvents()} />
+            </Route>
+            <Route exact path="/history">
+              <History user={user} events={dateFilteredSearchedEvents()} />
+            </Route>
+            <Route exact path="/profile">
+              <Profile user={user} setUser={setUser} />
+            </Route>
+            <Route exact path="/saved_events">
+              <SavedEvents user={user} />
+            </Route>
+          </Switch>
+        </ScrollToTop>
       </Router>
     </div>
   );
