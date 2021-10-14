@@ -59,6 +59,7 @@ function MaterialLogin({ onLogin }) {
               onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
+              type="password"
               label="Password"
               margin="normal"
               onChange={(e) => setPassword(e.target.value)}
