@@ -1,5 +1,5 @@
 import EventCard from "./EventCard";
-import Grid from "@mui/material/Grid";
+import { Grid, Typography } from "@mui/material";
 
 function History({ user, events }) {
   let historyEvents = events.filter(
@@ -11,6 +11,10 @@ function History({ user, events }) {
   if (historyEvents) {
     return (
       <div style={{ marginTop: "100px", marginLeft: "200px" }}>
+        <Typography mb={3} textAlign="center" variant="h2">
+          {" "}
+          History{" "}
+        </Typography>
         <Grid
           container
           direction="row"

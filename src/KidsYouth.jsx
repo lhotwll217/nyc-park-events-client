@@ -1,5 +1,5 @@
 import EventCard from "./EventCard";
-import Grid from "@mui/material/Grid";
+import { Grid, Typography } from "@mui/material";
 
 function KidsYouth({ user, events }) {
   let kidsYouthEvents = events.filter(
@@ -12,6 +12,10 @@ function KidsYouth({ user, events }) {
   if (kidsYouthEvents) {
     return (
       <div style={{ marginTop: "100px", marginLeft: "200px" }}>
+        <Typography mb={3} textAlign="center" variant="h2">
+          {" "}
+          Kids/Youth{" "}
+        </Typography>
         <Grid
           container
           direction="row"

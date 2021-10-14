@@ -1,5 +1,5 @@
 import EventCard from "./EventCard";
-import Grid from "@mui/material/Grid";
+import { Grid, Typography } from "@mui/material";
 
 function Sports({ user, events }) {
   let sportsEvents = events.filter((event) =>
@@ -11,6 +11,10 @@ function Sports({ user, events }) {
   if (sportsEvents) {
     return (
       <div style={{ marginTop: "100px", marginLeft: "200px" }}>
+        <Typography mb={3} textAlign="center" variant="h2">
+          {" "}
+          Sports{" "}
+        </Typography>
         <Grid
           container
           direction="row"
