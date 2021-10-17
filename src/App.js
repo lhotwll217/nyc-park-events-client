@@ -1,25 +1,25 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import Home from "./Home";
-import Sports from "./categories/Sports";
-import Seniors from "./categories/Seniors";
-import History from "./categories/History";
-import Dance from "./categories/Dance";
-import Fitness from "./categories/Fitness";
-import Music from "./categories/Music";
-import Profile from "./Profile";
-import Nature from "./categories/Nature";
-import Film from "./categories/Film";
-import Art from "./categories/Art";
-import KidsYouth from "./categories/KidsYouth";
-import AuthPage from "./AuthPage";
-import Education from "./categories/Education";
-import TopBar from "./TopBar";
+import Home from "./containers/Home";
+import Sports from "./components/categories/Sports";
+import Seniors from "./components/categories/Seniors";
+import History from "./components/categories/History";
+import Dance from "./components/categories/Dance";
+import Fitness from "./components/categories/Fitness";
+import Music from "./components/categories/Music";
+import Profile from "./containers/Profile";
+import Nature from "./components/categories/Nature";
+import Film from "./components/categories/Film";
+import Art from "./components/categories/Art";
+import KidsYouth from "./components/categories/KidsYouth";
+import AuthPage from "./containers/AuthPage";
+import Education from "./components/categories/Education";
+import TopBar from "./components/TopBar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import SavedEvents from "./SavedEvents";
-import LoggedInDrawer from "./LoggedInDrawer";
+import SavedEvents from "./containers/SavedEvents";
+import LoggedInDrawer from "./components/LoggedInDrawer";
 import moment from "moment";
-import ScrollToTop from "./ScrollToTop";
+import ScrollToTop from "./functions/ScrollToTop";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -56,8 +56,8 @@ function App() {
       setEvents(data);
     }
     eventFetch();
-    console.log("Fetched");
   }, []);
+  console.log(events);
 
   function onLogin(user) {
     setUser(user);

@@ -1,4 +1,4 @@
-import Logout from "./Logout";
+import Logout from "../components/Logout";
 import { NavLink } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import DateAdapter from "@mui/lab/AdapterMoment";
@@ -36,8 +36,8 @@ function TopBar({ onLogout, loggedIn, handleSearchBarValue, date, setDate }) {
       <AppBar className={classes.topbar}>
         <Toolbar>
           <Typography
-            variant="h6"
-            component="div"
+            variant='h6'
+            component='div'
             // sx={{ flexGrow: 1 }}
           >
             NYC Park Events
@@ -52,13 +52,13 @@ function TopBar({ onLogout, loggedIn, handleSearchBarValue, date, setDate }) {
               marginRight: "25px",
             }}
             onChange={(e) => handleSearchBarValue(e.target.value)}
-            placeholder="Search By Event Title"
-            type="search"
+            placeholder='Search By Event Title'
+            type='search'
           />
           <LocalizationProvider dateAdapter={DateAdapter}>
             <DatePicker
               clearable={true}
-              label="Search Date"
+              label='Search Date'
               value={date}
               onChange={(newDate) => {
                 setDate(newDate);
@@ -75,7 +75,7 @@ function TopBar({ onLogout, loggedIn, handleSearchBarValue, date, setDate }) {
                     }}
                     ref={inputRef}
                     {...inputProps}
-                    placeholder="Search By Date"
+                    placeholder='Search By Date'
                   />
                   {date ? (
                     <IconButton onClick={(e) => handleClr(e)}>
@@ -103,9 +103,9 @@ function TopBar({ onLogout, loggedIn, handleSearchBarValue, date, setDate }) {
                     fontWeight: "300",
                     marginRight: "10px",
                   }}
-                  variant="text"
+                  variant='text'
                   component={NavLink}
-                  to="/profile"
+                  to='/profile'
                   exact
                 >
                   Profile
@@ -124,9 +124,9 @@ function TopBar({ onLogout, loggedIn, handleSearchBarValue, date, setDate }) {
                     fontWeight: "300",
                     marginRight: "10px",
                   }}
-                  variant="text"
+                  variant='text'
                   component={NavLink}
-                  to="/saved_events"
+                  to='/saved_events'
                   exact
                 >
                   Saved Events
@@ -147,7 +147,7 @@ function TopBar({ onLogout, loggedIn, handleSearchBarValue, date, setDate }) {
                     fontWeight: "300",
                   }}
                   component={NavLink}
-                  to="/auth"
+                  to='/auth'
                   exact
                 >
                   Signup/Login

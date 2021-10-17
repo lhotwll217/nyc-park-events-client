@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import SavedEventCard from "./SavedEventCard";
+import SavedEventCard from "../components/SavedEventCard";
 import { Grid, Typography } from "@mui/material";
 
 function SavedEvents({ user }) {
@@ -23,9 +23,9 @@ function SavedEvents({ user }) {
       <div style={{ marginTop: "100px", marginLeft: "150px" }}>
         <Grid
           container
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
+          direction='row'
+          justifyContent='center'
+          alignItems='center'
           spacing={6}
         >
           {savedEvents.map((savedEvent) => {
@@ -47,9 +47,9 @@ function SavedEvents({ user }) {
       <div style={{ marginTop: "100px", marginLeft: "150px" }}>
         <Grid
           container
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
+          direction='row'
+          justifyContent='center'
+          alignItems='center'
           spacing={6}
         >
           <Grid item>
@@ -57,8 +57,8 @@ function SavedEvents({ user }) {
               // ml={37}
               // width="50%"
               mt={20}
-              textAlign="center"
-              variant="h4"
+              textAlign='center'
+              variant='h4'
             >
               Save Events To View & Create/Edit Notifications Here!
             </Typography>

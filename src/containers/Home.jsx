@@ -6,7 +6,7 @@ function Home({ user, events }) {
     return (
       <div>
         <div style={{ marginLeft: "75px" }}>
-          <Grid ml={5} container justify="center">
+          <Grid ml={5} container justify='center'>
             <img
               style={{
                 display: "flex",
@@ -14,9 +14,9 @@ function Home({ user, events }) {
                 margin: "auto",
                 marginTop: "80px",
               }}
-              src="https://upload.wikimedia.org/wikipedia/en/thumb/e/ed/Logo_of_the_New_York_City_Department_of_Parks_%26_Recreation.svg/800px-Logo_of_the_New_York_City_Department_of_Parks_%26_Recreation.svg.png"
+              src='https://upload.wikimedia.org/wikipedia/en/thumb/e/ed/Logo_of_the_New_York_City_Department_of_Parks_%26_Recreation.svg/800px-Logo_of_the_New_York_City_Department_of_Parks_%26_Recreation.svg.png'
               width={150}
-              alt="NYC Parks and Rec"
+              alt='NYC Parks and Rec'
             />
           </Grid>
         </div>
@@ -26,7 +26,7 @@ function Home({ user, events }) {
     );
   } else {
     return (
-      <Grid ml={5} container justify="center">
+      <Grid ml={5} container justify='center'>
         <div
           style={{
             display: "flex",
@@ -35,8 +35,8 @@ function Home({ user, events }) {
             marginTop: "250px",
           }}
         >
-          <CircularProgress ml={10} size={100} color="primary" />
-          <Typography mr={2} mt={6} variant="h4" textAlign="center">
+          <CircularProgress ml={10} size={100} color='primary' />
+          <Typography mr={2} mt={6} variant='h4' textAlign='center'>
             Loading{"  "}
           </Typography>
         </div>

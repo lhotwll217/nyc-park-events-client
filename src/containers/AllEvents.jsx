@@ -1,4 +1,4 @@
-import EventCard from "./EventCard";
+import EventCard from "../components/EventCard";
 import Grid from "@mui/material/Grid";
 
 function AllEvents({ user, events }) {
@@ -8,9 +8,9 @@ function AllEvents({ user, events }) {
     <div style={{ marginTop: "100px", marginLeft: "165px" }}>
       <Grid
         container
-        direction="row"
-        justifyContent="center"
-        alignItems="center"
+        direction='row'
+        justifyContent='center'
+        alignItems='center'
         spacing={6}
       >
         {events.map((e) => {
