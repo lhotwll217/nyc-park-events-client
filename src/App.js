@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import Home from "./Home";
-import Sports from "./Sports";
-import Seniors from "./Seniors";
-import History from "./History";
-import Dance from "./Dance";
-import Fitness from "./Fitness";
-import Music from "./Music";
+import Sports from "./categories/Sports";
+import Seniors from "./categories/Seniors";
+import History from "./categories/History";
+import Dance from "./categories/Dance";
+import Fitness from "./categories/Fitness";
+import Music from "./categories/Music";
 import Profile from "./Profile";
-import Nature from "./Nature";
-import Film from "./Film";
-import Art from "./Art";
-import KidsYouth from "./KidsYouth";
+import Nature from "./categories/Nature";
+import Film from "./categories/Film";
+import Art from "./categories/Art";
+import KidsYouth from "./categories/KidsYouth";
 import AuthPage from "./AuthPage";
-import Education from "./Education";
+import Education from "./categories/Education";
 import TopBar from "./TopBar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SavedEvents from "./SavedEvents";
@@ -103,49 +103,49 @@ function App() {
           />
           <LoggedInDrawer handleCategorySearch={handleCategorySearch} />
           <Switch>
-            <Route exact path="/auth">
+            <Route exact path='/auth'>
               <AuthPage onLogin={onLogin} />
             </Route>
-            <Route exact path="/">
+            <Route exact path='/'>
               <Home user={user} events={dateFilteredSearchedEvents()} />
             </Route>
-            <Route exact path="/sports">
+            <Route exact path='/sports'>
               <Sports user={user} events={dateFilteredSearchedEvents()} />
             </Route>
-            <Route exact path="/seniors">
+            <Route exact path='/seniors'>
               <Seniors user={user} events={dateFilteredSearchedEvents()} />
             </Route>
-            <Route exact path="/education">
+            <Route exact path='/education'>
               <Education user={user} events={dateFilteredSearchedEvents()} />
             </Route>
-            <Route exact path="/kids_youth">
+            <Route exact path='/kids_youth'>
               <KidsYouth user={user} events={dateFilteredSearchedEvents()} />
             </Route>
-            <Route exact path="/fitness">
+            <Route exact path='/fitness'>
               <Fitness user={user} events={dateFilteredSearchedEvents()} />
             </Route>
-            <Route exact path="/film">
+            <Route exact path='/film'>
               <Film user={user} events={dateFilteredSearchedEvents()} />
             </Route>
-            <Route exact path="/art">
+            <Route exact path='/art'>
               <Art user={user} events={dateFilteredSearchedEvents()} />
             </Route>
-            <Route exact path="/music">
+            <Route exact path='/music'>
               <Music user={user} events={dateFilteredSearchedEvents()} />
             </Route>
-            <Route exact path="/dance">
+            <Route exact path='/dance'>
               <Dance user={user} events={dateFilteredSearchedEvents()} />
             </Route>
-            <Route exact path="/nature">
+            <Route exact path='/nature'>
               <Nature user={user} events={dateFilteredSearchedEvents()} />
             </Route>
-            <Route exact path="/history">
+            <Route exact path='/history'>
               <History user={user} events={dateFilteredSearchedEvents()} />
             </Route>
-            <Route exact path="/profile">
+            <Route exact path='/profile'>
               <Profile user={user} setUser={setUser} />
             </Route>
-            <Route exact path="/saved_events">
+            <Route exact path='/saved_events'>
               <SavedEvents user={user} />
             </Route>
           </Switch>
