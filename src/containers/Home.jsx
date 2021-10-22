@@ -6,7 +6,7 @@ function Home({ user, events }) {
     return (
       <div>
         <div style={{ marginLeft: "75px" }}>
-          <Grid ml={5} container justify='center'>
+          <Grid ml={5} container justifyContent='center'>
             <img
               style={{
                 display: "flex",
@@ -26,7 +26,7 @@ function Home({ user, events }) {
     );
   } else {
     return (
-      <Grid ml={5} container justify='center'>
+      <Grid ml={5} container justifyContent='center'>
         <div
           style={{
             display: "flex",
@@ -35,7 +35,7 @@ function Home({ user, events }) {
             marginTop: "250px",
           }}
         >
-          <CircularProgress ml={10} size={100} color='primary' />
+          <CircularProgress size={100} color='primary' />
           <Typography mr={2} mt={6} variant='h4' textAlign='center'>
             Loading{"  "}
           </Typography>

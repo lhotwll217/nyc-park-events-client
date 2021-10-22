@@ -11,7 +11,7 @@ import { Button, Box, Toolbar, AppBar, Typography } from "@mui/material";
 
 const useStyles = makeStyles({
   topbar: {
-    zIndex: "1400",
+    zIndex: 1400,
     position: "absolute",
     right: "0",
     marginLeft: "150px",
@@ -22,6 +22,14 @@ const useStyles = makeStyles({
     display: "inline",
   },
 });
+
+const buttonStyle = {
+  borderRadius: 5,
+  backgroundColor: "white",
+  padding: "5px 7px",
+  fontSize: ".9rem",
+  fontWeight: 300,
+};
 
 function TopBar({ onLogout, loggedIn, handleSearchBarValue, date, setDate }) {
   const classes = useStyles();
@@ -89,18 +97,14 @@ function TopBar({ onLogout, loggedIn, handleSearchBarValue, date, setDate }) {
             />
           </LocalizationProvider>
 
-          <div style={{ width: "20px", flexGrow: "1" }} />
+          <div style={{ width: "20px", flexGrow: 1 }} />
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
             <div>
               {" "}
               {loggedIn ? (
                 <Button
                   style={{
-                    borderRadius: 5,
-                    backgroundColor: "white",
-                    padding: "5px 7px",
-                    fontSize: ".9rem",
-                    fontWeight: "300",
+                    ...buttonStyle,
                     marginRight: "10px",
                   }}
                   variant='text'
@@ -116,14 +120,7 @@ function TopBar({ onLogout, loggedIn, handleSearchBarValue, date, setDate }) {
               {" "}
               {loggedIn ? (
                 <Button
-                  style={{
-                    borderRadius: 5,
-                    backgroundColor: "white",
-                    padding: "5px 7px",
-                    fontSize: ".9rem",
-                    fontWeight: "300",
-                    marginRight: "10px",
-                  }}
+                  style={{ ...buttonStyle, marginRight: "10px" }}
                   variant='text'
                   component={NavLink}
                   to='/saved_events'
@@ -139,13 +136,7 @@ function TopBar({ onLogout, loggedIn, handleSearchBarValue, date, setDate }) {
                 <Logout onLogout={onLogout} />
               ) : (
                 <Button
-                  style={{
-                    borderRadius: 5,
-                    backgroundColor: "white",
-                    padding: "5px 7px",
-                    fontSize: ".9rem",
-                    fontWeight: "300",
-                  }}
+                  style={buttonStyle}
                   component={NavLink}
                   to='/auth'
                   exact

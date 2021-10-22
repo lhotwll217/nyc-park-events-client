@@ -33,9 +33,7 @@ const useStyles = makeStyles({
   root: {
     minWidth: 325,
     maxWidth: 325,
-
     display: "inline-block",
-    // padding: "12px",
     boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
     "&:hover": {
       boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)",
@@ -58,7 +56,7 @@ const useStyles = makeStyles({
   },
 });
 
-function EventCard({ event, user, startdate }) {
+function EventCard({ event, user }) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const [categoriesWrap, setCategoriesWrap] = useState(true);
@@ -101,35 +99,35 @@ function EventCard({ event, user, startdate }) {
   return (
     <Grid item>
       <Card className={classes.root} elevation={2}>
-        <Typography variant="h5" m={2}>
+        <Typography variant='h5' m={2}>
           <strong>{event.title}</strong>
         </Typography>
 
         {event.image && (
           <CardMedia
-            component="img"
+            component='img'
             className={classes.media}
-            height="200"
+            height='200'
             image={event.image}
             title={event.title}
           />
         )}
 
         <div>
-          <Typography ml={2} fontSize="1.2rem" fontWeight="600">
+          <Typography ml={2} fontSize='1.2rem' fontWeight='600'>
             {moment(event.start_date_time).format("MMMM Do")}
           </Typography>
-          <Typography ml={2} mb={1} fontSize="1rem" fontWeight="600">
+          <Typography ml={2} mb={1} fontSize='1rem' fontWeight='600'>
             {moment(event.start_date_time).format("h:mm a")} -{" "}
             {moment(event.end_date_time).format("h:mm a")}{" "}
           </Typography>
         </div>
 
-        <Typography fontSize="1rem" fontWeight="300" ml={2} mr={1} mb={1}>
+        <Typography fontSize='1rem' fontWeight='300' ml={2} mr={1} mb={1}>
           {event.location}
         </Typography>
         <div style={{ display: "inline" }}>
-          <Typography fontSize=".9rem" textAlign="center" fontWeight="600">
+          <Typography fontSize='.9rem' textAlign='center' fontWeight='600'>
             Categories
             <IconButton onClick={() => setCategoriesWrap(!categoriesWrap)}>
               <AddCircleIcon />
@@ -137,24 +135,20 @@ function EventCard({ event, user, startdate }) {
           </Typography>
         </div>
 
-        <Typography mx={1} fontSize=".9rem" noWrap={categoriesWrap}>
+        <Typography mx={1} fontSize='.9rem' noWrap={categoriesWrap}>
           {event.categories}
         </Typography>
 
         <CardActions disableSpacing>
           <Button
             onClick={saveEventButton}
-            variant="outlined"
+            variant='outlined'
             startIcon={<AddCircleIcon />}
           >
             Save
           </Button>
-          <IconButton
-            onClick={openLinkTab}
-            styles={{ marginLeft: "5px" }}
-            color="success"
-          >
-            <InfoIcon ml={2} />
+          <IconButton onClick={openLinkTab} color='success'>
+            <InfoIcon />
           </IconButton>
           {event.contact_phone && (
             <IconButton onClick={openPopover}>
@@ -174,7 +168,7 @@ function EventCard({ event, user, startdate }) {
               vertical: "top",
               horizontal: "center",
             }}
-            style={{ zIndex: "1500" }}
+            style={{ zIndex: 1400 }}
           >
             <div
               style={{
@@ -183,7 +177,7 @@ function EventCard({ event, user, startdate }) {
                 borderColor: "blueviolet",
               }}
             >
-              <Typography fontsize="1.4rem" fontWeight="700">
+              <Typography fontSize='1.4rem' fontWeight='700'>
                 {" "}
                 {event.contact_phone}
               </Typography>
@@ -193,17 +187,17 @@ function EventCard({ event, user, startdate }) {
             expand={expanded}
             onClick={handleExpandClick}
             aria-expanded={expanded}
-            aria-label="show more"
+            aria-label='show more'
           >
             <ExploreIcon />
           </ExpandMore>
         </CardActions>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <Collapse in={expanded} timeout='auto' unmountOnExit>
           <CardContent>
             <CardMedia
-              component="img"
-              height="200"
-              image="https://i.insider.com/5c61cecf2628981bd4585b4a?width=1000&format=jpeg&auto=webp"
+              component='img'
+              height='200'
+              image='https://i.insider.com/5c61cecf2628981bd4585b4a?width=1000&format=jpeg&auto=webp'
               title={event.title}
             />
           </CardContent>

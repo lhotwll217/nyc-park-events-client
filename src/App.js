@@ -1,3 +1,4 @@
+//@ts-ignore
 import { useState, useEffect } from "react";
 import "./App.css";
 import Home from "./containers/Home";
@@ -23,7 +24,7 @@ import ScrollToTop from "./functions/ScrollToTop";
 
 function App() {
   const [user, setUser] = useState(null);
-  const [loggedIn, setLoggedIn] = useState("");
+  const [loggedIn, setLoggedIn] = useState(false);
   const [events, setEvents] = useState([]);
   const [searchBarValue, setSearchBarValue] = useState("");
   const [categorySearch, setCategorySearch] = useState("");
@@ -98,7 +99,6 @@ function App() {
             setDate={setDate}
             loggedIn={loggedIn}
             onLogout={onLogout}
-            user={user}
             handleSearchBarValue={handleSearchBarValue}
           />
           <LoggedInDrawer handleCategorySearch={handleCategorySearch} />

@@ -2,8 +2,9 @@ const proxy = require("http-proxy-middleware");
 
 module.exports = function (app) {
   app.use(
+    // @ts-ignore
     proxy("/server", {
-      target: "https://vast-river-53085.herokuapp.com/", // API endpoint 1
+      target: "http://localhost:3000", // API endpoint 1
       changeOrigin: true,
       pathRewrite: {
         "^/server": "",
@@ -14,6 +15,7 @@ module.exports = function (app) {
     })
   );
   app.use(
+    // @ts-ignore
     proxy("/api", {
       target:
         "https://raw.githubusercontent.com/lhotwll217/lhotwll217.github.io/main/data/events_300_rss.json", // API endpoint 2
