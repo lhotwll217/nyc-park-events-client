@@ -88,13 +88,13 @@ function App() {
       return searchedEvents;
     }
   }
-  console.log(dateFilteredSearchedEvents());
 
   return (
     <div>
       <Router>
         <ScrollToTop>
           <TopBar
+            key={user}
             date={date}
             setDate={setDate}
             loggedIn={loggedIn}

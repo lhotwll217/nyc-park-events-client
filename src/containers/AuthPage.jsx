@@ -7,7 +7,7 @@ function AuthPage({ onLogin }) {
     <div
       style={{ marginLeft: "200px", marginTop: "80px", marginRight: "50px" }}
     >
-      <Grid container justify='center'>
+      <Grid container justifyContent='center'>
         <img
           style={{
             display: "flex",
