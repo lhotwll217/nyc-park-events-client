@@ -1,5 +1,5 @@
 //@ts-ignore
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
 import "./App.css";
 import Home from "./containers/Home";
 import Sports from "./components/categories/Sports";
@@ -16,7 +16,7 @@ import KidsYouth from "./components/categories/KidsYouth";
 import AuthPage from "./containers/AuthPage";
 import Education from "./components/categories/Education";
 import TopBar from "./components/TopBar";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import SavedEvents from "./containers/SavedEvents";
 import LoggedInDrawer from "./components/LoggedInDrawer";
 import moment from "moment";
@@ -29,6 +29,7 @@ function App() {
   const [searchBarValue, setSearchBarValue] = useState("");
   const [categorySearch, setCategorySearch] = useState("");
   const [date, setDate] = useState(null);
+  const loadMoreEvents = () => {};
 
   function handleSearchBarValue(e) {
     setSearchBarValue(e.toLowerCase());
@@ -49,12 +50,22 @@ function App() {
     });
   }, []);
 
+  const handleScroll = (e) => {
+    let top = e.target.documentElement.scrollTop;
+    let height = e.target.documentElement.scrollHeight;
+    let scrollBar = window.innerHeight;
+    console.log(top, height, scrollBar);
+    if (top + scrollBar + 1 >= height) {
+      console.log("bottom page");
+    }
+  };
+
   useEffect(() => {
     async function eventFetch() {
-      let res = await fetch("/server/events");
+      let res = await fetch("http://localhost:3000/paginate");
       let data = await res.json();
-
       setEvents(data);
+      window.addEventListener("scroll", handleScroll);
     }
     eventFetch();
   }, []);
