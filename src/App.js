@@ -29,7 +29,23 @@ function App() {
   const [searchBarValue, setSearchBarValue] = useState("");
   const [categorySearch, setCategorySearch] = useState("");
   const [date, setDate] = useState(null);
-  const loadMoreEvents = () => {};
+
+  let eventPage = 0;
+
+  console.log(eventPage);
+  async function eventFetch(page) {
+    let res = await fetch(`http://localhost:3000/paginate/${page}`);
+    let data = await res.json();
+    setEvents((oldEvents) => [...oldEvents, ...data]);
+  }
+
+  useEffect(() => {
+    eventFetch(eventPage);
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      console.log("unmounted");
+    };
+  }, []);
 
   function handleSearchBarValue(e) {
     setSearchBarValue(e.toLowerCase());
@@ -54,21 +70,23 @@ function App() {
     let top = e.target.documentElement.scrollTop;
     let height = e.target.documentElement.scrollHeight;
     let scrollBar = window.innerHeight;
-    console.log(top, height, scrollBar);
+    // console.log(top, height, scrollBar);
     if (top + scrollBar + 1 >= height) {
-      console.log("bottom page");
+      console.log("bottom");
+      eventPage += 1;
+      eventFetch(eventPage);
     }
   };
 
-  useEffect(() => {
-    async function eventFetch() {
-      let res = await fetch("http://localhost:3000/paginate");
-      let data = await res.json();
-      setEvents(data);
-      window.addEventListener("scroll", handleScroll);
-    }
-    eventFetch();
-  }, []);
+  // useEffect(() => {
+  //   async function eventFetch() {
+  //     let res = await fetch("http://localhost:3000/paginate");
+  //     let data = await res.json();
+  //     setEvents(data);
+  //     window.addEventListener("scroll", handleScroll);
+  //   }
+  //   eventFetch();
+  // }, []);
   console.log(events);
 
   function onLogin(user) {
@@ -81,7 +99,7 @@ function App() {
     setLoggedIn(false);
   }
 
-  let searchedEvents = events.filter(
+  let searchedEvents = events?.filter(
     (event) =>
       event.title.toLowerCase().includes(searchBarValue) &&
       event.categories.toLowerCase().includes(categorySearch)
