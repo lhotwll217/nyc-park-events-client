@@ -1,27 +1,28 @@
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
-import { makeStyles } from "@mui/styles";
-import { styled } from "@mui/material/styles";
+import {makeStyles} from "@mui/styles";
+import {styled} from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
-import { useState } from "react";
+import {useState} from "react";
 import CardActions from "@mui/material/CardActions";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
 import CardContent from "@mui/material/CardContent";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { Button } from "@mui/material";
+import {Button} from "@mui/material";
 import moment from "moment";
 import Typography from "@mui/material/Typography";
 import InfoIcon from "@mui/icons-material/Info";
 import ExploreIcon from "@mui/icons-material/Explore";
-import { Phone } from "@mui/icons-material";
+import {Phone} from "@mui/icons-material";
 import Popover from "@mui/material/Popover";
+import GoogleMap from "components/GoogleMap";
 require("moment-timezone");
 
 const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
+  const {expand, ...other} = props;
   return <IconButton {...other} />;
-})(({ theme, expand }) => ({
+})(({theme, expand}) => ({
   transform: !expand ? "rotate(0deg)" : "rotate(270deg)",
   marginLeft: "auto",
   transition: theme.transitions.create("transform", {
@@ -56,7 +57,7 @@ const useStyles = makeStyles({
   },
 });
 
-function EventCard({ event, user }) {
+function EventCard({event, user}) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const [categoriesWrap, setCategoriesWrap] = useState(true);
@@ -81,7 +82,7 @@ function EventCard({ event, user }) {
       async function saveEvent() {
         let res = await fetch("/server/save_event", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
             event_id: event.id,
             user_id: user.id,
@@ -126,7 +127,7 @@ function EventCard({ event, user }) {
         <Typography fontSize='1rem' fontWeight='300' ml={2} mr={1} mb={1}>
           {event.location}
         </Typography>
-        <div style={{ display: "inline" }}>
+        <div style={{display: "inline"}}>
           <Typography fontSize='.9rem' textAlign='center' fontWeight='600'>
             Categories
             <IconButton onClick={() => setCategoriesWrap(!categoriesWrap)}>
@@ -168,7 +169,7 @@ function EventCard({ event, user }) {
               vertical: "top",
               horizontal: "center",
             }}
-            style={{ zIndex: 1400 }}
+            style={{zIndex: 1400}}
           >
             <div
               style={{
@@ -183,25 +184,24 @@ function EventCard({ event, user }) {
               </Typography>
             </div>
           </Popover>
-          <ExpandMore
-            expand={expanded}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label='show more'
-          >
-            <ExploreIcon />
-          </ExpandMore>
+          {event.latitude && (
+            <ExpandMore
+              expand={expanded}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label='show more'
+            >
+              <ExploreIcon />
+            </ExpandMore>
+          )}
         </CardActions>
-        <Collapse in={expanded} timeout='auto' unmountOnExit>
-          <CardContent>
-            <CardMedia
-              component='img'
-              height='200'
-              image='https://i.insider.com/5c61cecf2628981bd4585b4a?width=1000&format=jpeg&auto=webp'
-              title={event.title}
-            />
-          </CardContent>
-        </Collapse>
+        {event.latitude && (
+          <Collapse in={expanded} timeout='auto' unmountOnExit>
+            <CardContent>
+              <GoogleMap lat={event.latitude} lng={event.longitude} />
+            </CardContent>
+          </Collapse>
+        )}
       </Card>
     </Grid>
   );
