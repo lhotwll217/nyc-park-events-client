@@ -1,7 +1,7 @@
 import AllEvents from "./AllEvents";
 import {Grid, CircularProgress, Typography} from "@mui/material";
 
-function Home({user, events, observer, lastEventElementRef}) {
+function Home({user, events}) {
   if (events?.length > 0) {
     return (
       <div>
@@ -21,12 +21,7 @@ function Home({user, events, observer, lastEventElementRef}) {
           </Grid>
         </div>
 
-        <AllEvents
-          events={events}
-          user={user}
-          lastEventElementRef={lastEventElementRef}
-          observer={observer}
-        />
+        <AllEvents events={events} user={user} />
       </div>
     );
   } else {

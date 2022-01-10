@@ -1,7 +1,7 @@
 import EventCard from "../components/EventCard";
 import Grid from "@mui/material/Grid";
 
-function AllEvents({user, events, lastEventElementRef}) {
+function AllEvents({user, events}) {
   console.log(events);
   console.log(user);
   return (
@@ -13,20 +13,8 @@ function AllEvents({user, events, lastEventElementRef}) {
         alignItems='center'
         spacing={6}
       >
-        {events.map((e, index) => {
-          if (e.length === index + 1) {
-            return (
-              <div key={e.id} ref={lastEventElementRef}>
-                <EventCard key={e.id} event={e} user={user} />
-              </div>
-            );
-          } else {
-            return (
-              <div key={e.id}>
-                <EventCard key={e.id} event={e} user={user} />
-              </div>
-            );
-          }
+        {events.map((e) => {
+          return <EventCard key={e.id} event={e} user={user} />;
         })}
       </Grid>
     </div>

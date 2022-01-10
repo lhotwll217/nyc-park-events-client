@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 
-export default function useGetEvents(query, pageNumber) {
+export default function useGetEvents(query, page, searchBarValue) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [events, setEvents] = useState([]);
@@ -9,7 +9,7 @@ export default function useGetEvents(query, pageNumber) {
 
   useEffect(() => {
     setEvents([]);
-  }, [query]);
+  }, [query, searchBarValue]);
 
   useEffect(() => {
     setLoading(true);
@@ -18,7 +18,7 @@ export default function useGetEvents(query, pageNumber) {
     axios({
       method: "GET",
       url: "http://localhost:3000/filtered",
-      params: {date: query, page: pageNumber},
+      params: {date: query, page: page, search: searchBarValue},
       cancelToken: new axios.CancelToken((c) => (cancel = c)),
     })
       .then((res) => {
@@ -35,6 +35,6 @@ export default function useGetEvents(query, pageNumber) {
         setError(true);
       });
     return () => cancel();
-  }, [query, pageNumber]);
+  }, [query, page, searchBarValue]);
   return {loading, error, hasMore, events};
 }

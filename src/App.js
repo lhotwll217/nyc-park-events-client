@@ -1,5 +1,5 @@
 //@ts-ignore
-import {useState, useEffect, useRef, useCallback} from "react";
+import {useState, useEffect} from "react";
 import "./App.css";
 import Home from "./containers/Home";
 import Sports from "./components/categories/Sports";
@@ -27,29 +27,31 @@ function App() {
   const [user, setUser] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
   // const [events, setEvents] = useState([]);
-  const [searchBarValue, setSearchBarValue] = useState("");
+  const [searchBarValue, setSearchBarValue] = useState(null);
   const [categorySearch, setCategorySearch] = useState("");
   const [date, setDate] = useState(null);
   const [page, setPage] = useState(1);
 
-  const observer = useRef();
-
-  const {error, loading, events, hasMore} = useGetEvents(date, page);
-
-  const lastEventElementRef = useCallback(
-    (node) => {
-      console.log(node);
-      if (loading) return;
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          console.log("Visible");
-        }
-      });
-      if (node) observer.current.observer(node);
-    },
-    [loading, hasMore]
+  const {error, loading, events, hasMore} = useGetEvents(
+    date,
+    page,
+    searchBarValue
   );
+
+  // const lastEventElementRef = useCallback(
+  //   (node) => {
+  //     console.log(node);
+  //     if (loading) return;
+  //     if (observer.current) observer.current.disconnect();
+  //     observer.current = new IntersectionObserver((entries) => {
+  //       if (entries[0].isIntersecting) {
+  //         console.log("Visible");
+  //       }
+  //     });
+  //     if (node) observer.current.observer(node);
+  //   },
+  //   [loading, hasMore]
+  // );
 
   // async function eventFetch(page) {
   //   let res = await fetch(`http://localhost:3000/paginate/${page}`);
@@ -77,6 +79,7 @@ function App() {
 
   function handleSearchBarValue(e) {
     setSearchBarValue(e.toLowerCase());
+    setPage(1);
   }
 
   function handleCategorySearch(e) {
@@ -170,12 +173,7 @@ function App() {
               <AuthPage onLogin={onLogin} />
             </Route>
             <Route exact path='/'>
-              <Home
-                observer={observer}
-                lastEventElementRef={lastEventElementRef}
-                user={user}
-                events={dateFilteredSearchedEvents()}
-              />
+              <Home user={user} events={events} />
             </Route>
             <Route exact path='/sports'>
               <Sports user={user} events={dateFilteredSearchedEvents()} />

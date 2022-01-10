@@ -80,29 +80,33 @@ function TopBar({
               onChange={(newDate) => {
                 handleDateSelect(newDate);
               }}
-              renderInput={({inputRef, inputProps, InputProps}) => (
-                <Box sx={{display: "flex", alignItems: "center"}}>
-                  <input
-                    style={{
-                      padding: "7px",
-                      marginLeft: "25px",
+              renderInput={({inputRef, inputProps, InputProps}) => {
+                console.log(InputProps, inputRef);
 
-                      flexBasis: "25%",
-                      marginRight: "1px",
-                    }}
-                    ref={inputRef}
-                    {...inputProps}
-                    placeholder='Search By Date'
-                  />
-                  {date ? (
-                    <IconButton onClick={(e) => handleClr(e)}>
-                      <ClearIcon />
-                    </IconButton>
-                  ) : (
-                    InputProps?.endAdornment
-                  )}
-                </Box>
-              )}
+                return (
+                  <Box sx={{display: "flex", alignItems: "center"}}>
+                    <input
+                      style={{
+                        padding: "7px",
+                        marginLeft: "25px",
+
+                        flexBasis: "25%",
+                        marginRight: "1px",
+                      }}
+                      ref={inputRef}
+                      {...inputProps}
+                      placeholder='Search By Date'
+                    />
+                    {date ? (
+                      <IconButton onClick={(e) => handleClr(e)}>
+                        <ClearIcon />
+                      </IconButton>
+                    ) : (
+                      InputProps?.endAdornment
+                    )}
+                  </Box>
+                );
+              }}
             />
           </LocalizationProvider>
 
