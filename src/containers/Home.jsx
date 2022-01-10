@@ -1,11 +1,11 @@
 import AllEvents from "./AllEvents";
-import { Grid, CircularProgress, Typography } from "@mui/material";
+import {Grid, CircularProgress, Typography} from "@mui/material";
 
-function Home({ user, events }) {
+function Home({user, events, observer, lastEventElementRef}) {
   if (events?.length > 0) {
     return (
       <div>
-        <div style={{ marginLeft: "75px" }}>
+        <div style={{marginLeft: "75px"}}>
           <Grid ml={5} container justifyContent='center'>
             <img
               style={{
@@ -21,7 +21,12 @@ function Home({ user, events }) {
           </Grid>
         </div>
 
-        <AllEvents events={events} user={user} />
+        <AllEvents
+          events={events}
+          user={user}
+          lastEventElementRef={lastEventElementRef}
+          observer={observer}
+        />
       </div>
     );
   } else {

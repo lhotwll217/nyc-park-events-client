@@ -1,5 +1,5 @@
 //@ts-ignore
-import {useState, useEffect} from "react";
+import {useState, useEffect, useRef, useCallback} from "react";
 import "./App.css";
 import Home from "./containers/Home";
 import Sports from "./components/categories/Sports";
@@ -21,31 +21,59 @@ import SavedEvents from "./containers/SavedEvents";
 import LoggedInDrawer from "./components/LoggedInDrawer";
 import moment from "moment";
 import ScrollToTop from "./functions/ScrollToTop";
+import useGetEvents from "functions/getEventsHook";
 
 function App() {
   const [user, setUser] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [events, setEvents] = useState([]);
+  // const [events, setEvents] = useState([]);
   const [searchBarValue, setSearchBarValue] = useState("");
   const [categorySearch, setCategorySearch] = useState("");
   const [date, setDate] = useState(null);
+  const [page, setPage] = useState(1);
 
-  let eventPage = 0;
+  const observer = useRef();
 
-  console.log(eventPage);
-  async function eventFetch(page) {
-    let res = await fetch(`http://localhost:3000/paginate/${page}`);
-    let data = await res.json();
-    setEvents((oldEvents) => [...oldEvents, ...data]);
-  }
+  const {error, loading, events, hasMore} = useGetEvents(date, page);
+
+  const lastEventElementRef = useCallback(
+    (node) => {
+      console.log(node);
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          console.log("Visible");
+        }
+      });
+      if (node) observer.current.observer(node);
+    },
+    [loading, hasMore]
+  );
+
+  // async function eventFetch(page) {
+  //   let res = await fetch(`http://localhost:3000/paginate/${page}`);
+  //   let data = await res.json();
+  //   setEvents((oldEvents) => [...oldEvents, ...data]);
+  // }
+
+  // async function dateFetch(date) {
+  //   let res = await fetch(`http://localhost:3000/filtered?date=${date}`);
+  //   let data = await res.json();
+  //   setEvents(data);
+  // }
 
   useEffect(() => {
-    eventFetch(eventPage);
     window.addEventListener("scroll", handleScroll);
     return () => {
       console.log("unmounted");
     };
   }, []);
+
+  function handleDateSelect(e) {
+    setDate(e);
+    setPage(1);
+  }
 
   function handleSearchBarValue(e) {
     setSearchBarValue(e.toLowerCase());
@@ -53,6 +81,12 @@ function App() {
 
   function handleCategorySearch(e) {
     setCategorySearch(e.toLowerCase());
+  }
+
+  function handleClr(e) {
+    e.stopPropagation();
+    setDate(null);
+    setPage(1);
   }
 
   useEffect(() => {
@@ -73,8 +107,7 @@ function App() {
     // console.log(top, height, scrollBar);
     if (top + scrollBar + 1 >= height) {
       console.log("bottom");
-      eventPage += 1;
-      eventFetch(eventPage);
+      setPage((prevPage) => prevPage + 1);
     }
   };
 
@@ -125,10 +158,11 @@ function App() {
           <TopBar
             key={user}
             date={date}
-            setDate={setDate}
             loggedIn={loggedIn}
             onLogout={onLogout}
             handleSearchBarValue={handleSearchBarValue}
+            handleClr={handleClr}
+            handleDateSelect={handleDateSelect}
           />
           <LoggedInDrawer handleCategorySearch={handleCategorySearch} />
           <Switch>
@@ -136,7 +170,12 @@ function App() {
               <AuthPage onLogin={onLogin} />
             </Route>
             <Route exact path='/'>
-              <Home user={user} events={dateFilteredSearchedEvents()} />
+              <Home
+                observer={observer}
+                lastEventElementRef={lastEventElementRef}
+                user={user}
+                events={dateFilteredSearchedEvents()}
+              />
             </Route>
             <Route exact path='/sports'>
               <Sports user={user} events={dateFilteredSearchedEvents()} />

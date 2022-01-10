@@ -1,13 +1,13 @@
 import Logout from "../components/Logout";
-import { NavLink } from "react-router-dom";
-import { makeStyles } from "@mui/styles";
+import {NavLink} from "react-router-dom";
+import {makeStyles} from "@mui/styles";
 import DateAdapter from "@mui/lab/AdapterMoment";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DatePicker from "@mui/lab/DatePicker";
 import ClearIcon from "@mui/icons-material/Clear";
 import IconButton from "@mui/material/IconButton";
 
-import { Button, Box, Toolbar, AppBar, Typography } from "@mui/material";
+import {Button, Box, Toolbar, AppBar, Typography} from "@mui/material";
 
 const useStyles = makeStyles({
   topbar: {
@@ -31,13 +31,22 @@ const buttonStyle = {
   fontWeight: 300,
 };
 
-function TopBar({ onLogout, loggedIn, handleSearchBarValue, date, setDate }) {
+function TopBar({
+  onLogout,
+  loggedIn,
+  handleSearchBarValue,
+  date,
+  handleClr,
+  handleDateSelect,
+}) {
   const classes = useStyles();
 
-  function handleClr(e) {
-    e.stopPropagation();
-    setDate(null);
-  }
+  // function handleClr(e) {
+  //   e.stopPropagation();
+  //   setDate(null);
+  //   setEvents([]);
+  //   eventFetch(1);
+  // }
 
   return (
     <Box className={classes.topbar}>
@@ -69,10 +78,10 @@ function TopBar({ onLogout, loggedIn, handleSearchBarValue, date, setDate }) {
               label='Search Date'
               value={date}
               onChange={(newDate) => {
-                setDate(newDate);
+                handleDateSelect(newDate);
               }}
-              renderInput={({ inputRef, inputProps, InputProps }) => (
-                <Box sx={{ display: "flex", alignItems: "center" }}>
+              renderInput={({inputRef, inputProps, InputProps}) => (
+                <Box sx={{display: "flex", alignItems: "center"}}>
                   <input
                     style={{
                       padding: "7px",
@@ -97,8 +106,8 @@ function TopBar({ onLogout, loggedIn, handleSearchBarValue, date, setDate }) {
             />
           </LocalizationProvider>
 
-          <div style={{ width: "20px", flexGrow: 1 }} />
-          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          <div style={{width: "20px", flexGrow: 1}} />
+          <div style={{display: "flex", justifyContent: "flex-end"}}>
             <div>
               {" "}
               {loggedIn ? (
@@ -120,7 +129,7 @@ function TopBar({ onLogout, loggedIn, handleSearchBarValue, date, setDate }) {
               {" "}
               {loggedIn ? (
                 <Button
-                  style={{ ...buttonStyle, marginRight: "10px" }}
+                  style={{...buttonStyle, marginRight: "10px"}}
                   variant='text'
                   component={NavLink}
                   to='/saved_events'
