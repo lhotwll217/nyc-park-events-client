@@ -1,11 +1,10 @@
 import EventCard from "../components/EventCard";
 import Grid from "@mui/material/Grid";
+import PaginationLoading from "components/PaginationLoading";
 
-function AllEvents({user, events}) {
-  console.log(events);
-  console.log(user);
+function AllEvents({user, events, loading}) {
   return (
-    <div style={{marginTop: "100px", marginLeft: "165px"}}>
+    <div style={{marginTop: "100px"}}>
       <Grid
         container
         direction='row'
@@ -17,6 +16,7 @@ function AllEvents({user, events}) {
           return <EventCard key={e.id} event={e} user={user} />;
         })}
       </Grid>
+      {loading && <PaginationLoading loading={loading} events={events} />}
     </div>
   );
 }
