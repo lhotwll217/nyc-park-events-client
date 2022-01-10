@@ -1,26 +1,15 @@
-import {Typography, Grid} from "@mui/material";
-import {useEffect, useRef} from "react";
+import {Typography} from "@mui/material";
 
-export default function PaginationLoading({loading}) {
-  const loadingRef = useRef(null);
-
-  //   function scrollToBottom() {
-  //     loadingRef.current.scrollIntoView({block: "end"});
-  //   }
-
-  //   useEffect(() => {
-  //     scrollToBottom();
-  //   }, [loading]);
-
+export default function PaginationLoading() {
   return (
     <Typography
       mt={4}
-      mb={6}
+      mb={10}
       textAlign='center'
       fontSize='1.6rem'
       fontWeight='600'
     >
-      <div ref={loadingRef}>Loading...</div>
+      <div>Loading...</div>
     </Typography>
   );
 }

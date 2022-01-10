@@ -16,7 +16,8 @@ function AllEvents({user, events, loading}) {
           return <EventCard key={e.id} event={e} user={user} />;
         })}
       </Grid>
-      {loading && <PaginationLoading loading={loading} events={events} />}
+      
+      { loading &&  <PaginationLoading />}
     </div>
   );
 }
