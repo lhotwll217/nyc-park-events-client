@@ -9,7 +9,7 @@ export default function PaginationLoading() {
       fontSize='1.6rem'
       fontWeight='600'
     >
-      <div>Loading...</div>
+      Loading...
     </Typography>
   );
 }

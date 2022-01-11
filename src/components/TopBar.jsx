@@ -6,6 +6,7 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DatePicker from "@mui/lab/DatePicker";
 import ClearIcon from "@mui/icons-material/Clear";
 import IconButton from "@mui/material/IconButton";
+import {useHistory} from "react-router-dom/cjs/react-router-dom.min";
 
 import {Button, Box, Toolbar, AppBar, Typography} from "@mui/material";
 
@@ -40,22 +41,17 @@ function TopBar({
   handleDateSelect,
 }) {
   const classes = useStyles();
-
-  // function handleClr(e) {
-  //   e.stopPropagation();
-  //   setDate(null);
-  //   setEvents([]);
-  //   eventFetch(1);
-  // }
+  const history = useHistory();
 
   return (
     <Box className={classes.topbar}>
       <AppBar className={classes.topbar}>
         <Toolbar>
           <Typography
+            onClick={() => history.push("/")}
             variant='h6'
             component='div'
-            // sx={{ flexGrow: 1 }}
+            style={{cursor: "pointer"}}
           >
             NYC Park Events
           </Typography>
@@ -69,7 +65,7 @@ function TopBar({
               marginRight: "25px",
             }}
             onChange={(e) => handleSearchBarValue(e.target.value)}
-            placeholder='Search By Event Title'
+            placeholder='Search Titles/Categories'
             type='search'
           />
           <LocalizationProvider dateAdapter={DateAdapter}>
@@ -81,8 +77,6 @@ function TopBar({
                 handleDateSelect(newDate);
               }}
               renderInput={({inputRef, inputProps, InputProps}) => {
-                console.log(InputProps, inputRef);
-
                 return (
                   <Box sx={{display: "flex", alignItems: "center"}}>
                     <input
@@ -139,7 +133,7 @@ function TopBar({
                   to='/saved_events'
                   exact
                 >
-                  Saved Events
+                  Saved
                 </Button>
               ) : null}{" "}
             </div>

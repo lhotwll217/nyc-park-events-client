@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { makeStyles } from "@mui/styles";
+import {useState} from "react";
+import {makeStyles} from "@mui/styles";
 import moment from "moment";
-import { styled } from "@mui/material/styles";
+import {styled} from "@mui/material/styles";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import {
   Button,
@@ -17,13 +17,13 @@ import {
 } from "@mui/material";
 import AddAlertIcon from "@mui/icons-material/AddAlert";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Phone } from "@mui/icons-material";
+import {Phone} from "@mui/icons-material";
 import InfoIcon from "@mui/icons-material/Info";
 
 const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
+  const {expand, ...other} = props;
   return <Button {...other} />;
-})(({ theme, expand }) => ({
+})(({theme, expand}) => ({
   transform: !expand ? "rotate(0deg)" : "rotate(0deg)",
   marginLeft: "auto",
   transition: theme.transitions.create("transform", {
@@ -57,9 +57,8 @@ const useStyles = makeStyles({
   },
 });
 
-function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
+function SavedEventCard({savedEvent, user, setSavedEvents, savedEvents}) {
   const classes = useStyles();
-  console.log(savedEvent);
   const [categoriesWrap, setCategoriesWrap] = useState(true);
   const [notificationHours, setNotificationHours] = useState(1);
   const [expanded, setExpanded] = useState(false);
@@ -88,7 +87,6 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
           (n) => n.id !== id
         );
         savedEvent.notifications = updatedNotifications;
-        console.log(savedEvent);
         let updatedEvent = savedEvent;
         let updatedEvents = savedEvents.map((e) => {
           if (e.id === updatedEvent.id) {
@@ -124,7 +122,7 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
     async function createNotification() {
       let res = await fetch("/server/notifications", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
           days_before: notificationHours,
           saved_event_id: savedEvent.id,
@@ -157,7 +155,7 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
     createNotification();
   }
 
-  if (user) {
+  if (savedEvent) {
     return (
       <Grid item>
         <Card
@@ -165,44 +163,44 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
           elevation={2}
           key={savedEvent.event.link}
         >
-          <Typography variant="h5" m={2}>
+          <Typography variant='h5' m={2}>
             {savedEvent.event.title}
           </Typography>
           {savedEvent.event.image && (
             <CardMedia
-              component="img"
+              component='img'
               className={classes.media}
-              height="200"
+              height='200'
               image={savedEvent.event.image}
-              title="savedEvent.event.title"
+              title='savedEvent.event.title'
             />
           )}
-          <Typography ml={2} fontSize="1.2rem" fontWeight="600">
+          <Typography ml={2} fontSize='1.2rem' fontWeight='600'>
             {moment(savedEvent.event.start_date_time).format("MMMM Do")}
           </Typography>
-          <Typography ml={2} mb={1} fontSize="1rem" fontWeight="400">
+          <Typography ml={2} mb={1} fontSize='1rem' fontWeight='400'>
             {moment(savedEvent.event.start_date_time).format("h:mm a")} -{" "}
             {moment(savedEvent.event.end_date_time).format("h:mm a")}
           </Typography>
-          <Typography fontSize="1rem" fontWeight="300" ml={2} mb={1}>
+          <Typography fontSize='1rem' fontWeight='300' ml={2} mb={1}>
             {savedEvent.event.location}
           </Typography>
-          <div style={{ display: "inline" }}>
-            <Typography fontSize=".9rem" textAlign="center" fontWeight="600">
+          <div style={{display: "inline"}}>
+            <Typography fontSize='.9rem' textAlign='center' fontWeight='600'>
               Categories
               <IconButton onClick={() => setCategoriesWrap(!categoriesWrap)}>
                 <AddCircleIcon />
               </IconButton>
             </Typography>
           </div>
-          <Typography mx={1} fontSize=".9rem" noWrap={categoriesWrap}>
+          <Typography mx={1} fontSize='.9rem' noWrap={categoriesWrap}>
             {savedEvent.event.categories}
           </Typography>
           {deleteError && (
             <Typography
               key={deleteError}
-              fontSize=".875rem"
-              style={{ maxWidth: "300px", margin: "2px" }}
+              fontSize='.875rem'
+              style={{maxWidth: "300px", margin: "2px"}}
             >
               {deleteError}
             </Typography>
@@ -211,19 +209,15 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
           <CardActions disableSpacing>
             <div>
               <Button
-                color="error"
+                color='error'
                 endIcon={<DeleteIcon />}
                 onClick={deleteEventClick}
               >
                 Delete
               </Button>
             </div>
-            <IconButton
-              onClick={openLinkTab}
-              styles={{ marginLeft: "5px" }}
-              color="success"
-            >
-              <InfoIcon ml={2} />
+            <IconButton onClick={openLinkTab} color='success'>
+              <InfoIcon />
             </IconButton>
             {savedEvent.event.contact_phone && (
               <IconButton onClick={openPopover}>
@@ -243,7 +237,7 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
                 vertical: "top",
                 horizontal: "center",
               }}
-              style={{ zIndex: "1500" }}
+              style={{zIndex: "1500"}}
             >
               <div
                 style={{
@@ -252,7 +246,7 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
                   borderColor: "blueviolet",
                 }}
               >
-                <Typography fontsize="1.4rem" fontWeight="700">
+                <Typography fontSize='1.4rem' fontWeight='700'>
                   {" "}
                   {savedEvent.event.contact_phone}
                 </Typography>
@@ -263,21 +257,21 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
               expand={expanded}
               onClick={handleExpandClick}
               aria-expanded={expanded}
-              aria-label="show more"
+              aria-label='show more'
               endIcon={<AddAlertIcon />}
             >
               Notifications
             </ExpandMore>
           </CardActions>
-          <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <Collapse in={expanded} timeout='auto' unmountOnExit>
             <CardContent>
               {notificationErrors && (
-                <div style={{ color: "red" }}>
+                <div style={{color: "red"}}>
                   {notificationErrors.map((error) => (
                     <Typography
                       key={error}
-                      fontSize=".875rem"
-                      style={{ maxWidth: "300px", margin: "2px" }}
+                      fontSize='.875rem'
+                      style={{maxWidth: "300px", margin: "2px"}}
                     >
                       {error}
                     </Typography>
@@ -289,15 +283,15 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
                 ? savedEvent.notifications.map((n) => {
                     return (
                       <Typography
-                        fontSize=".9rem"
-                        fontWeight="600"
-                        textAlign="center"
+                        fontSize='.9rem'
+                        fontWeight='600'
+                        textAlign='center'
                         key={n.id}
                       >
                         {n.days_before} days before.{" "}
                         <IconButton
                           onClick={() => deleteNotificationClick(n.id)}
-                          color="error"
+                          color='error'
                         >
                           <DeleteIcon />
                         </IconButton>
@@ -305,17 +299,17 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
                     );
                   })
                 : null}
-              <form onSubmit={handleSubmit} style={{ marginLeft: "82px" }}>
+              <form onSubmit={handleSubmit} style={{marginLeft: "82px"}}>
                 <select
-                  name="notification"
-                  id="notification"
+                  name='notification'
+                  id='notification'
                   onChange={(e) => setNotificationHours(e.target.value)}
                 >
                   <option value={1}>1 day before</option>
                   <option value={2}>2 days before</option>
                   <option value={3}>3 days before</option>
                 </select>
-                <IconButton color="success" type="submit">
+                <IconButton color='success' type='submit'>
                   <AddAlertIcon />
                 </IconButton>
               </form>
@@ -325,7 +319,7 @@ function SavedEventCard({ savedEvent, user, setSavedEvents, savedEvents }) {
       </Grid>
     );
   } else {
-    return <h1>Rendering</h1>;
+    return null;
   }
 }
 

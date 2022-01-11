@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
-import { Button, TextField, Grid, Card, Typography } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import {useState} from "react";
+import {useHistory} from "react-router-dom";
+import {Button, TextField, Grid, Card, Typography} from "@mui/material";
+import {makeStyles} from "@mui/styles";
 
 const useStyles = makeStyles({
   root: {
@@ -32,7 +32,7 @@ const useStyles = makeStyles({
     marginBottom: 12,
   },
 });
-function ProfileForm({ user, setUser }) {
+function ProfileForm({user, setUser}) {
   const classes = useStyles();
   const [firstName, setFirstName] = useState("");
   const [address, setAddress] = useState("");
@@ -66,19 +66,19 @@ function ProfileForm({ user, setUser }) {
   }
 
   return (
-    <div style={{ display: "block", marginTop: "100px", marginLeft: "200px" }}>
+    <div style={{display: "block", marginTop: "100px"}}>
       <Grid item>
-        <Card variant="outlined" className={classes.root}>
-          <Typography textAlign="center" fontSize="1.6rem" fontWeight="600">
+        <Card variant='outlined' className={classes.root}>
+          <Typography textAlign='center' fontSize='1.6rem' fontWeight='600'>
             User Info
           </Typography>
           {errors && (
-            <div style={{ color: "red" }}>
+            <div style={{color: "red"}}>
               {errors.map((error) => (
                 <Typography
                   key={error}
-                  fontSize=".875rem"
-                  style={{ maxWidth: "300px", margin: "2px" }}
+                  fontSize='.875rem'
+                  style={{maxWidth: "300px", margin: "2px"}}
                 >
                   {error}
                 </Typography>
@@ -95,18 +95,17 @@ function ProfileForm({ user, setUser }) {
             onSubmit={(e) => handleSubmit(e)}
           >
             <TextField
-              label="First Name"
-              margin="normal"
+              label='First Name'
+              margin='normal'
               onChange={(e) => setFirstName(e.target.value)}
             />
             <TextField
-              mb={2}
-              label="Address"
-              margin="normal"
+              label='Address'
+              margin='normal'
               onChange={(e) => setAddress(e.target.value)}
             />
 
-            <Button mt={3} type="submit" variant="contained">
+            <Button type='submit' variant='contained'>
               Submit
             </Button>
           </form>

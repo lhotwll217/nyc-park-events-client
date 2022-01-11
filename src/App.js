@@ -9,29 +9,18 @@ import AuthPage from "./containers/AuthPage";
 import TopBar from "./components/TopBar";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import SavedEvents from "./containers/SavedEvents";
-
-import moment from "moment";
 import ScrollToTop from "./functions/ScrollToTop";
-import useGetEvents from "functions/getEventsHook";
-import PaginationLoading from "components/PaginationLoading";
+import useGetEvents from "functions/useGetEvents";
 
 function App() {
   const [user, setUser] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [searchBarValue, setSearchBarValue] = useState(null);
-  const [categorySearch, setCategorySearch] = useState("");
   const [date, setDate] = useState(null);
   const [page, setPage] = useState(1);
 
-  const {error, loading, events, hasMore} = useGetEvents(
-    date,
-    page,
-    searchBarValue
-  );
+  const {loading, events} = useGetEvents(date, page, searchBarValue);
 
-  if (loading) {
-    console.log("loading");
-  }
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -71,7 +60,6 @@ function App() {
     let height = e.target.documentElement.scrollHeight;
     let scrollBar = window.innerHeight;
     if (top + scrollBar + 1 >= height) {
-      console.log("bottom");
       setPage((prevPage) => prevPage + 1);
     }
   };

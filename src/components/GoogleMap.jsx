@@ -1,3 +1,4 @@
+//@ts-ignore
 import React from "react";
 import GoogleMapReact from "google-map-react";
 import RoomIcon from "@mui/icons-material/Room";

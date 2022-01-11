@@ -17,7 +17,7 @@ export default function useGetEvents(query, page, searchBarValue) {
     let cancel;
     axios({
       method: "GET",
-      url: "http://localhost:3000/filtered",
+      url: "/server/events",
       params: {date: query, page: page, search: searchBarValue},
       cancelToken: new axios.CancelToken((c) => (cancel = c)),
     })
@@ -27,7 +27,6 @@ export default function useGetEvents(query, page, searchBarValue) {
         });
         setLoading(false);
         setHasMore(res.data.length > 0);
-        console.log(res.data);
       })
 
       .catch((e) => {

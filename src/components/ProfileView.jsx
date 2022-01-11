@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { Button, Grid, Card, Typography } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import {useState} from "react";
+import {Button, Grid, Card, Typography} from "@mui/material";
+import {makeStyles} from "@mui/styles";
 
 const useStyles = makeStyles({
   root: {
@@ -17,7 +17,7 @@ const useStyles = makeStyles({
   },
 });
 
-function ProfileView({ user, setUser }) {
+function ProfileView({user, setUser}) {
   const [openNameInput, setOpenNameInput] = useState(false);
   const [openAddressInput, setOpenAddressInput] = useState(false);
   const [firstName, setFirstName] = useState("");
@@ -37,7 +37,7 @@ function ProfileView({ user, setUser }) {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      body: JSON.stringify({ first_name: firstName, user_id: user.id }),
+      body: JSON.stringify({first_name: firstName, user_id: user.id}),
     }).then((r) => {
       if (r.ok) {
         r.json()
@@ -64,7 +64,7 @@ function ProfileView({ user, setUser }) {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      body: JSON.stringify({ address, user_id: user.id }),
+      body: JSON.stringify({address, user_id: user.id}),
     }).then((r) => {
       if (r.ok) {
         r.json()
@@ -85,26 +85,26 @@ function ProfileView({ user, setUser }) {
 
   if (user?.profile) {
     return (
-      <div style={{ marginTop: "100px", marginLeft: "200px" }}>
+      <div style={{marginTop: "100px"}}>
         <Grid item>
-          <Card variant="outlined" className={classes.root}>
-            <Typography textAlign="center" fontSize="1.6rem" fontWeight="600">
+          <Card variant='outlined' className={classes.root}>
+            <Typography textAlign='center' fontSize='1.6rem' fontWeight='600'>
               Profile
             </Typography>
             {nameErrors && (
-              <div style={{ color: "red" }}>
+              <div style={{color: "red"}}>
                 {nameErrors.map((error) => (
                   <Typography
                     key={error}
-                    fontSize=".875rem"
-                    style={{ maxWidth: "300px", margin: "2px" }}
+                    fontSize='.875rem'
+                    style={{maxWidth: "300px", margin: "2px"}}
                   >
                     {error}
                   </Typography>
                 ))}
               </div>
             )}
-            <Typography ml={1} mb={1} fontSize="1.6rem">
+            <Typography ml={1} mb={1} fontSize='1.6rem'>
               {userName}
             </Typography>
             <Button onClick={() => setOpenNameInput(!openNameInput)}>
@@ -113,28 +113,28 @@ function ProfileView({ user, setUser }) {
             {openNameInput && (
               <form onSubmit={updateFirstName}>
                 <input
-                  type="text"
-                  id="editFirstName"
+                  type='text'
+                  id='editFirstName'
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                 />
-                <Button type="submit">Submit</Button>
+                <Button type='submit'>Submit</Button>
               </form>
             )}
             {addressErrors && (
-              <div style={{ color: "red" }}>
+              <div style={{color: "red"}}>
                 {addressErrors.map((error) => (
                   <Typography
                     key={error}
-                    fontSize=".875rem"
-                    style={{ maxWidth: "300px", margin: "2px" }}
+                    fontSize='.875rem'
+                    style={{maxWidth: "300px", margin: "2px"}}
                   >
                     {error}
                   </Typography>
                 ))}
               </div>
             )}
-            <Typography ml={1} mb={1} fontSize="1.4rem">
+            <Typography ml={1} mb={1} fontSize='1.4rem'>
               {userAddress}
             </Typography>
             <Button onClick={() => setOpenAddressInput(!openAddressInput)}>
@@ -143,12 +143,12 @@ function ProfileView({ user, setUser }) {
             {openAddressInput && (
               <form onSubmit={updateAddress}>
                 <input
-                  type="text"
-                  id="editAddress"
+                  type='text'
+                  id='editAddress'
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                 />
-                <Button type="submit">Submit</Button>
+                <Button type='submit'>Submit</Button>
               </form>
             )}
           </Card>

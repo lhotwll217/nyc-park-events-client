@@ -76,9 +76,7 @@ function EventCard({event, user}) {
   };
 
   function saveEventButton() {
-    console.log(Object.keys(user).length);
     if (Object.keys(user).length > 0) {
-      console.log(user);
       async function saveEvent() {
         let res = await fetch("/server/save_event", {
           method: "POST",

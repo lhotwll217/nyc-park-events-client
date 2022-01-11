@@ -7,8 +7,6 @@ function SavedEvents({user}) {
   const [savedEvents, setSavedEvents] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  console.log(savedEvents);
-
   useEffect(() => {
     async function savedEventsFetch() {
       setLoading(true);
@@ -38,13 +36,7 @@ function SavedEvents({user}) {
         spacing={6}
       >
         <Grid item>
-          <Typography
-            // ml={37}
-            // width="50%"
-            mt={20}
-            textAlign='center'
-            variant='h4'
-          >
+          <Typography mt={20} textAlign='center' variant='h4'>
             Save Events To View & Create/Edit Notifications Here!
           </Typography>
         </Grid>
@@ -53,7 +45,7 @@ function SavedEvents({user}) {
   }
 
   return (
-    <div style={{marginTop: "100px", marginLeft: "150px"}}>
+    <div style={{marginTop: "100px"}}>
       <Grid
         container
         direction='row'
