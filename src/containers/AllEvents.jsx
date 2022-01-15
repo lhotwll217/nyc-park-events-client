@@ -2,7 +2,7 @@ import EventCard from "../components/EventCard";
 import Grid from "@mui/material/Grid";
 import PaginationLoading from "components/PaginationLoading";
 
-function AllEvents({user, events, loading}) {
+function AllEvents({user, events, loading, hasMore}) {
   return (
     <div style={{marginTop: "30px"}}>
       <Grid
@@ -17,7 +17,7 @@ function AllEvents({user, events, loading}) {
         })}
       </Grid>
 
-      {loading && <PaginationLoading />}
+      {loading && hasMore && <PaginationLoading />}
     </div>
   );
 }

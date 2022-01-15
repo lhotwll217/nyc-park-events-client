@@ -19,7 +19,7 @@ function App() {
   const [date, setDate] = useState(null);
   const [page, setPage] = useState(1);
 
-  const {loading, events} = useGetEvents(date, page, searchBarValue);
+  const {loading, events, hasMore} = useGetEvents(date, page, searchBarValue);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -93,7 +93,12 @@ function App() {
               <AuthPage onLogin={onLogin} />
             </Route>
             <Route exact path='/'>
-              <Home loading={loading} user={user} events={events} />
+              <Home
+                hasMore={hasMore}
+                loading={loading}
+                user={user}
+                events={events}
+              />
             </Route>
             <Route exact path='/profile'>
               <Profile user={user} setUser={setUser} />

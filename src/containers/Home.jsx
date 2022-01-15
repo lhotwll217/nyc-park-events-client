@@ -2,7 +2,7 @@ import AllEvents from "./AllEvents";
 import InitialLoading from "components/InitialLoading";
 import {Grid, Typography} from "@mui/material";
 
-function Home({user, events, loading}) {
+function Home({user, events, loading, hasMore}) {
   if (!loading && events.length < 1) {
     return (
       <Grid
@@ -24,7 +24,12 @@ function Home({user, events, loading}) {
   if (events?.length > 0) {
     return (
       <div>
-        <AllEvents loading={loading} events={events} user={user} />
+        <AllEvents
+          hasMore={hasMore}
+          loading={loading}
+          events={events}
+          user={user}
+        />
       </div>
     );
   } else {
