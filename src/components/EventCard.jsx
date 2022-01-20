@@ -183,14 +183,24 @@ function EventCard({event, user}) {
             </div>
           </Popover>
           {event.latitude && (
-            <ExpandMore
-              expand={expanded}
-              onClick={handleExpandClick}
-              aria-expanded={expanded}
-              aria-label='show more'
-            >
-              <ExploreIcon />
-            </ExpandMore>
+            <>
+              <ExpandMore
+                expand={expanded}
+                onClick={handleExpandClick}
+                aria-expanded={expanded}
+                aria-label='show more'
+              >
+                <ExploreIcon />
+              </ExpandMore>
+              <Typography
+                fontSize='.9rem'
+                style={{float: "right"}}
+                align='right'
+                mr={1}
+              >
+                MAP
+              </Typography>
+            </>
           )}
         </CardActions>
         {event.latitude && (

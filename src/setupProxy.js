@@ -16,12 +16,11 @@ module.exports = function (app) {
   );
   app.use(
     //@ts-ignore
-    proxy("/api", {
-      target:
-        "https://raw.githubusercontent.com/lhotwll217/lhotwll217.github.io/main/data/events_300_rss.json", // API endpoint 2
+    proxy("/test", {
+      target: "http://localhost:3000/", // API endpoint 2
       changeOrigin: true,
       pathRewrite: {
-        "^/api": "",
+        "^/test": "",
       },
       headers: {
         Connection: "keep-alive",
