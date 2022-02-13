@@ -5,11 +5,10 @@ export default function useGetEvents(query, page, searchBarValue) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [events, setEvents] = useState([]);
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(false);
 
   useEffect(() => {
     setEvents([]);
-    setHasMore(true);
   }, [query, searchBarValue]);
 
   useEffect(() => {

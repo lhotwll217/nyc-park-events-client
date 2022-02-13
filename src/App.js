@@ -59,8 +59,7 @@ function App() {
     let top = e.target.documentElement.scrollTop;
     let height = e.target.documentElement.scrollHeight;
     let scrollBar = window.innerHeight;
-    console.log(hasMore);
-    if (top + scrollBar + 1 >= height && hasMore) {
+    if (top + scrollBar + 1 >= height) {
       setPage((prevPage) => prevPage + 1);
     }
   };

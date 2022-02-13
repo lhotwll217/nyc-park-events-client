@@ -65,7 +65,7 @@ function TopBar({
               marginRight: "25px",
             }}
             onChange={(e) => handleSearchBarValue(e.target.value)}
-            placeholder='Location, Title, Category...'
+            placeholder='Search Titles/Categories'
             type='search'
           />
           <LocalizationProvider dateAdapter={DateAdapter}>
