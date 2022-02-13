@@ -4,8 +4,8 @@ module.exports = function (app) {
   app.use(
     //@ts-ignore
     proxy("/server", {
-      target: "http://localhost:3000/",
-      //target: "https://vast-river-53085.herokuapp.com/", // API endpoint 1
+      // target: "http://localhost:3000/",
+      target: "https://vast-river-53085.herokuapp.com/", // API endpoint 1
       changeOrigin: true,
       pathRewrite: {
         "^/server": "",
