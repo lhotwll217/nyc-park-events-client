@@ -94,6 +94,7 @@ function EventCard({event, user}) {
       window.alert("Sign Up or Login to Save Events");
     }
   }
+  console.log(event.start_date_time);
 
   return (
     <Grid item>
