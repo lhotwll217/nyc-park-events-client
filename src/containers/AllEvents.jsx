@@ -3,6 +3,8 @@ import Grid from "@mui/material/Grid";
 import PaginationLoading from "components/PaginationLoading";
 
 function AllEvents({user, events, loading, hasMore}) {
+  console.log(loading);
+
   return (
     <div style={{marginTop: "30px"}}>
       <Grid
@@ -17,7 +19,9 @@ function AllEvents({user, events, loading, hasMore}) {
         })}
       </Grid>
 
-      {loading && hasMore && <PaginationLoading />}
+      {loading && hasMore && (
+        <PaginationLoading key={loading.toString()} loading={loading} />
+      )}
     </div>
   );
 }

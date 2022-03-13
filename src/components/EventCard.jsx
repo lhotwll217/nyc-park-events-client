@@ -137,10 +137,6 @@ function EventCard({event, user}) {
         <Typography mx={1} fontSize='.9rem' noWrap={categoriesWrap}>
           {event.categories}
         </Typography>
-        {console.log(event.description)}
-        {/* <div>
-          <div dangerouslySetInnerHTML={event.description} />
-        </div> */}
 
         <CardActions disableSpacing>
           <Button

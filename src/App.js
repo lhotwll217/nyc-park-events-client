@@ -1,5 +1,5 @@
 //@ts-ignore
-import {useState, useEffect} from "react";
+import {useState, useEffect, useRef} from "react";
 import "./App.css";
 import Home from "./containers/Home";
 import Profile from "./containers/Profile";
@@ -59,7 +59,7 @@ function App() {
     let top = e.target.documentElement.scrollTop;
     let height = e.target.documentElement.scrollHeight;
     let scrollBar = window.innerHeight;
-    if (top + scrollBar + 1 >= height) {
+    if (top + scrollBar >= height) {
       setPage((prevPage) => prevPage + 1);
     }
   };

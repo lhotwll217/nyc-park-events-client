@@ -2,7 +2,7 @@ import {Grid, CircularProgress, Typography} from "@mui/material";
 
 export default function InitialLoading() {
   return (
-    <Grid ml={5} container justifyContent='center'>
+    <Grid container justifyContent='center'>
       <div
         style={{
           display: "flex",
