@@ -13,7 +13,6 @@ function AllEvents({user, events, loading, hasMore}) {
         spacing={3}
       >
         {events.map((e) => {
-          console.log(e);
           return <EventCard key={e.id} event={e} user={user} />;
         })}
       </Grid>
